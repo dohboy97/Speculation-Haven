@@ -1,0 +1,1 @@
+Project to paper trade securities such as stocks, options, and cryptocurrencies - as well as create chart watch-lists.

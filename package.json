@@ -1,0 +1,27 @@
+{
+  "name": "speculation_station",
+  "version": "1.0.0",
+  "description": "Project to paper trade securities such as stocks, options, and cryptocurrencies - as well as create chart watch-lists.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dohboy97/Speculation-Haven.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dohboy97/Speculation-Haven/issues"
+  },
+  "homepage": "https://github.com/dohboy97/Speculation-Haven#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.18.1",
+    "mongo": "^0.1.0",
+    "mongoose": "^6.6.2",
+    "passport": "^0.6.0"
+  }
+}

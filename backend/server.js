@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 
 const connectDB = require('./config/database')
-//save passport, session, etc until after mvp functional
+// //save passport, session, etc until after mvp functional
 const MongoStore = require('connect-mongo')
 
 
@@ -23,6 +23,7 @@ app.set('view engine', 'react')
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
 
 const PORT = process.env.PORT
 app.listen(PORT || 3000, ()=>{

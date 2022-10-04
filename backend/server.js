@@ -19,13 +19,12 @@ require('dotenv').config({path: './config/.env'})
 
 connectDB()
 
-app.set('view engine', 'react')
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-app.get('*', (req, res) =>
+app.get('/', (req, res) =>
     res.sendFile(
       path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
     )

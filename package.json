@@ -19,8 +19,10 @@
   "homepage": "https://github.com/dohboy97/Speculation-Haven#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "express-session": "^1.17.3",
     "mongo": "^0.1.0",
     "mongoose": "^6.6.2",
     "passport": "^0.6.0"

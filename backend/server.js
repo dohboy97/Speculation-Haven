@@ -1,14 +1,14 @@
 const express = require('express')
 
 const app = express()
-
+const path = require('path')
 const connectDB = require('./config/database')
 // //save passport, session, etc until after mvp functional
 const MongoStore = require('connect-mongo')
 
 
 //routes
-const landingRoute = require('./routes/landing')
+
 
 //insert passport config once passport installed
 
@@ -23,9 +23,14 @@ app.set('view engine', 'react')
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
+app.get('*', (req, res) =>
+    res.sendFile(
+      path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
+    )
+  );
 
-const PORT = process.env.PORT
-app.listen(PORT || 3000, ()=>{
-    console.log(`Server is running on port ${PORT}`)
+app.listen(3000, ()=>{
+    console.log(`Server is running on port ${3000}`)
 })     

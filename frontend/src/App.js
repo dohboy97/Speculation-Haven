@@ -1,13 +1,13 @@
-
-
-
+import Header from './components/Header'
+import Search from './components/Search'
+ 
 function App() {
-  console.log('test')
+
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Speculation Station</h1>
-      </header>
+      <Header log = 'test'/>
+      <Search placeholder = 'Ticker Search' />
+    
     </div>
   );
 }

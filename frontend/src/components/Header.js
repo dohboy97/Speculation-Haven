@@ -6,6 +6,7 @@ return(
         <nav>
             <ul>
                 <li>Watchlist</li>
+                <li>Gainers</li>
                 <li>Search</li>
                 <li>Social</li>
             </ul>

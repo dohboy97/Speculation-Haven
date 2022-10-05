@@ -29,7 +29,7 @@ function App() {
       <Header log = 'test'/>
       <Search placeholder = 'Ticker Search' />
       <Button handleClick = {buttonSearch} text = 'Search' />
-      <Watchlist tickers = {watchList} />
+      <Watchlist tickers = {watchList} setState = {addToWatchList} />
     </div>
   );
 }

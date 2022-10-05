@@ -1,5 +1,5 @@
 function Header (props){
-    console.log(props.log)
+    
 return(
     <header>
         <h1>Speculation Station</h1>

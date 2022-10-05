@@ -20,9 +20,7 @@ function App() {
    .then((data) => addToWatchList(watchList.concat(data)));
     console.log('from app',watchList)
    }
-   useEffect(()=>{
-     console.log('hello')
-   })
+
 
   return (
     <div className="App">

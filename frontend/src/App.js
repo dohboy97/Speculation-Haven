@@ -11,13 +11,23 @@ function App() {
 
   const [watchList,addToWatchList] = useState([])
 
- 
+ //use another state for when buttonSearch returns an error?
 
-  function buttonSearch (){
+  async function buttonSearch (){
+    
     let input = document.querySelector('.search').value.toUpperCase()
     fetch(`https://api.polygon.io/v1/open-close/${input}/2022-10-03?adjusted=true&apiKey=5yXXoRWyi0VeA2iYyCs3vsTb4K0H9m_q`)
    .then((response) => response.json())
-   .then((data) => addToWatchList(watchList.concat(data)));
+   .then((data) => {
+     if(data.status==='OK'){
+      addToWatchList(watchList.concat(data))
+      }else{
+        console.log('err r r r r r')
+      }
+   })
+   .catch((err)=>{
+     console.log(err)
+   })
     console.log('from app',watchList)
    }
 

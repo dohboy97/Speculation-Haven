@@ -4,7 +4,7 @@ function SavedTickers(props){
     let removeThisState = props.setState 
     let currentState = props.state
     let index = props.index
-    console.log (currentState)
+    
     return(
         <div>
             <span>{`Ticker ${props.ticker.symbol}`}</span>

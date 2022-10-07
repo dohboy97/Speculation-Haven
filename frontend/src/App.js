@@ -22,8 +22,20 @@ function App() {
    .then((response) => response.json())
    .then((data) => {
      if(data.status==='OK'){
+      let alreadyExists = false
+
+      //PREVENTS USER FROM REGISTERING TICKER TWICE
+      watchList.forEach((el,index)=>{
+        if(el.symbol === data.symbol){
+          alreadyExists = true
+          watchList.splice(index,1)
+        }
+      })
+
       addToWatchList(watchList.concat(data))
+
       setTickerFound(true)
+       
       }else{
         setTickerFound(false)
       }
@@ -31,7 +43,7 @@ function App() {
    .catch((err)=>{
      console.log(err)
    })
-    console.log('from app',watchList)
+    
    }
 
    useEffect(()=>{

@@ -3,8 +3,7 @@ import NotFound from './NotFound'
 
 function Watchlist(props){
     
-    console.log(props.tickerFound)
-
+ 
     if(props.tickerFound === true){
     return(
         <div>

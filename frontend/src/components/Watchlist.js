@@ -1,11 +1,15 @@
 import SavedTickers from './SavedTickers'
+import NotFound from './NotFound'
 
 function Watchlist(props){
     
+    console.log(props.tickerFound)
 
-    if(props.tickers.length>0){
+    if(props.tickerFound === true){
     return(
         <div>
+            
+
             {props.tickers.map((el,index) =>{
                 
                 return <SavedTickers key = {el.volume} ticker = {el} state = {props.tickers} setState = {props.setState} index={index}/>
@@ -14,6 +18,19 @@ function Watchlist(props){
             
         </div>
     )
+    }else{
+        return(
+            <div>
+            
+            <NotFound text = {props.tickerInput}/>
+            {props.tickers.map((el,index) =>{
+                
+                return <SavedTickers key = {el.volume} ticker = {el} state = {props.tickers} setState = {props.setState} index={index}/>
+                
+            })}
+            
+        </div>
+        )
     }
 }
 

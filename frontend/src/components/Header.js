@@ -8,7 +8,7 @@ return(
                 <li>Watchlist</li>
                 <li>Gainers</li>
                 <li>Search</li>
-                <li>Social</li>
+                <li>Portfolio</li>
             </ul>
         </nav>
     </header>

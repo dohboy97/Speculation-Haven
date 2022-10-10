@@ -9,7 +9,7 @@ const MongoStore = require('connect-mongo')
 
 //routes
 
-const watchListRoute = require('./routes/watchlist')
+const watchListRoute = require('./routes/watchList')
 
 
 //insert passport config once passport installed

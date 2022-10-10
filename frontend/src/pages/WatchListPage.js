@@ -18,9 +18,10 @@ function WatchListPage (){
  //use another state for when buttonSearch returns an error?
 
   async function buttonSearch (){
-    
+
     let input = document.querySelector('.search').value.toUpperCase()
     detectInput(input)
+
     fetch(`https://api.polygon.io/v1/open-close/${input}/2022-10-03?adjusted=true&apiKey=5yXXoRWyi0VeA2iYyCs3vsTb4K0H9m_q`)
    .then((response) => response.json())
    .then((data) => {
@@ -36,9 +37,15 @@ function WatchListPage (){
       })
 
       addToWatchList(watchList.concat(data))
-
+  
       setTickerFound(true)
-       
+    
+      
+     .catch(error => {
+       window.alert(error);
+       return;
+     });
+
       }else{
         setTickerFound(false)
       }
@@ -55,7 +62,15 @@ function WatchListPage (){
   
 
    
-
+  function post(){
+    fetch("http://localhost:3000/watchlist/addticker", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(watchList),
+     })
+  }
 
   return (
     <div className="App">

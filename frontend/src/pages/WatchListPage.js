@@ -15,10 +15,13 @@ function WatchListPage (){
  //use another state for when buttonSearch returns an error?
 
   async function buttonSearch (){
+    try{
     await getTicker();
-
-    post()
-
+    
+    
+    }catch(err){
+      console.log(err)
+    }
    
    }
 
@@ -35,7 +38,7 @@ function WatchListPage (){
    .then((data) => {
      if(data.status==='OK'){
       let alreadyExists = false
-
+      post(data)
       //PREVENTS USER FROM REGISTERING TICKER TWICE
       watchList.forEach((el,index)=>{
         if(el.symbol === data.symbol){
@@ -48,7 +51,7 @@ function WatchListPage (){
   
       setTickerFound(true)
     
-      
+     
      
 
       }else{
@@ -57,15 +60,15 @@ function WatchListPage (){
    })
    }
    
-  async function post(){
+  async function post(data){
     fetch("http://localhost:3000/watchlist/addticker", {
        method: "POST",
        headers: {
          "Content-Type": "application/json",
        },
-       body: JSON.stringify(watchList[watchList.length-1]),
+       body: JSON.stringify(data),
      })
-     console.log(watchList)
+    
   }
   
   return (

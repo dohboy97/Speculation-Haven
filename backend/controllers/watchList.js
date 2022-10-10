@@ -1,14 +1,14 @@
 const WatchList = require('../models/WatchList')
 
 module.exports = {
-    // getWatchList: async(req,res)=>{
-    //     try{
-    //         const watchList = await WatchList.find()
-    //         console.log(res)
-    //     }catch(err){
-    //         console.log(err)
-    //     }
-    // },
+    getWatchList: async(req,res)=>{
+        try{
+            const watchList = await WatchList.find()
+            res.json({stonks:watchList})
+        }catch(err){
+            console.log(err)
+        }
+    },
 
     addTicker: async(req,res)=>{
         console.log(req.body,req.body.symbol)

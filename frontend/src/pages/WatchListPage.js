@@ -26,6 +26,7 @@ function WatchListPage (){
    }
 
    useEffect(()=>{
+     //ADD THE GET REQUEST INTO HERE
      console.log(watchList)
    })
   

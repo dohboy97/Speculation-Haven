@@ -9,6 +9,8 @@ const MongoStore = require('connect-mongo')
 
 //routes
 
+const watchListRoute = require('./routes/watchlist')
+
 
 //insert passport config once passport installed
 
@@ -29,6 +31,8 @@ app.get('/', (req, res) =>
       path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
     )
   );
+
+  app.use('/watchlist', watchListRoute)
 
 app.listen(3000, ()=>{
     console.log(`Server is running on port ${3000}`)

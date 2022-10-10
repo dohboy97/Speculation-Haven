@@ -1,0 +1,1 @@
+const watchList = require('../models/WatchList')

@@ -7,9 +7,6 @@ import Watchlist from '../components/Watchlist'
 
 function WatchListPage (){
   
- 
-
-
   //useState for stock count on page, useEffect for fetch?
 
   const [watchList,addToWatchList] = useState([])
@@ -18,7 +15,18 @@ function WatchListPage (){
  //use another state for when buttonSearch returns an error?
 
   async function buttonSearch (){
+    await getTicker();
 
+    setTimeout (post(),3000)
+
+   
+   }
+
+   useEffect(()=>{
+     console.log(watchList)
+   })
+  
+   async function getTicker(){
     let input = document.querySelector('.search').value.toUpperCase()
     detectInput(input)
 
@@ -41,28 +49,15 @@ function WatchListPage (){
       setTickerFound(true)
     
       
-     .catch(error => {
-       window.alert(error);
-       return;
-     });
+     
 
       }else{
         setTickerFound(false)
       }
    })
-   .catch((err)=>{
-     console.log(err)
-   })
-    
    }
-
-   useEffect(()=>{
-     console.log(tickerInput)
-   })
-  
-
    
-  function post(){
+  async function post(){
     fetch("http://localhost:3000/watchlist/addticker", {
        method: "POST",
        headers: {
@@ -70,8 +65,9 @@ function WatchListPage (){
        },
        body: JSON.stringify(watchList),
      })
+     console.log(watchList)
   }
-
+  
   return (
     <div className="App">
      

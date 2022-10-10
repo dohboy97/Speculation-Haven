@@ -11,11 +11,12 @@ module.exports = {
     // },
 
     addTicker: async(req,res)=>{
-        console.log(req.body)
+        console.log(req.body,req.body.symbol)
+        //issue with not posting to db is that its an array, need to specify index or change watchlist in react to only send over one ticker
         try{
             await WatchList.create({
-                ticker:req.body.ticker,
-                price:req.body.price,
+                ticker:req.body.symbol,
+                price:req.body.close,
                 
             })
             res.redirect('/')

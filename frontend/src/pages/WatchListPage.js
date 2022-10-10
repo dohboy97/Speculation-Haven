@@ -17,7 +17,7 @@ function WatchListPage (){
   async function buttonSearch (){
     await getTicker();
 
-    setTimeout (post(),3000)
+    post()
 
    
    }
@@ -63,7 +63,7 @@ function WatchListPage (){
        headers: {
          "Content-Type": "application/json",
        },
-       body: JSON.stringify(watchList),
+       body: JSON.stringify(watchList[watchList.length-1]),
      })
      console.log(watchList)
   }

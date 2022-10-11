@@ -29,8 +29,13 @@ function WatchListPage (){
      //ADD THE GET REQUEST INTO HERE
      fetch('/watchlist')
      .then((res)=>res.json())
-     .then((data)=>console.log(data))
-     
+     //setState of watchlist here on page load
+     .then((data)=>{
+       if(watchList.length===0){
+         addToWatchList(data.stonks)
+       }
+     })
+     console.log('watchlist',watchList)
    })
   
    async function getTicker(){

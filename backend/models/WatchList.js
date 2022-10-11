@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const WatchListSchema = new Schema({
-    ticker:String,
-    price:Number,
+    symbol:String,
+    close:Number,
 
 })
 

@@ -27,7 +27,10 @@ function WatchListPage (){
 
    useEffect(()=>{
      //ADD THE GET REQUEST INTO HERE
-     console.log(watchList)
+     fetch('/watchlist')
+     .then((res)=>res.json())
+     .then((data)=>console.log(data))
+     
    })
   
    async function getTicker(){

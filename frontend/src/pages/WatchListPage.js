@@ -43,41 +43,28 @@ function WatchListPage (){
    async function getTicker(){
     let input = document.querySelector('.search').value.toUpperCase()
     detectInput(input)
-
-    fetch(`https://api.polygon.io/v1/open-close/${input}/2022-10-03?adjusted=true&apiKey=5yXXoRWyi0VeA2iYyCs3vsTb4K0H9m_q`)
-   .then((response) => response.json())
-   .then((data) => {
-     if(data.status==='OK'){
-      let alreadyExists = false
-      post(data)
-      //PREVENTS USER FROM REGISTERING TICKER TWICE
-      watchList.forEach((el,index)=>{
-        if(el.symbol === data.symbol){
-          alreadyExists = true
-          watchList.splice(index,1)
-        }
-      })
-
-      addToWatchList(watchList.concat(data))
-  
-      setTickerFound(true)
+    post(input)
     
-     
-     
+      // let alreadyExists = false
+      
+      //PREVENTS USER FROM REGISTERING TICKER TWICE
+      // watchList.forEach((el,index)=>{
+      //   if(el.symbol === data.symbol){
+      //     alreadyExists = true
+      //     watchList.splice(index,1)
+      //   }
+      // })
 
-      }else{
-        setTickerFound(false)
-      }
-   })
+      // addToWatchList(watchList.concat(data))
+  
+      // setTickerFound(true)
+    
    }
    
-  async function post(data){
-    fetch("http://localhost:3000/watchlist/addticker/a", {
+  async function post(input){
+    fetch(`http://localhost:3000/watchlist/addticker/${input}`, {
        method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify(data),
+       
      })
     
   }

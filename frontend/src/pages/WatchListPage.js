@@ -72,7 +72,7 @@ function WatchListPage (){
    }
    
   async function post(data){
-    fetch("http://localhost:3000/watchlist/addticker", {
+    fetch("http://localhost:3000/watchlist/addticker/a", {
        method: "POST",
        headers: {
          "Content-Type": "application/json",

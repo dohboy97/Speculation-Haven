@@ -1,4 +1,16 @@
 const WatchList = require('../models/WatchList')
+const Alpaca = require("@alpacahq/alpaca-trade-api");
+
+//alpaca class and key info
+
+const alpaca = new Alpaca({
+  keyId: process.env.API_KEY,
+  secretKey: process.env.API_SECRET,
+  paper: true,
+});
+
+
+
 
 module.exports = {
     getWatchList: async(req,res)=>{
@@ -12,7 +24,11 @@ module.exports = {
 
     addTicker: async(req,res)=>{
         console.log(req.body,req.body.symbol)
-        //issue with not posting to db is that its an array, need to specify index or change watchlist in react to only send over one ticker
+        async function getPrice(){
+            const trade = await alpaca.getLatestTrade('AAPL');
+            console.log(trade);
+            }
+            getPrice()
         try{
             await WatchList.create({
                 symbol:req.body.symbol,
@@ -20,7 +36,7 @@ module.exports = {
                 
             })
             res.redirect('/')
-            console.log('ticker added')
+             console.log('ticker added')
         }catch(err){
             console.log(err)
         }

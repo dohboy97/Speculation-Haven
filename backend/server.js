@@ -5,19 +5,20 @@ const path = require('path')
 const connectDB = require('./config/database')
 // //save passport, session, etc until after mvp functional
 const MongoStore = require('connect-mongo')
-const Alpaca = require("@alpacahq/alpaca-trade-api");
+require('dotenv').config({path: './config/.env'})
+
 
 //routes
 
 const watchListRoute = require('./routes/watchList')
 
 
-//insert passport config once passport installed
+//insert passport config once passport installed 
 
 const bodyParser = require('body-parser')
 const { default: mongoose } = require('mongoose');
 
-require('dotenv').config({path: './config/.env'})
+
 
 connectDB()
 

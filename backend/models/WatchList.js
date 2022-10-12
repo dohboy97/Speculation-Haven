@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const WatchListSchema = new Schema({
     symbol:String,
-    close:Number,
+    price:Number,
 
 })
 

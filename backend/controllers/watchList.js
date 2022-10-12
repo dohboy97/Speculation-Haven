@@ -23,16 +23,16 @@ module.exports = {
     },
 
     addTicker: async(req,res)=>{
-        console.log(req.body,req.body.symbol)
-        async function getPrice(){
-            const trade = await alpaca.getLatestTrade('AAPL');
-            console.log(trade);
-            }
-            getPrice()
+        console.log(req.params.id)
+        
+            const trade = await alpaca.getLatestTrade(req.params.id);
+           
+           
         try{
+            console.log(trade)
             await WatchList.create({
-                symbol:req.body.symbol,
-                close:req.body.close,
+                symbol:req.params.id.toUpperCase(),
+                price:trade.Price
                 
             })
             res.redirect('/')

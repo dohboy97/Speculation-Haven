@@ -10,6 +10,7 @@ function WatchListPage (){
   //useState for stock count on page, useEffect for fetch?
 
   const [watchList,addToWatchList] = useState([])
+  const [tickerCount, setTickerCount]=useState(0)
   const [tickerFound,setTickerFound] = useState(true)
   const [tickerInput,detectInput]=useState()
  //use another state for when buttonSearch returns an error?
@@ -31,8 +32,9 @@ function WatchListPage (){
      .then((res)=>res.json())
      //setState of watchlist here on page load
      .then((data)=>{
-       if(watchList.length===0){
+       if(tickerCount===0){
          addToWatchList(data.stonks)
+         setTickerCount(tickerCount+1)
        }
      })
      console.log('watchlist',watchList)

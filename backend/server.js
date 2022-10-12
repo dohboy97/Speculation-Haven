@@ -5,7 +5,7 @@ const path = require('path')
 const connectDB = require('./config/database')
 // //save passport, session, etc until after mvp functional
 const MongoStore = require('connect-mongo')
-
+const Alpaca = require("@alpacahq/alpaca-trade-api");
 
 //routes
 
@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 app.get('/', (req, res) =>
     res.sendFile(
-      path.resolve(__dirname, '../', 'frontend', 'build', 'index.html')
+      path.resolve(__dirname, '../', 'frontend', 'src', 'index.js')
     )
   );
 

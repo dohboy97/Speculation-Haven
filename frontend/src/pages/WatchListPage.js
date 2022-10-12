@@ -10,63 +10,54 @@ function WatchListPage (){
   //useState for stock count on page, useEffect for fetch?
 
   const [watchList,addToWatchList] = useState([])
-  const [tickerCount, setTickerCount]=useState(0)
+  const [addedTicker, setAddedTicker]=useState(true)
   const [tickerFound,setTickerFound] = useState(true)
   const [tickerInput,detectInput]=useState()
  //use another state for when buttonSearch returns an error?
 
   async function buttonSearch (){
     try{
-    await getTicker();
-    
-    
+    await getTicker();    
     }catch(err){
       console.log(err)
     }
-   
    }
 
-   useEffect(()=>{
+  useEffect(()=>{
      //ADD THE GET REQUEST INTO HERE
-     fetch('/watchlist')
-     .then((res)=>res.json())
+
+     const getWatchList = async()=>{
+
+     
+     const res = await fetch('/watchlist')
+     const data = await res.json()
      //setState of watchlist here on page load
-     .then((data)=>{
-       if(tickerCount===0){
+     console.log(data)
+      if(data.stonks.length>watchList.length){
+
+        console.log('stonkscity',data.stonks)
          addToWatchList(data.stonks)
-         setTickerCount(tickerCount+1)
-       }
-     })
+         setAddedTicker(false)
+      }
+     
+    }
+    getWatchList()
      console.log('watchlist',watchList)
-   })
+   },[watchList])
   
    async function getTicker(){
     let input = document.querySelector('.search').value.toUpperCase()
     detectInput(input)
     post(input)
-    
-      // let alreadyExists = false
-      
-      //PREVENTS USER FROM REGISTERING TICKER TWICE
-      // watchList.forEach((el,index)=>{
-      //   if(el.symbol === data.symbol){
-      //     alreadyExists = true
-      //     watchList.splice(index,1)
-      //   }
-      // })
-
-      // addToWatchList(watchList.concat(data))
-  
-      // setTickerFound(true)
-    
+    setAddedTicker(true)
    }
    
   async function post(input){
-    fetch(`http://localhost:3000/watchlist/addticker/${input}`, {
+    fetch(`/watchlist/addticker/${input}`, {
        method: "POST",
        
      })
-    
+  
   }
   
   return (

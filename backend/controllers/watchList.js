@@ -35,7 +35,9 @@ module.exports = {
                 price:trade.Price
                 
             })
-            res.redirect('/')
+            const watchList = await WatchList.find()
+            
+            res.json({stonks:watchList})
              console.log('ticker added')
         }catch(err){
             console.log(err)

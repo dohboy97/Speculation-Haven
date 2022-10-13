@@ -53,11 +53,13 @@ function WatchListPage (){
    }
    
   async function post(input){
-    await fetch(`/watchlist/addticker/${input}`, {
+    const res = await fetch(`/watchlist/addticker/${input}`, {
        method: "POST",
        
      })
-     console.log('added ticker in post function')
+     const data = await res.json()
+     console.log(data)
+     addToWatchList(data.stonks)
   }
   
   return (

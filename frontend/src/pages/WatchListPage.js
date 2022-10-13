@@ -10,7 +10,7 @@ function WatchListPage (){
   //useState for stock count on page, useEffect for fetch?
 
   const [watchList,addToWatchList] = useState([])
-  const [addedTicker, setAddedTicker]=useState(true)
+
   const [tickerFound,setTickerFound] = useState(true)
   const [tickerInput,detectInput]=useState()
  //use another state for when buttonSearch returns an error?
@@ -32,34 +32,46 @@ function WatchListPage (){
      const res = await fetch('/watchlist')
      const data = await res.json()
      //setState of watchlist here on page load
-     console.log('test',data)
+
       if(data.stonks.length>watchList.length){
 
         console.log('stonkscity updated in useeffect',data.stonks)
          addToWatchList(data.stonks)
-         setAddedTicker(false)
+        
       }
      
     }
     getWatchList()
-     console.log('watchlist',watchList)
+
    },[watchList])
   
    async function getTicker(){
     let input = document.querySelector('.search').value.toUpperCase()
     detectInput(input)
     post(input)
-    setAddedTicker(true)
+   
    }
    
   async function post(input){
-    const res = await fetch(`/watchlist/addticker/${input}`, {
-       method: "POST",
-       
-     })
-     const data = await res.json()
-     console.log(data)
-     addToWatchList(data.stonks)
+    let alreadyExists = false
+    watchList.forEach(el=>{
+      if(el.symbol===input){
+        alreadyExists=true
+      }
+    })
+    console.log(alreadyExists)
+    //only fetch new ticker if input doesnt exist in object
+
+    if(alreadyExists===false){
+      const res = await fetch(`/watchlist/addticker/${input}`, {
+        method: "POST",
+        
+      })
+      const data = await res.json()
+      console.log(data)
+      addToWatchList(data.stonks)
+    }
+    
   }
   
   return (

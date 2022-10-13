@@ -26,16 +26,16 @@ function WatchListPage (){
   useEffect(()=>{
      //ADD THE GET REQUEST INTO HERE
 
-     const getWatchList = async()=>{
+     async function getWatchList(){
 
      
      const res = await fetch('/watchlist')
      const data = await res.json()
      //setState of watchlist here on page load
-     console.log(data)
+     console.log('test',data)
       if(data.stonks.length>watchList.length){
 
-        console.log('stonkscity',data.stonks)
+        console.log('stonkscity updated in useeffect',data.stonks)
          addToWatchList(data.stonks)
          setAddedTicker(false)
       }
@@ -53,11 +53,11 @@ function WatchListPage (){
    }
    
   async function post(input){
-    fetch(`/watchlist/addticker/${input}`, {
+    await fetch(`/watchlist/addticker/${input}`, {
        method: "POST",
        
      })
-  
+     console.log('added ticker in post function')
   }
   
   return (

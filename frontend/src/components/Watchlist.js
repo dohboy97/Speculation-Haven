@@ -3,7 +3,7 @@ import NotFound from './NotFound'
 
 function Watchlist(props){
     
- 
+
     if(props.tickerFound === true || props.tickerFound===false){
     return(
         <div>
@@ -12,7 +12,7 @@ function Watchlist(props){
 
             {props.tickers.map((el,index) =>{
                 
-                return <SavedTickers key = {el.volume} ticker = {el} state = {props.tickers} setState = {props.setState} index={index}/>
+                return <SavedTickers key = {props.tickers[index]._id} ticker = {el} state = {props.tickers} setState = {props.setState} index={index}/>
                 
             })}
             

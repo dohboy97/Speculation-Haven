@@ -42,5 +42,9 @@ module.exports = {
         }catch(err){
             console.log(err)
         }
+    },
+    deleteTicker: async (req,res)=>{
+        console.log(req.params.id)
+        await WatchList.findByIdAndDelete(req.params.id)
     }
 }

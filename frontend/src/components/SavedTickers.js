@@ -7,12 +7,15 @@ function SavedTickers(props){
     
     return(
         <div>
-            <span>{`Ticker ${props.ticker.symbol}`}</span>
-            <span>{`Last Price $ ${props.ticker.close}`}</span>
-            <span>{`Date ${props.ticker.from}`}</span>
-            <button onClick ={() => {removeThisState(
-                currentState.filter((stock,ind)=>index!==ind)
-            )}}>Delete</button>
+            <span>{`Ticker ${props.ticker.symbol} `}</span>
+            <span>{`Last Price $ ${props.ticker.price}`}</span>
+           
+            <button onClick ={async function() {
+                await fetch(`/watchlist/deleteticker/${props.ticker._id}`,{
+                    method:'DELETE',
+                })
+                console.log('ticker deleted')
+            }}>Delete</button>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 function SavedTickers(props){
-
+    
     
     let removeThisState = props.setState 
     let currentState = props.state
@@ -11,6 +11,7 @@ function SavedTickers(props){
             <span>{`Last Price $ ${props.ticker.price}`}</span>
            
             <button onClick ={async function() {
+                removeThisState(currentState.filter(el=> el!==props.ticker))
                 await fetch(`/watchlist/deleteticker/${props.ticker._id}`,{
                     method:'DELETE',
                 })

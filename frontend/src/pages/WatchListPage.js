@@ -59,7 +59,7 @@ function WatchListPage (){
         alreadyExists=true
       }
     })
-    console.log(alreadyExists)
+
     //only fetch new ticker if input doesnt exist in object
 
     if(alreadyExists===false){
@@ -81,7 +81,7 @@ function WatchListPage (){
       <Button handleClick = {buttonSearch} text = 'Search' />
     
       <Watchlist tickers = {watchList} setState = {addToWatchList} tickerFound = {tickerFound} tickerInput = {tickerInput}/>
-   
+    
     </div>
   );
 }

@@ -33,10 +33,10 @@ function WatchListPage (){
      const data = await res.json()
      //setState of watchlist here on page load
 
-      if(data.stonks.length>watchList.length){
+      if(watchList.length===0){
 
-        console.log('stonkscity updated in useeffect',data.stonks)
-         addToWatchList(data.stonks)
+        console.log('stonkscity updated in useeffect on load')
+        addToWatchList(data.stonks)
         
       }
      
@@ -68,7 +68,7 @@ function WatchListPage (){
         
       })
       const data = await res.json()
-      console.log(data)
+      console.log(data.stonks[data.stonks.length-1], ...watchList)
       addToWatchList(data.stonks)
     }
     

@@ -63,6 +63,7 @@ function WatchListPage (){
     //only fetch new ticker if input doesnt exist in object
 
     if(alreadyExists===false){
+      setTickerFound(true)
       const res = await fetch(`/watchlist/addticker/${input}`, {
         method: "POST",
         
@@ -72,7 +73,7 @@ function WatchListPage (){
          setTickerFound (false)
        }else{
         addToWatchList(data.stonks)
-        setTickerFound(true)
+        
        }
     }
     

@@ -68,8 +68,12 @@ function WatchListPage (){
         
       })
       const data = await res.json()
-      console.log(data.stonks[data.stonks.length-1], ...watchList)
-      addToWatchList(data.stonks)
+      if(data.ticker === false){
+         setTickerFound (false)
+       }else{
+        addToWatchList(data.stonks)
+        setTickerFound(true)
+       }
     }
     
   }

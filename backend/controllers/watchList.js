@@ -25,10 +25,8 @@ module.exports = {
     addTicker: async(req,res)=>{
         console.log(req.params.id)
         
-            const trade = await alpaca.getLatestTrade(req.params.id);
-           
-           
         try{
+            let trade = await alpaca.getLatestTrade(req.params.id);
             console.log(trade)
             await WatchList.create({
                 symbol:req.params.id.toUpperCase(),
@@ -37,10 +35,12 @@ module.exports = {
             })
             const watchList = await WatchList.find()
             
-            res.json({stonks:watchList})
+            res.json({stonks:watchList,
+            ticker:true})
              console.log('ticker added')
         }catch(err){
-            console.log(err)
+            console.log('test',err)
+            res.json({ticker:false})
         }
     },
     deleteTicker: async (req,res)=>{

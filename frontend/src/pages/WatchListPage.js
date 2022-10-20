@@ -13,8 +13,8 @@ function WatchListPage (){
 
   const [tickerFound,setTickerFound] = useState(true)
   const [tickerInput,detectInput]=useState()
- //use another state for when buttonSearch returns an error?
 
+//gets ticker upon button search
   async function buttonSearch (){
     try{
     await getTicker();    
@@ -23,7 +23,7 @@ function WatchListPage (){
     }
    }
 
-   //passes each el of watchlist to the server to update prices
+   //passes each el of watchlist to the server to update prices, then uses map to update itself in state
    function updatePrices(){
       watchList.forEach(el=>{
       
@@ -36,27 +36,24 @@ function WatchListPage (){
             'symbol':el.symbol,
             'price':el.price
           })
-          
         })
         const data = await res.json()
         console.log(data.updatedStonk[0])
+        //map array to replace old stock price with new stock price response from server
         addToWatchList(watchList.map(item=>{
         if(item._id == data.updatedStonk[0]._id){
           return data.updatedStonk[0]
         }else{
           return item
         }
-         
         }))
-        
-        // addToWatchList([...watchList,data.updatedStonk[0]])
       }
       lonePriceUpdate()
       })
    }
 
   useEffect(()=>{
-     //ADD THE GET REQUEST INTO HERE
+     
 
      async function getWatchList(){
 
@@ -76,7 +73,8 @@ function WatchListPage (){
     getWatchList()
 
    },[watchList])
-  
+
+  //grabs ticker input for fetch
    async function getTicker(){
     let input = document.querySelector('.search').value.toUpperCase()
     detectInput(input)

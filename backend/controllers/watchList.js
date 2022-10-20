@@ -8,8 +8,11 @@ const alpaca = new Alpaca({
   secretKey: process.env.API_SECRET,
   paper: true,
 });
-
-
+async function test() {
+let crypt = await alpaca.getLatestCryptoTrade('BTCUSD',{exchange:'CBSE'})
+console.log(crypt)
+}
+test()
 
 
 module.exports = {

@@ -54,6 +54,7 @@ module.exports = {
         
         try{
             let trade = await alpaca.getLatestTrade(req.body.symbol);
+            console.log(trade)
             await WatchList.findByIdAndUpdate({_id: req.params.id},{
                 price: trade.Price             
                 

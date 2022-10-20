@@ -23,6 +23,21 @@ function WatchListPage (){
     }
    }
 
+   //passes each el of watchlist to the server to update prices
+   function updatePrices(){
+      watchList.forEach(el=>{
+        async function lonePriceUpdate(){
+        const res = await fetch(`/watchlist/updateticker/${el._id}`, {
+          method: "PUT",
+          
+        })
+        const data = await res.json()
+        console.log(data)
+      }
+      lonePriceUpdate()
+      })
+   }
+
   useEffect(()=>{
      //ADD THE GET REQUEST INTO HERE
 
@@ -84,7 +99,7 @@ function WatchListPage (){
      
       <Search placeholder = 'Ticker Search' />
       <Button handleClick = {buttonSearch} text = 'Search' />
-    
+      <Button handleClick = {updatePrices} text = 'Update Prices'/>
       <Watchlist tickers = {watchList} setState = {addToWatchList} tickerFound = {tickerFound} tickerInput = {tickerInput}/>
     
     </div>

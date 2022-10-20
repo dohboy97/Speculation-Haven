@@ -11,6 +11,7 @@ router.post('/addticker/:id', watchListController.addTicker)
 
 router.delete('/deleteticker/:id', watchListController.deleteTicker)
 
+router.put('/updateticker/:id', watchListController.updateTicker)
 
 
 module.exports = router

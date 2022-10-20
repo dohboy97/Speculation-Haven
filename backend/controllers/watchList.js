@@ -46,5 +46,10 @@ module.exports = {
     deleteTicker: async (req,res)=>{
         console.log(req.params.id)
         await WatchList.findByIdAndDelete(req.params.id)
+    },
+
+    updateTicker: async(req,res)=>{
+        console.log(req.params.id)
     }
+
 }

@@ -14,8 +14,8 @@ function WatchListPage (){
 
   const [tickerFound,setTickerFound] = useState(true)
   const [tickerInput,detectInput]=useState()
-  const [selected,setSelected]=useState()
-
+  const [selected,setSelected]=useState('stock')
+console.log(selected)
 //gets ticker upon button search
   async function buttonSearch (){
     try{

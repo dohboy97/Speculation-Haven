@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Search from '../components/Search'
 import Button from '../components/Button'
 import Watchlist from '../components/Watchlist'
+import Selector from '../components/Selector'
 
 function WatchListPage (){
   
@@ -13,6 +14,7 @@ function WatchListPage (){
 
   const [tickerFound,setTickerFound] = useState(true)
   const [tickerInput,detectInput]=useState()
+  const [selected,setSelected]=useState()
 
 //gets ticker upon button search
   async function buttonSearch (){
@@ -41,7 +43,7 @@ function WatchListPage (){
         console.log(data.updatedStonk[0])
         //map array to replace old stock price with new stock price response from server
         addToWatchList(watchList.map(item=>{
-        if(item._id == data.updatedStonk[0]._id){
+        if(item._id === data.updatedStonk[0]._id){
           return data.updatedStonk[0]
         }else{
           return item
@@ -111,7 +113,8 @@ function WatchListPage (){
   
   return (
     <div className="App">
-     
+      
+      <Selector value = {selected} setValue = {setSelected}/>
       <Search placeholder = 'Ticker Search' />
       <Button handleClick = {buttonSearch} text = 'Search' />
       <Button handleClick = {updatePrices} text = 'Update Prices'/>

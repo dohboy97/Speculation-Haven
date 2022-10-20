@@ -9,7 +9,7 @@ const alpaca = new Alpaca({
   paper: true,
 });
 async function test() {
-let crypt = await alpaca.getLatestCryptoTrade('BTCUSD',{exchange:'CBSE'})
+let crypt = await alpaca.getLatestCryptoTrade('AVAXUSD',{exchange:'FTXU'})
 console.log(crypt)
 }
 test()

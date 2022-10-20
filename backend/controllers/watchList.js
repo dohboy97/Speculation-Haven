@@ -50,6 +50,22 @@ module.exports = {
 
     updateTicker: async(req,res)=>{
         console.log(req.params.id)
+       console.log(req.body.symbol)
+        
+        try{
+            let trade = await alpaca.getLatestTrade(req.body.symbol);
+            await WatchList.findByIdAndUpdate({_id: req.params.id},{
+                price: trade.Price             
+                
+            })
+            const updatedTicker = await WatchList.find({_id: req.params.id})
+            
+            res.json({updatedStonk:updatedTicker})
+             console.log('ticker updated')
+        }catch(err){
+            console.log(err)
+           
+        }
     }
 
 }

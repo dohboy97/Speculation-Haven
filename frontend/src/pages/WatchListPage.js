@@ -26,9 +26,16 @@ function WatchListPage (){
    //passes each el of watchlist to the server to update prices
    function updatePrices(){
       watchList.forEach(el=>{
+      
         async function lonePriceUpdate(){
+          console.log(el.symbol)
         const res = await fetch(`/watchlist/updateticker/${el._id}`, {
           method: "PUT",
+          headers: {'Content-type': 'application/json'},
+          body: JSON.stringify({
+            'symbol':el.symbol,
+            'price':el.price
+          })
           
         })
         const data = await res.json()

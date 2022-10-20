@@ -98,7 +98,10 @@ console.log(selected)
       setTickerFound(true)
       const res = await fetch(`/watchlist/addticker/${input}`, {
         method: "POST",
-        
+        headers: {'Content-type': 'application/json'},
+          body: JSON.stringify({
+            type:selected
+          })
       })
       const data = await res.json()
       if(data.ticker === false){

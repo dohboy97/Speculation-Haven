@@ -33,7 +33,8 @@ module.exports = {
             console.log(trade)
             await WatchList.create({
                 symbol:req.params.id.toUpperCase(),
-                price:trade.Price
+                price:trade.Price,
+                type:req.body.type
                 
             })
             const watchList = await WatchList.find()

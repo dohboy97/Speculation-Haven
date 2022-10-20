@@ -40,8 +40,16 @@ function WatchListPage (){
         })
         const data = await res.json()
         console.log(data.updatedStonk[0])
-        addToWatchList(watchList.filter(item=> item._id == data.updatedStonk[0]._id))
-        addToWatchList([...watchList,data.updatedStonk[0]])
+        addToWatchList(watchList.map(item=>{
+        if(item._id == data.updatedStonk[0]._id){
+          return data.updatedStonk[0]
+        }else{
+          return item
+        }
+         
+        }))
+        
+        // addToWatchList([...watchList,data.updatedStonk[0]])
       }
       lonePriceUpdate()
       })

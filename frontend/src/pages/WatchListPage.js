@@ -15,7 +15,7 @@ function WatchListPage (){
   const [tickerFound,setTickerFound] = useState(true)
   const [tickerInput,detectInput]=useState()
   const [selected,setSelected]=useState('stock')
-console.log(selected)
+
 //gets ticker upon button search
   async function buttonSearch (){
     try{
@@ -27,7 +27,7 @@ console.log(selected)
 
    //passes each el of watchlist to the server to update prices, then uses map to update itself in state
    function updatePrices(){
-      watchList.forEach(el=>{
+      addToWatchList(watchList.map(el=>{
       
         async function lonePriceUpdate(){
           console.log(el.symbol)
@@ -36,24 +36,33 @@ console.log(selected)
           headers: {'Content-type': 'application/json'},
           body: JSON.stringify({
             'symbol':el.symbol,
-            'price':el.price
+            'price':el.price,
+            'type':el.type
           })
         })
         const data = await res.json()
         console.log(data.updatedStonk[0])
         //map array to replace old stock price with new stock price response from server
-        addToWatchList(watchList.map(item=>{
-        if(item._id === data.updatedStonk[0]._id){
-          return data.updatedStonk[0]
-        }else{
-          return item
+
+        if(el._id === data.updatedStonk[0]._id){
+         return data.updatedStonk[0]
         }
-        }))
+
+        // addToWatchList(watchList.map(item=>{
+        // if(item._id === data.updatedStonk[0]._id){
+        //   console.log('test')
+        //   return data.updatedStonk[0]
+          
+        // }else{
+        //   return item
+        // }
+        // }))
       }
       lonePriceUpdate()
       })
+      )
    }
-
+   
   useEffect(()=>{
      
 

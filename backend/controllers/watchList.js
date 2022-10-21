@@ -8,11 +8,11 @@ const alpaca = new Alpaca({
   secretKey: process.env.API_SECRET,
   paper: true,
 });
-async function test() {
-let crypt = await alpaca.getLatestCryptoTrade('AVAXUSD',{exchange:'FTXU'})
-console.log(crypt)
-}
-test()
+// async function test() {
+// let crypt = await alpaca.getLatestCryptoTrade('AVAXUSD',{exchange:'FTXU'})
+// console.log(crypt)
+// }
+// test()
 
 
 module.exports = {
@@ -29,7 +29,12 @@ module.exports = {
         console.log(req.params.id)
         
         try{
-            let trade = await alpaca.getLatestTrade(req.params.id);
+            let trade
+            if(req.body.type === 'stock'){
+            trade = await alpaca.getLatestTrade(req.params.id);
+            }else{
+            trade = await alpaca.getLatestCryptoTrade(`${req.params.id}USD`,{exchange:'FTXU'})
+            }
             console.log(trade)
             await WatchList.create({
                 symbol:req.params.id.toUpperCase(),
@@ -57,7 +62,12 @@ module.exports = {
        console.log(req.body.symbol)
         
         try{
-            let trade = await alpaca.getLatestTrade(req.body.symbol);
+            let trade 
+            if(req.body.type==='stock'){
+            trade = await alpaca.getLatestTrade(req.body.symbol);
+            }else{
+                trade = await alpaca.getLatestCryptoTrade(`${req.body.symbol}USD`,{exchange:'FTXU'})
+            }
             console.log(trade)
             await WatchList.findByIdAndUpdate({_id: req.params.id},{
                 price: trade.Price             

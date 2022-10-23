@@ -16,6 +16,28 @@ function WatchListPage (){
   const [tickerInput,detectInput]=useState()
   const [selected,setSelected]=useState('stock')
 
+  useEffect(()=>{
+     
+
+    async function getWatchList(){
+
+    
+    const res = await fetch('/watchlist')
+    const data = await res.json()
+    //setState of watchlist here on page load
+
+     if(watchList.length===0 && data.stonks.length>0){
+
+       console.log('stonkscity updated in useeffect on load')
+       addToWatchList(data.stonks)
+       
+     }
+    
+   }
+   getWatchList()
+ 
+  },[watchList])
+
 //gets ticker upon button search
   async function buttonSearch (){
     try{
@@ -26,8 +48,9 @@ function WatchListPage (){
    }
 
    //passes each el of watchlist to the server to update prices, then uses map to update itself in state
-   function updatePrices(){
-      addToWatchList(watchList.map(el=>{
+     function updatePrices(){
+    
+      watchList.map(el=>{
       
         async function lonePriceUpdate(){
           console.log(el.symbol)
@@ -44,46 +67,25 @@ function WatchListPage (){
         console.log(data.updatedStonk[0])
         //map array to replace old stock price with new stock price response from server
 
-        if(el._id === data.updatedStonk[0]._id){
-         return data.updatedStonk[0]
-        }
+       
 
-        // addToWatchList(watchList.map(item=>{
-        // if(item._id === data.updatedStonk[0]._id){
-        //   console.log('test')
-        //   return data.updatedStonk[0]
+        addToWatchList(watchList.map(item=>{
+        if(item._id === data.updatedStonk[0]._id){
+          console.log('test')
+          return data.updatedStonk[0]
           
-        // }else{
-        //   return item
-        // }
-        // }))
+        }else{
+          return item
+        }
+        }))
       }
       lonePriceUpdate()
       })
-      )
+ 
+    
    }
    
-  useEffect(()=>{
-     
-
-     async function getWatchList(){
-
-     
-     const res = await fetch('/watchlist')
-     const data = await res.json()
-     //setState of watchlist here on page load
-
-      if(watchList.length===0 && data.stonks.length>0){
-
-        console.log('stonkscity updated in useeffect on load')
-        addToWatchList(data.stonks)
-        
-      }
-     
-    }
-    getWatchList()
-
-   },[watchList])
+  
 
   //grabs ticker input for fetch
    async function getTicker(){

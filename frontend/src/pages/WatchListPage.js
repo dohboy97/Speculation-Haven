@@ -16,27 +16,7 @@ function WatchListPage (){
   const [tickerInput,detectInput]=useState()
   const [selected,setSelected]=useState('stock')
 
-  useEffect(()=>{
-     
-
-    async function getWatchList(){
-
-    
-    const res = await fetch('/watchlist')
-    const data = await res.json()
-    //setState of watchlist here on page load
-
-     if(watchList.length===0 && data.stonks.length>0){
-
-       console.log('stonkscity updated in useeffect on load')
-       addToWatchList(data.stonks)
-       
-     }
-    
-   }
-   getWatchList()
- 
-  },[watchList])
+  
 
 //gets ticker upon button search
   async function buttonSearch (){
@@ -48,11 +28,12 @@ function WatchListPage (){
    }
 
    //passes each el of watchlist to the server to update prices, then uses map to update itself in state
-     function updatePrices(){
-    
-      watchList.map(el=>{
+  
+     async function updatePrices(){
+      let updatedArr = []
+      await watchList.forEach(async (el)=>{
       
-        async function lonePriceUpdate(){
+        // async function lonePriceUpdate(){
           console.log(el.symbol)
         const res = await fetch(`/watchlist/updateticker/${el._id}`, {
           method: "PUT",
@@ -66,22 +47,15 @@ function WatchListPage (){
         const data = await res.json()
         console.log(data.updatedStonk[0])
         //map array to replace old stock price with new stock price response from server
+        
+       updatedArr.push(data.updatedStonk[0])
 
-       
-
-        addToWatchList(watchList.map(item=>{
-        if(item._id === data.updatedStonk[0]._id){
-          console.log('test')
-          return data.updatedStonk[0]
-          
-        }else{
-          return item
-        }
-        }))
-      }
-      lonePriceUpdate()
+        
+      // }
+      // lonePriceUpdate()
+     
       })
- 
+     await addToWatchList(updatedArr)
     
    }
    
@@ -124,6 +98,30 @@ function WatchListPage (){
     }
     
   }
+
+  useEffect(()=>{
+     
+
+    async function getWatchList(){
+
+    
+    const res = await fetch('/watchlist')
+    const data = await res.json()
+    //setState of watchlist here on page load
+
+     if(watchList.length===0 && data.stonks.length>0){
+
+       console.log('stonkscity updated in useeffect on load')
+       addToWatchList(data.stonks)
+       
+     }
+    
+   }
+   getWatchList()
+
+  console.log('test')
+ 
+  },[watchList])
   
   return (
     <div className="App">

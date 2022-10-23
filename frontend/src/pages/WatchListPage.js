@@ -11,12 +11,11 @@ function WatchListPage (){
   //useState for stock count on page, useEffect for fetch?
 
   const [watchList,addToWatchList] = useState([])
-
   const [tickerFound,setTickerFound] = useState(true)
   const [tickerInput,detectInput]=useState()
   const [selected,setSelected]=useState('stock')
+  const [loading,setLoading]=useState(false)
 
-  
 
 //gets ticker upon button search
   async function buttonSearch (){
@@ -27,38 +26,8 @@ function WatchListPage (){
     }
    }
 
-   //passes each el of watchlist to the server to update prices, then uses map to update itself in state
-  
-     async function updatePrices(){
-      let updatedArr = []
-      await watchList.forEach(async (el)=>{
-      
-        // async function lonePriceUpdate(){
-          console.log(el.symbol)
-        const res = await fetch(`/watchlist/updateticker/${el._id}`, {
-          method: "PUT",
-          headers: {'Content-type': 'application/json'},
-          body: JSON.stringify({
-            'symbol':el.symbol,
-            'price':el.price,
-            'type':el.type
-          })
-        })
-        const data = await res.json()
-        console.log(data.updatedStonk[0])
-        //map array to replace old stock price with new stock price response from server
-        
-       updatedArr.push(data.updatedStonk[0])
+ 
 
-        
-      // }
-      // lonePriceUpdate()
-     
-      })
-     await addToWatchList(updatedArr)
-    
-   }
-   
   
 
   //grabs ticker input for fetch
@@ -100,6 +69,7 @@ function WatchListPage (){
   }
 
   useEffect(()=>{
+    
      
 
     async function getWatchList(){
@@ -116,12 +86,50 @@ function WatchListPage (){
        
      }
     
-   }
+    } 
    getWatchList()
+  
+  if(loading){
+     //passes each el of watchlist to the server to update prices, then uses map to update itself in state
+     let updatedArr = []
+     async function updatePrices(){
+      
+      watchList.forEach(async (el)=>{
+      
+        
+          
+        const res = await fetch(`/watchlist/updateticker/${el._id}`, {
+          method: "PUT",
+          headers: {'Content-type': 'application/json'},
+          body: JSON.stringify({
+            'symbol':el.symbol,
+            'price':el.price,
+            'type':el.type
+          })
+        })
+        const data = await res.json()
+        
+        //map array to replace old stock price with new stock price response from server
+        console.log(data.updatedStonk[0])
+      updatedArr.push(data.updatedStonk[0])
+        console.log(updatedArr)
+        
+        addToWatchList([...updatedArr])
+      })
+      
+      
+     
+     
+    
+     setLoading(false)
+     
+   }
+   updatePrices()
+   console.log(updatedArr)
+   
+  }
 
-  console.log('test')
- 
-  },[watchList])
+  },[watchList,loading,])
   
   return (
     <div className="App">
@@ -129,7 +137,7 @@ function WatchListPage (){
       <Selector value = {selected} setValue = {setSelected}/>
       <Search placeholder = 'Ticker Search' />
       <Button handleClick = {buttonSearch} text = 'Search' />
-      <Button handleClick = {updatePrices} text = 'Update Prices'/>
+      <Button handleClick = {()=>setLoading(true)} text = 'Update Prices'/>
       <Watchlist tickers = {watchList} setState = {addToWatchList} tickerFound = {tickerFound} tickerInput = {tickerInput}/>
     
     </div>

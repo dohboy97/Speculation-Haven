@@ -92,9 +92,10 @@ function WatchListPage (){
   if(loading){
      //passes each el of watchlist to the server to update prices, then uses map to update itself in state
      let updatedArr = []
+     
      async function updatePrices(){
       
-      watchList.forEach(async (el)=>{
+      watchList.forEach(async (el,index)=>{
       
         
           
@@ -109,23 +110,24 @@ function WatchListPage (){
         })
         const data = await res.json()
         
-        //map array to replace old stock price with new stock price response from server
-        console.log(data.updatedStonk[0])
-      updatedArr.push(data.updatedStonk[0])
-        console.log(updatedArr)
+      
+       updatedArr[index] = data.updatedStonk[0]
+     //  updatedArr.push(data.updatedStonk[0])
+    
+      //retain order
+      
         
         addToWatchList([...updatedArr])
       })
       
-      
-     
+    
      
     
      setLoading(false)
      
    }
    updatePrices()
-   console.log(updatedArr)
+  
    
   }
 

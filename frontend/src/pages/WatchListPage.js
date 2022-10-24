@@ -54,7 +54,8 @@ function WatchListPage (){
         method: "POST",
         headers: {'Content-type': 'application/json'},
           body: JSON.stringify({
-            type:selected
+            type:selected,
+            index:watchList.length
           })
       })
       const data = await res.json()
@@ -105,13 +106,14 @@ function WatchListPage (){
           body: JSON.stringify({
             'symbol':el.symbol,
             'price':el.price,
-            'type':el.type
+            'type':el.type,
+            'index':el.index
           })
         })
         const data = await res.json()
         
       
-       updatedArr[index] = data.updatedStonk[0]
+       updatedArr.push(data.updatedStonk[0])
      //  updatedArr.push(data.updatedStonk[0])
     
       //retain order

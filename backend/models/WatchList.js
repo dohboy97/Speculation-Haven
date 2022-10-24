@@ -4,7 +4,8 @@ const { Schema } = mongoose;
 const WatchListSchema = new Schema({
     symbol:String,
     price:Number,
-    type:String
+    type:String,
+    index:Number
 })
 
 module.exports = mongoose.model('WatchList',WatchListSchema)

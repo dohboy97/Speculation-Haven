@@ -114,6 +114,13 @@ function WatchListPage (){
         
       
        updatedArr.push(data.updatedStonk[0])
+       updatedArr.sort((a,b)=>{
+         if (a.index<b.index){
+           return -1
+         }else{
+           return 1
+         }
+       })
      //  updatedArr.push(data.updatedStonk[0])
     
       //retain order

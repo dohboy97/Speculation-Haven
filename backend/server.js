@@ -11,7 +11,7 @@ require('dotenv').config({path: './config/.env'})
 //routes
 
 const watchListRoute = require('./routes/watchList')
-
+const searchRoute = require('./routes/search')
 
 //insert passport config once passport installed 
 
@@ -34,6 +34,7 @@ app.get('/', (req, res) =>
   );
 
   app.use('/watchlist', watchListRoute)
+  app.use('/search', searchRoute)
 
 app.listen(3000, ()=>{
     console.log(`Server is running on port ${3000}`)

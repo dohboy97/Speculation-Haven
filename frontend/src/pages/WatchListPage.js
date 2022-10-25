@@ -10,7 +10,7 @@ function WatchListPage (){
   
   //useState for stock count on page, useEffect for fetch?
 
-  const [watchList,addToWatchList] = useState([])
+  const [watchList,setWatchList] = useState([])
   const [tickerFound,setTickerFound] = useState(true)
   const [tickerInput,detectInput]=useState()
   const [selected,setSelected]=useState('stock')
@@ -62,7 +62,7 @@ function WatchListPage (){
       if(data.ticker === false){
          setTickerFound (false)
        }else{
-        addToWatchList(data.stonks)
+        setWatchList(data.stonks)
         
        }
     }
@@ -83,7 +83,7 @@ function WatchListPage (){
      if(watchList.length===0 && data.stonks.length>0){
 
        console.log('stonkscity updated in useeffect on load')
-       addToWatchList(data.stonks)
+       setWatchList(data.stonks)
        
      }
     
@@ -126,7 +126,7 @@ function WatchListPage (){
       //retain order
       
         
-        addToWatchList([...updatedArr])
+        setWatchList([...updatedArr])
       })
       
     
@@ -149,7 +149,7 @@ function WatchListPage (){
       <Search placeholder = 'Ticker Search' />
       <Button handleClick = {buttonSearch} text = 'Search' />
       <Button handleClick = {()=>setLoading(true)} text = 'Update Prices'/>
-      <Watchlist tickers = {watchList} setState = {addToWatchList} tickerFound = {tickerFound} tickerInput = {tickerInput}/>
+      <Watchlist tickers = {watchList} setState = {setWatchList} tickerFound = {tickerFound} tickerInput = {tickerInput}/>
     
     </div>
   );

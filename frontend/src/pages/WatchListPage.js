@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 
-import Search from '../components/Search'
+import Input from '../components/Input'
 import Button from '../components/Button'
 import Watchlist from '../components/Watchlist'
 import Selector from '../components/Selector'
@@ -26,25 +26,21 @@ function WatchListPage (){
     }
    }
 
- 
-
-  
-
   //grabs ticker input for fetch
    async function getTicker(){
     let input = document.querySelector('.search').value.toUpperCase()
     detectInput(input)
     post(input)
-   
    }
-   
-  async function post(input){
-    let alreadyExists = false
-    watchList.forEach(el=>{
-      if(el.symbol===input){
-        alreadyExists=true
-      }
-    })
+
+  //POST TICKER TO DB IF DOESNT ALREADY EXIST
+    async function post(input){
+      let alreadyExists = false
+      watchList.forEach(el=>{
+        if(el.symbol===input){
+          alreadyExists=true
+        }
+      })
 
     //only fetch new ticker if input doesnt exist in object
 
@@ -61,45 +57,38 @@ function WatchListPage (){
       const data = await res.json()
       if(data.ticker === false){
          setTickerFound (false)
-       }else{
-        setWatchList(data.stonks)
+      }else{
+      setWatchList(data.stonks)
         
-       }
+      }
     }
-    
-  }
+   }
 
   useEffect(()=>{
     
-     
-
     async function getWatchList(){
 
     
-    const res = await fetch('/watchlist')
-    const data = await res.json()
-    //setState of watchlist here on page load
+      const res = await fetch('/watchlist')
+      const data = await res.json()
+      //setState of watchlist here on page load
 
-     if(watchList.length===0 && data.stonks.length>0){
+      if(watchList.length===0 && data.stonks.length>0){
 
        console.log('stonkscity updated in useeffect on load')
-       setWatchList(data.stonks)
-       
-     }
-    
+       setWatchList(data.stonks)   
+      }
     } 
    getWatchList()
   
-  if(loading){
+    if(loading){
      //passes each el of watchlist to the server to update prices, then uses map to update itself in state
      let updatedArr = []
      
      async function updatePrices(){
       
       watchList.forEach(async (el,index)=>{
-      
-        
-          
+  
         const res = await fetch(`/watchlist/updateticker/${el._id}`, {
           method: "PUT",
           headers: {'Content-type': 'application/json'},
@@ -112,7 +101,6 @@ function WatchListPage (){
         })
         const data = await res.json()
         
-      
        updatedArr.push(data.updatedStonk[0])
        updatedArr.sort((a,b)=>{
          if (a.index<b.index){
@@ -121,23 +109,16 @@ function WatchListPage (){
            return 1
          }
        })
-     //  updatedArr.push(data.updatedStonk[0])
-    
+     
       //retain order
       
-        
-        setWatchList([...updatedArr])
+      setWatchList([...updatedArr])
+
       })
-      
-    
-     
-    
      setLoading(false)
      
    }
    updatePrices()
-  
-   
   }
 
   },[watchList,loading,])
@@ -145,8 +126,8 @@ function WatchListPage (){
   return (
     <div className="App">
       
-      <Selector value = {selected} setValue = {setSelected}/>
-      <Search placeholder = 'Ticker Search' />
+      <Selector value = {selected} setValue = {setSelected} options = {['Stocks','Crypto']}/>
+      <Input className = 'search' placeholder = 'Ticker Search' />
       <Button handleClick = {buttonSearch} text = 'Search' />
       <Button handleClick = {()=>setLoading(true)} text = 'Update Prices'/>
       <Watchlist tickers = {watchList} setState = {setWatchList} tickerFound = {tickerFound} tickerInput = {tickerInput}/>
@@ -154,8 +135,5 @@ function WatchListPage (){
     </div>
   );
 }
-
-
-
 
 export default WatchListPage

@@ -1,7 +1,7 @@
 function Search (props){
     return(
         <div>
-            <input className='search' placeholder = {props.placeholder}></input>
+            <input className={props.className} placeholder = {props.placeholder}></input>
         </div>
     )
 }

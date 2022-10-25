@@ -1,10 +1,14 @@
 function Selector(props){
-
+    console.log(props)
     return(
         <div>
             <select onChange={e=>props.setValue(e.target.value)}>
-                <option value = 'stock'>Stocks</option>
-                <option value = 'crypto'>Crypto</option>
+                {props.options.map((el,index)=>{
+                    return(
+                        <option key = {index} value = {el.toLowerCase()}>{el}</option>
+                    )
+                })}
+               
             </select>
         </div>
     )

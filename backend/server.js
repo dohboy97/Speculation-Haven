@@ -31,11 +31,11 @@ app.get('/', (req, res) =>
     res.sendFile(
       path.resolve(__dirname, '../', 'frontend', 'src', 'index.js')
     )
-  );
+  ); 
 
   app.use('/watchlist', watchListRoute)
   app.use('/search', searchRoute)
-
+ 
 app.listen(3000, ()=>{
     console.log(`Server is running on port ${3000}`)
 })     

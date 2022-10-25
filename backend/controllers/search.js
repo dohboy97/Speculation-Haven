@@ -9,6 +9,8 @@ const alpaca = new Alpaca({
 
   module.exports = {
       getTicker: async (req,res)=>{
+        console.log('hi')
+          console.log(req.params.id)
          try{
             let trade
             if(req.body.type === 'stock'){
@@ -17,8 +19,9 @@ const alpaca = new Alpaca({
             trade = await alpaca.getLatestCryptoTrade(`${req.params.id}USD`,{exchange:'FTXU'})
             }
             console.log(trade)
+            res.json({stonk:trade})
          }catch(err){
              console.log(err)
          }
       }
-  }
+  } 

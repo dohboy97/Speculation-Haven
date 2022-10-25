@@ -7,8 +7,8 @@ import SearchedTicker from '../components/SearchedTicker'
 
 function SearchPage (){
     //detect and use search input to then take to server api and retrieve ticker info
-    const [tickerFound,setTickerFound] = useState(false)
-    const [tickerInput,detectInput]=useState()
+    const [tickerFound,setTickerFound] = useState()
+    const [tickerInput,detectInput]=useState('')
     const [selected,setSelected]=useState('stock')
     const [ticker,setTicker]=useState()
  
@@ -17,6 +17,7 @@ function SearchPage (){
     async function getTicker(){
         let input = document.querySelector('.search').value.toUpperCase()
         detectInput(input)
+        setTickerFound()
         getTickerFromServer(input)
        
        }

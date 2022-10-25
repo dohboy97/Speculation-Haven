@@ -8,22 +8,22 @@ import Selector from '../components/Selector'
 
 function SearchedTicker(props){
     const [selected,setSelected]=useState('Buy in $')
-    const [inputState,setInputState]=useState('Quantity')
-    // const [loading, setLoading]=useState(false)
+    const [inputState,setInputState]=useState('')
+   
     
 
-    // useEffect(()=>{
-    //     if(loading===true){
-    //     setInputState('hi')
-    // if(selected === 'Buy in $'){
-    //     setInputState('Dollar Amount')
-    // }else{
-    //     setInputState('Quantity')
-    // }
-    //     }
-    //     setLoading(false)
-    // },[loading,selected])
-    console.log(selected)
+    useEffect(()=>{
+      console.log(selected)
+        
+    if(selected === 'buy in $'){
+        setInputState('Dollar Amount')
+    }else{
+        setInputState('Quantity')
+    }
+        }
+        
+    ,[inputState,selected])
+    
     
     if(props.tickerFound===true ){
         let buyInputPlaceholder

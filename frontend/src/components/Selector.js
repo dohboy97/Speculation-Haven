@@ -4,6 +4,7 @@ function Selector(props){
         <div>
             <select onChange={e=>props.setValue(e.target.value)}>
                 {props.options.map((el,index)=>{
+                    
                     return(
                         <option key = {index} value = {el.toLowerCase()}>{el}</option>
                     )

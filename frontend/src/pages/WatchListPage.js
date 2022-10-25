@@ -46,6 +46,7 @@ function WatchListPage (){
 
     if(alreadyExists===false){
       setTickerFound(true)
+      console.log(selected)
       const res = await fetch(`/watchlist/addticker/${input}`, {
         method: "POST",
         headers: {'Content-type': 'application/json'},
@@ -126,7 +127,7 @@ function WatchListPage (){
   return (
     <div className="App">
       
-      <Selector value = {selected} setValue = {setSelected} options = {['Stocks','Crypto']}/>
+      <Selector value = {selected} setValue = {setSelected} options = {['Stock','Crypto']}/>
       <Input className = 'search' placeholder = 'Ticker Search' />
       <Button handleClick = {buttonSearch} text = 'Search' />
       <Button handleClick = {()=>setLoading(true)} text = 'Update Prices'/>

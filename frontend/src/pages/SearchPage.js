@@ -24,7 +24,7 @@ function SearchPage (){
 
        //posts ticker to server through restful api to be able to temporarily set ticker state to whatever user queries
        async function getTickerFromServer(input){
-         
+         console.log('test',selected)
            if(input){
                const res = await fetch(`/search/${input}`,{
                    method:'POST',
@@ -49,7 +49,7 @@ function SearchPage (){
         <div>
         <h1>Search</h1>
         
-        <Selector value = {selected} setValue = {setSelected} options = {['Stocks','Crypto']}/>
+        <Selector value = {selected} setValue = {setSelected} options = {['Stock','Crypto']}/>
         <Input className = 'search' placeholder = 'Ticker Search' />
         <Button handleClick = {getTicker} text = 'Search' />
         <SearchedTicker ticker = {ticker} input = {tickerInput} tickerFound = {tickerFound} />

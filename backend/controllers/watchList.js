@@ -26,7 +26,7 @@ module.exports = {
     },
 
     addTicker: async(req,res)=>{
-        console.log(req.params.id)
+        console.log(req.body)
         
         try{
             let trade

@@ -1,6 +1,7 @@
 import { useEffect, useState} from 'react'
 
 
+
 import NotFound from '../components/NotFound'
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -10,10 +11,10 @@ function SearchedTicker(props){
     const [selectedPurchase,setSelectedPurchase]=useState('Buy in $')
     
     const [inputState,setInputState]=useState('')
-    const [loading,setLoading]=useState(false)
+  
     const [watchList,setWatchList] = useState([])
-    const [tickerFound,setTickerFound] = useState(true)
-    const [tickerInput,detectInput]=useState()
+    
+    
 
     //gets ticker upon button search
     async function buttonSearch (){
@@ -22,6 +23,7 @@ function SearchedTicker(props){
     }catch(err){
       console.log(err)
     }
+   
    }
 
     async function post(input){
@@ -36,7 +38,7 @@ function SearchedTicker(props){
   
       if(alreadyExists===false){
           
-        setTickerFound(true)
+        props.setTickerFound(true)
         console.log('tttttt test')
         const res = await fetch(`/watchlist/addticker/${input}`, {
           method: "POST",
@@ -48,7 +50,7 @@ function SearchedTicker(props){
         })
         const data = await res.json()
         if(data.ticker === false){
-           setTickerFound (false)
+           props.setTickerFound (false)
         }else{
         setWatchList(data.stonks)
           
@@ -67,7 +69,7 @@ function SearchedTicker(props){
       
             if(watchList.length===0 && data.stonks.length>0){
       
-             console.log('stonkscity updated in useeffect on load')
+            
              setWatchList(data.stonks)   
             }
           } 
@@ -85,7 +87,8 @@ function SearchedTicker(props){
     //grabs ticker input for fetch
    async function getTicker(){
     let input = document.querySelector('.search').value.toUpperCase()
-    detectInput(input)
+    props.detectInput(input)
+  
     post(input)
    }
 
@@ -107,7 +110,7 @@ function SearchedTicker(props){
             <div>
                 <Input className = 'buy' placeholder = {inputState} />
                 <Selector value = {selectedPurchase} setValue = {setSelectedPurchase} options = {[buyInputPlaceholder, 'Buy in $']} />
-                <Button text = 'Submit' />
+                <Button text = 'Submit'/>
             </div>
         </div>
     )

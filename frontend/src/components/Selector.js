@@ -1,5 +1,5 @@
 function Selector(props){
-    console.log(props)
+    
     
     return(
         <div>

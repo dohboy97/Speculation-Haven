@@ -52,7 +52,7 @@ function SearchPage (){
         <Selector value = {selectedMarket} setValue = {setSelectedMarket} options = {['Stock','Crypto']}/>
         <Input className = 'search' placeholder = 'Ticker Search' />
         <Button handleClick = {getTicker} text = 'Search' />
-        <SearchedTicker ticker = {ticker} input = {tickerInput} tickerFound = {tickerFound} selectedMarket = {selectedMarket} />
+        <SearchedTicker ticker = {ticker} detectInput={detectInput} tickerInput = {tickerInput} setTickerFound={setTickerFound} tickerFound = {tickerFound} selectedMarket = {selectedMarket} />
         </div>
     )
 }

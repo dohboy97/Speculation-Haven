@@ -1,5 +1,5 @@
 
-import {Link, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import Header from './components/Header';
 import SearchPage from './pages/SearchPage'

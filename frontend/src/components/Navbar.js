@@ -11,6 +11,7 @@ function Navbar(){
                 <li><Link to = '/portfolio'>Portfolio</Link></li>
             </ul>
         </nav>
+        <h3>Balance</h3>
         </div>
     )
 }

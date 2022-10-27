@@ -7,22 +7,89 @@ import Input from '../components/Input'
 import Selector from '../components/Selector'
 
 function SearchedTicker(props){
-    const [selected,setSelected]=useState('Buy in $')
-    const [inputState,setInputState]=useState('')
-   
+    const [selectedPurchase,setSelectedPurchase]=useState('Buy in $')
     
+    const [inputState,setInputState]=useState('')
+    const [loading,setLoading]=useState(false)
+    const [watchList,setWatchList] = useState([])
+    const [tickerFound,setTickerFound] = useState(true)
+    const [tickerInput,detectInput]=useState()
+
+    //gets ticker upon button search
+    async function buttonSearch (){
+    try{
+    await getTicker();    
+    }catch(err){
+      console.log(err)
+    }
+   }
+
+    async function post(input){
+        let alreadyExists = false
+        watchList.forEach(el=>{
+          if(el.symbol===input){
+            alreadyExists=true
+          }
+        })
+  
+      //only fetch new ticker if input doesnt exist in object
+  
+      if(alreadyExists===false){
+          
+        setTickerFound(true)
+        console.log('tttttt test')
+        const res = await fetch(`/watchlist/addticker/${input}`, {
+          method: "POST",
+          headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+              type:props.selectedMarket,
+              index:watchList.length
+            })
+        })
+        const data = await res.json()
+        if(data.ticker === false){
+           setTickerFound (false)
+        }else{
+        setWatchList(data.stonks)
+          
+        }
+      }
+     }
+
 
     useEffect(()=>{
-      console.log(selected)
+        async function getWatchList(){
+
+    
+            const res = await fetch('/watchlist')
+            const data = await res.json()
+            //setState of watchlist here on page load
+      
+            if(watchList.length===0 && data.stonks.length>0){
+      
+             console.log('stonkscity updated in useeffect on load')
+             setWatchList(data.stonks)   
+            }
+          } 
+         getWatchList()
         
-    if(selected === 'buy in $'){
+    if(selectedPurchase === 'buy in $'){
         setInputState('Dollar Amount')
     }else{
         setInputState('Quantity')
     }
         }
         
-    ,[inputState,selected])
+    ,[inputState,selectedPurchase,watchList])
+
+    //grabs ticker input for fetch
+   async function getTicker(){
+    let input = document.querySelector('.search').value.toUpperCase()
+    detectInput(input)
+    post(input)
+   }
+
+   
     
     
     if(props.tickerFound===true ){
@@ -36,10 +103,10 @@ function SearchedTicker(props){
         <div>
             <h2>Ticker: {props.input}</h2>
             <span>Price:{props.ticker.stock.Price}</span>     
-            <Button text = 'Add To Watchlist' />
+            <Button handleClick = {buttonSearch} text = 'Add To Watchlist' />
             <div>
                 <Input className = 'buy' placeholder = {inputState} />
-                <Selector value = {selected} setValue = {setSelected} options = {[buyInputPlaceholder, 'Buy in $']} />
+                <Selector value = {selectedPurchase} setValue = {setSelectedPurchase} options = {[buyInputPlaceholder, 'Buy in $']} />
                 <Button text = 'Submit' />
             </div>
         </div>

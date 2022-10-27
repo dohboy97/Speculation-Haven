@@ -1,4 +1,13 @@
 function PortfolioPage (){
+
+    async function get(){
+        const res = await fetch('/portfolio')
+            
+        const data = await res.json()
+        console.log(data)
+    }
+    get()
+
     return (
         <div>
         <h1>Portfolio</h1>

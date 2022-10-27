@@ -9,12 +9,12 @@ import Selector from '../components/Selector'
 
 function SearchedTicker(props){
     const [selectedPurchase,setSelectedPurchase]=useState('Buy in $')
-    
+    const [addToWatchListButton,setAddToWatchListButton]=useState('Add to Watchlist')
     const [inputState,setInputState]=useState('')
   
     const [watchList,setWatchList] = useState([])
     
-    
+    console.log(props.selectedMarket)
 
     //gets ticker upon button search
     async function buttonSearch (){
@@ -25,12 +25,13 @@ function SearchedTicker(props){
     }
    
    }
-
+   
     async function post(input){
         let alreadyExists = false
         watchList.forEach(el=>{
           if(el.symbol===input){
             alreadyExists=true
+            
           }
         })
   
@@ -60,6 +61,7 @@ function SearchedTicker(props){
 
 
     useEffect(()=>{
+        setAddToWatchListButton('Add to Watchlist')
         async function getWatchList(){
 
     
@@ -80,20 +82,27 @@ function SearchedTicker(props){
     }else{
         setInputState('Quantity')
     }
+    watchList.forEach(el=>{
+       
+        if(el.symbol === props.tickerInput && el.type === props.selectedMarket){
+            console.log(el)
+            setAddToWatchListButton('Already Added to Watchlist')
+        }
+    })
         }
         
-    ,[inputState,selectedPurchase,watchList])
+    ,[inputState,selectedPurchase,watchList,addToWatchListButton,props.tickerInput])
+
+   
 
     //grabs ticker input for fetch
    async function getTicker(){
+      
     let input = document.querySelector('.search').value.toUpperCase()
     props.detectInput(input)
   
     post(input)
    }
-
-   
-    
     
     if(props.tickerFound===true ){
         let buyInputPlaceholder
@@ -104,9 +113,9 @@ function SearchedTicker(props){
        
     return(
         <div>
-            <h2>Ticker: {props.input}</h2>
+            <h2>Ticker: {props.tickerInput}</h2>
             <span>Price:{props.ticker.stock.Price}</span>     
-            <Button handleClick = {buttonSearch} text = 'Add To Watchlist' />
+            <Button handleClick = {buttonSearch} text = {addToWatchListButton} />
             <div>
                 <Input className = 'buy' placeholder = {inputState} />
                 <Selector value = {selectedPurchase} setValue = {setSelectedPurchase} options = {[buyInputPlaceholder, 'Buy in $']} />

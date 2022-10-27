@@ -8,7 +8,7 @@ function Navbar(){
                 <li><Link to = '/watchlist'>Watchlist</Link></li>
                 <li><Link to = '/gainers'>Gainers</Link></li>
                 <li><Link to = '/search'>Search</Link></li>
-                <li><Link to = '/'>Portfolio</Link></li>
+                <li><Link to = '/portfolio'>Portfolio</Link></li>
             </ul>
         </nav>
         </div>

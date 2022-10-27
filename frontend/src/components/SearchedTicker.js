@@ -40,6 +40,7 @@ function SearchedTicker(props){
             <div>
                 <Input className = 'buy' placeholder = {inputState} />
                 <Selector value = {selected} setValue = {setSelected} options = {[buyInputPlaceholder, 'Buy in $']} />
+                <Button text = 'Submit' />
             </div>
         </div>
     )

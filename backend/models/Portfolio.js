@@ -1,10 +1,16 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
+const OwnedTickerSchema = new Schema({
+    symbol:String,
+    price:Number,
+    type:String
+})
+
 const PortfolioSchema = new Schema({
     balance:Number,
-    tickersOwned:Array,
+    ownedTickers:[OwnedTickerSchema]
     
 })
 
-module.exports = mongoose.model('Portfolio', PortfolioSchema)
+module.exports = mongoose.model('Portfolio', PortfolioSchema) 

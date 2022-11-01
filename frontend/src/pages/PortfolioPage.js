@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
-import Button from '../components/Button'
-import Input from '../components/Input'
+import { useState } from 'react'
+
 import Balance from '../components/Balance'
 function PortfolioPage (){
 
@@ -20,7 +19,7 @@ function PortfolioPage (){
     get() 
    
      
-    async function artificialBalance(){
+    async function uploadBalance(){
 
         //CHECK FOR VALID BALANCE INPUT
         let onlyDigits = true
@@ -52,30 +51,32 @@ function PortfolioPage (){
         }
     }
 
-    if(balance==='notSet'){
+    //FOR DEPOSITING AND WITHDRAWING MONEY
+    async function editBalance(){
+        let selected
+
+        if(selected==='deposit'){
+
+        }
+    }
+
+
+    //MAKE BALANCE AND PORTFOLIO BOTH INDIVIDUAL COMPONENTS
+   
 
     
     return (
-        <div>
-            <span>What would you like your starting balance to be?</span>
-            <Input className = 'balance' placeholder = '1234' />
-        < Button handleClick = {artificialBalance} text = 'Submit Balance'/>
-        <Balance />
+       <div>
+       
         <h1>Portfolio</h1>
+        <Balance balance = {balance} setBalance = {setBalance} uploadBalance = {uploadBalance}/>
         <h2>Owned tickers</h2>
-        <p>Avg cost, quantity, total value</p>
-        </div>
-    )
-    }else{
-        return(
-            <div>
-            <h1>Portfolio</h1>
-            <h2>Balance: {balance}</h2>
-            <h2>Owned tickers</h2>
             <p>Avg cost, quantity, total value</p>
-            </div>
-        )
-    }
+        </div>
+    
+    )
+  
+     
 }
 
 export default PortfolioPage

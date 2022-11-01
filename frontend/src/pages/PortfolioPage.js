@@ -76,6 +76,7 @@ function PortfolioPage (){
 
           if(onlyDigits===true){
         if(withdrawOrDeposit==='deposit funds'){
+            //PUT REQUESTS TO DEPOSIT FUNDS
            let newBalance = Number(depositOrWithdraw)+Number(balance)
            const res = await fetch ('/portfolio/editbalance',{
             method:'PUT',
@@ -91,6 +92,7 @@ function PortfolioPage (){
         }else if(withdrawOrDeposit==='withdraw funds'){
             //CHECK TO MAKE SURE THE NEW BALANCE IS >= 0
             let newBalance = Number(balance)-Number(depositOrWithdraw)
+            //PUT REQUEST TO WITHDRAW FUNDS
             if(newBalance>=0){
                 const res = await fetch ('/portfolio/editbalance',{
                     method:'PUT',

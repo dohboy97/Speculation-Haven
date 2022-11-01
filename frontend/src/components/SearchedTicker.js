@@ -64,6 +64,8 @@ function SearchedTicker(props){
     post(input)
     }
 
+   
+
        //USEEFFECT
 
     useEffect(()=>{
@@ -98,11 +100,19 @@ function SearchedTicker(props){
         }
         
     ,[inputState,selectedPurchase,watchList,addToWatchListButton,props.tickerInput,props.selectedMarket])  
+
+    //BUY STOCK FOR PORTFOLIO
+    async function buyTicker(){
+      let symbol = props.tickerInput
+      let price = Number(props.ticker.stock.Price)
+      let type = props.ticker.type
+    }      
+
     
     if(props.tickerFound===true ){
         let buyInputPlaceholder
         props.ticker.type === 'stock' ? buyInputPlaceholder = 'Buy Shares' : buyInputPlaceholder = 'Buy Coins'
-       console.log(inputState)
+       
 
     
        
@@ -114,7 +124,7 @@ function SearchedTicker(props){
             <div>
                 <Input className = 'buy' placeholder = {inputState} />
                 <Selector value = {selectedPurchase} setValue = {setSelectedPurchase} options = {[buyInputPlaceholder, 'Buy in $']} />
-                <Button text = 'Submit'/>
+                <Button handleClick={buyTicker} text = 'Submit'/>
             </div>
         </div>
     )

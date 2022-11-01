@@ -4,6 +4,7 @@ const portfolioController = require('../controllers/portfolio')
 
 
 router.get('/',portfolioController.getPortfolio)
-router.post('/addBalance',portfolioController.addBalance)
+router.post('/addbalance',portfolioController.addBalance)
+router.put('/editbalance',portfolioController.editBalance)
 
-module.exports = router
+module.exports = router 

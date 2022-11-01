@@ -76,13 +76,32 @@ function PortfolioPage (){
 
           if(onlyDigits===true){
         if(withdrawOrDeposit==='deposit funds'){
-           setBalance(Number(depositOrWithdraw)+Number(balance))
+           let newBalance = Number(depositOrWithdraw)+Number(balance)
+           const res = await fetch ('/portfolio/editbalance',{
+            method:'PUT',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+              balance:newBalance
+              
+            })
+        })
+        const data = await res.json()
+        setBalance(data.portfolio[0].balance)
            setError(undefined)
         }else if(withdrawOrDeposit==='withdraw funds'){
             //CHECK TO MAKE SURE THE NEW BALANCE IS >= 0
             let newBalance = Number(balance)-Number(depositOrWithdraw)
             if(newBalance>=0){
-                setBalance(newBalance)
+                const res = await fetch ('/portfolio/editbalance',{
+                    method:'PUT',
+                    headers: {'Content-type': 'application/json'},
+                    body: JSON.stringify({
+                      balance:newBalance
+                      
+                    })
+                })
+                const data = await res.json()
+                setBalance(data.portfolio[0].balance)
                 setError(undefined)
             }else{
                 setError('Balance cannot be less than 0')

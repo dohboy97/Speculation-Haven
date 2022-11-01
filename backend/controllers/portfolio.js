@@ -25,5 +25,17 @@ module.exports = {
         }catch(err){
             console.log(err)
         }
+    },
+    editBalance:async(req,res)=>{
+        try{
+            await Portfolio.findOneAndUpdate({
+                balance:req.body.balance,
+                ownedTickers:req.body.ownedTickers
+            })
+            const portfolio = await Portfolio.find()
+            res.json({portfolio:portfolio})
+        }catch(err){
+            console.log(err)
+        }
     }
 }

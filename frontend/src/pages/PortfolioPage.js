@@ -17,12 +17,13 @@ function PortfolioPage (){
         
         
     }
-    get() 
+    // get() 
    
+  
      
     async function uploadBalance(){
 
-        //CHECK FOR VALID BALANCE INPUT
+        // CHECK FOR VALID BALANCE INPUT
         let onlyDigits = true
        let balanceInput = document.querySelector('.balance').value
        let digits = [0,1,2,3,4,5,6,7,8,9]
@@ -35,6 +36,7 @@ function PortfolioPage (){
         if(balanceInput.length<1){
             onlyDigits=false
         }
+   
 
         if(onlyDigits === true){
         const res = await fetch ('/portfolio/addbalance',{
@@ -56,12 +58,28 @@ function PortfolioPage (){
 
     //FOR DEPOSITING AND WITHDRAWING MONEY
     async function editBalance(){
-        let selected = document.querySelector('.editBalance').value
+       
+         // CHECK FOR VALID BALANCE INPUT
+         let onlyDigits = true
+         let depositOrWithdraw = document.querySelector('.editBalance').value
+         let digits = [0,1,2,3,4,5,6,7,8,9]
+          let arrToCheckforNonNums = depositOrWithdraw.split('')
+          arrToCheckforNonNums.forEach(el=>{
+              if(digits.includes(Number(el))===false){
+                  onlyDigits = false
+              }
+          })
+          if(depositOrWithdraw.length<1){
+              onlyDigits=false
+          }
 
+
+          if(onlyDigits===true){
         if(withdrawOrDeposit==='deposit funds'){
-            console.log(balance+100)
-        }else if(withdrawOrDeposit==='withdraw'){
-            setBalance(balance+0)
+           setBalance(Number(depositOrWithdraw)+Number(balance))
+        }else if(withdrawOrDeposit==='withdraw funds'){
+            setBalance(Number(balance)-Number(depositOrWithdraw))
+        }
         }
     }
 

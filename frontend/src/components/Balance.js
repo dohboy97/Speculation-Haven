@@ -14,7 +14,7 @@ function Balance(props){
        
         </div>
         )
-    }else if(props.balance>0){
+    }else if(props.balance>=0){
     return(
         <div>
             <h2>Balance: ${props.balance}</h2>
@@ -22,6 +22,7 @@ function Balance(props){
             
             <Input className = 'editBalance' placeholder = 'Amount $'/>
             <Button handleClick = {props.editBalance} text = 'Submit'/>
+            <Error error={props.error} />
         </div>
     )
 }

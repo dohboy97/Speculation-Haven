@@ -1,6 +1,5 @@
 function Selector(props){
-    console.log(props.value)
-    
+  
     return(
         <div>
             <select onChange={e=>props.setValue(e.target.value)}>

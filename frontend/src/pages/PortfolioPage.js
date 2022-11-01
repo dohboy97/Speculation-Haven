@@ -17,7 +17,7 @@ function PortfolioPage (){
         
         
     }
-    // get() 
+    get() 
    
   
      
@@ -77,9 +77,19 @@ function PortfolioPage (){
           if(onlyDigits===true){
         if(withdrawOrDeposit==='deposit funds'){
            setBalance(Number(depositOrWithdraw)+Number(balance))
+           setError(undefined)
         }else if(withdrawOrDeposit==='withdraw funds'){
-            setBalance(Number(balance)-Number(depositOrWithdraw))
+            //CHECK TO MAKE SURE THE NEW BALANCE IS >= 0
+            let newBalance = Number(balance)-Number(depositOrWithdraw)
+            if(newBalance>=0){
+                setBalance(newBalance)
+                setError(undefined)
+            }else{
+                setError('Balance cannot be less than 0')
+            }
         }
+        }else{
+            setError('Please enter a valid number, for example 123456')
         }
     }
 

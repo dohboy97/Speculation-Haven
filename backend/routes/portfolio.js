@@ -7,4 +7,7 @@ router.get('/',portfolioController.getPortfolio)
 router.post('/addbalance',portfolioController.addBalance)
 router.put('/editbalance',portfolioController.editBalance)
 
-module.exports = router 
+router.put('/buyorsellticker',portfolioController.buyOrSellTicker)
+
+
+module.exports = router  

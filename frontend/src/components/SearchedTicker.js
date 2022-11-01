@@ -112,10 +112,6 @@ function SearchedTicker(props){
     if(props.tickerFound===true ){
         let buyInputPlaceholder
         props.ticker.type === 'stock' ? buyInputPlaceholder = 'Buy Shares' : buyInputPlaceholder = 'Buy Coins'
-       
-
-    
-       
     return(
         <div>
             <h2>Ticker: {props.tickerInput}</h2>

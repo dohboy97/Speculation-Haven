@@ -12,7 +12,7 @@ function PortfolioPage (){
         const res = await fetch('/portfolio')
             
         const data = await res.json()
-        data.portfolio[0] === undefined ? setBalance(undefined):setBalance(data.portfolio[0].balance)
+        data.portfolio[0] === undefined ? setBalance('notSet'):setBalance(data.portfolio[0].balance)
 
         
         
@@ -52,7 +52,7 @@ function PortfolioPage (){
         }
     }
 
-    // if(balance===undefined){
+    if(balance==='notSet'){
 
     
     return (
@@ -66,16 +66,16 @@ function PortfolioPage (){
         <p>Avg cost, quantity, total value</p>
         </div>
     )
-    // )}else{
-    //     return(
-    //         <div>
-    //         <h1>Portfolio</h1>
-    //         <h2>Balance: {balance}</h2>
-    //         <h2>Owned tickers</h2>
-    //         <p>Avg cost, quantity, total value</p>
-    //         </div>
-    //     )
-    // }
+    }else{
+        return(
+            <div>
+            <h1>Portfolio</h1>
+            <h2>Balance: {balance}</h2>
+            <h2>Owned tickers</h2>
+            <p>Avg cost, quantity, total value</p>
+            </div>
+        )
+    }
 }
 
 export default PortfolioPage

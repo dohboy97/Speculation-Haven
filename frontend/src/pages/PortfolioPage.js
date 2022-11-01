@@ -5,6 +5,7 @@ function PortfolioPage (){
 
     const [balance,setBalance] = useState()
     const [error,setError]=useState('')
+    const [withdrawOrDeposit,setWithdrawOrDeposit]=useState('deposit funds')
     
 
     async function get(){
@@ -55,14 +56,17 @@ function PortfolioPage (){
 
     //FOR DEPOSITING AND WITHDRAWING MONEY
     async function editBalance(){
-        let selected
+        let selected = document.querySelector('.editBalance').value
 
-        if(selected==='deposit'){
-
+        if(withdrawOrDeposit==='deposit funds'){
+            setBalance(balance+0)
+            console.log('hi')
+        }else if(withdrawOrDeposit==='withdraw'){
+            setBalance(balance+0)
         }
     }
 
-
+   
     //MAKE BALANCE AND PORTFOLIO BOTH INDIVIDUAL COMPONENTS
    
 
@@ -71,7 +75,7 @@ function PortfolioPage (){
        <div>
        
         <h1>Portfolio</h1>
-        <Balance balance = {balance} setBalance = {setBalance} uploadBalance = {uploadBalance} error = {error} />
+        <Balance balance = {balance} setBalance = {setBalance} uploadBalance = {uploadBalance} error = {error} setWithdrawOrDeposit = {setWithdrawOrDeposit} withdrawOrDeposit = {withdrawOrDeposit} editBalance = {editBalance}/>
         
         <h2>Owned tickers</h2>
             <p>Avg cost, quantity, total value</p>

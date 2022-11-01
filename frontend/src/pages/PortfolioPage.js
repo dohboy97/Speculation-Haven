@@ -46,8 +46,10 @@ function PortfolioPage (){
         })
         const data = await res.json()
         setBalance(data.portfolio[0].balance)
+        setError(undefined)
         }else{
             setError('Please enter a valid number, for example 123456')
+           
         }
     }
 
@@ -69,7 +71,8 @@ function PortfolioPage (){
        <div>
        
         <h1>Portfolio</h1>
-        <Balance balance = {balance} setBalance = {setBalance} uploadBalance = {uploadBalance}/>
+        <Balance balance = {balance} setBalance = {setBalance} uploadBalance = {uploadBalance} error = {error} />
+        
         <h2>Owned tickers</h2>
             <p>Avg cost, quantity, total value</p>
         </div>

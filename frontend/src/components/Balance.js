@@ -19,7 +19,9 @@ function Balance(props){
         <div>
             <h2>Balance: ${props.balance}</h2>
             <Selector options = {['Deposit Funds', 'Withdraw Funds']} value = {props.withdrawOrDeposit} setValue = {props.setWithdrawOrDeposit}/>
+            
             <Input className = 'editBalance' placeholder = 'Amount'/>
+            <Button handleClick = {props.editBalance} text = 'Submit'/>
         </div>
     )
 }

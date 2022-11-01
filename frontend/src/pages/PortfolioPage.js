@@ -59,8 +59,7 @@ function PortfolioPage (){
         let selected = document.querySelector('.editBalance').value
 
         if(withdrawOrDeposit==='deposit funds'){
-            setBalance(balance+0)
-            console.log('hi')
+            console.log(balance+100)
         }else if(withdrawOrDeposit==='withdraw'){
             setBalance(balance+0)
         }

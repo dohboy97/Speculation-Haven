@@ -41,21 +41,21 @@ module.exports = {
     },
     //USER BUYS A TICKER; PUT REQ BECAUSE OWNED TICKER ARR WILL ALREADY EXIST ONCE BALANCE IS CREATED
     buyOrSellTicker:async(req,res)=>{
-        console.log('hi')
+       
         try{
           let currentPort = await Portfolio.find()
             
-          
-            await Portfolio.findOneAndUpdate({
-               ownedTickers:[...currentPort[0].ownedTickers,{
-                symbol:'AAPL',
-                price:168,
-                type:'stock',
-                dollarAmount:1000,
-                shares:9
-               }]
+          console.log(req.body)
+            // await Portfolio.findOneAndUpdate({
+            //    ownedTickers:[...currentPort[0].ownedTickers,{
+            //     symbol:req.body.symbol,
+            //     price:req.body.price,
+            //     type:req.body.type,
+            //     dollarAmount:req.body.dollarAmount,
+            //     shares:req.body.shares
+            //    }]
                 
-            })
+            // })
             const portfolio = await Portfolio.find()
             res.json({portfolio:portfolio})
         }catch(err){

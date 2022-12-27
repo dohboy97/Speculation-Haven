@@ -46,16 +46,16 @@ module.exports = {
           let currentPort = await Portfolio.find()
             
           console.log(req.body)
-            // await Portfolio.findOneAndUpdate({
-            //    ownedTickers:[...currentPort[0].ownedTickers,{
-            //     symbol:req.body.symbol,
-            //     price:req.body.price,
-            //     type:req.body.type,
-            //     dollarAmount:req.body.dollarAmount,
-            //     shares:req.body.shares
-            //    }]
+            await Portfolio.findOneAndUpdate({
+               ownedTickers:[...currentPort[0].ownedTickers,{
+                symbol:req.body.symbol,
+                price:req.body.price,
+                type:req.body.type,
+                dollarAmount:req.body.dollarAmount,
+                shares:req.body.shares
+               }]
                 
-            // })
+            })
             const portfolio = await Portfolio.find()
             res.json({portfolio:portfolio})
         }catch(err){

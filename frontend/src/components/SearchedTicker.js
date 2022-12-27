@@ -13,6 +13,7 @@ function SearchedTicker(props){
     const [inputState,setInputState]=useState('')
   
     const [watchList,setWatchList] = useState([])
+    const [input, setInput] = useState(0)
     
 
 
@@ -99,13 +100,29 @@ function SearchedTicker(props){
         })
         }
         
-    ,[inputState,selectedPurchase,watchList,addToWatchListButton,props.tickerInput,props.selectedMarket])  
+    ,[inputState,input,selectedPurchase,watchList,addToWatchListButton,props.tickerInput,props.selectedMarket])  
 
     //BUY STOCK FOR PORTFOLIO
     async function buyTicker(){
       let symbol = props.tickerInput
       let price = Number(props.ticker.stock.Price)
       let type = props.ticker.type
+      let dollarAmount = inputState === 'Dollar Amount' ? input : input*price
+      let shares = inputState === 'Quantity' ? input : input/price
+
+      const res = await fetch(`/portfolio/buyOrSellTicker`,{
+        method:'PUT',
+        headers: {'Content-type': 'application/json'},
+        body: JSON.stringify({
+          type,
+          symbol,
+          dollarAmount,
+          shares,
+          price 
+        })
+    })
+    const data = await res.json()
+    console.log(data)
     }      
 
     
@@ -118,7 +135,7 @@ function SearchedTicker(props){
             <span>Price:{props.ticker.stock.Price}</span>     
             <Button handleClick = {buttonSearch} text = {addToWatchListButton} />
             <div>
-                <Input className = 'buy' placeholder = {inputState} />
+                <Input className = 'buy' placeholder = {inputState} setInput = {setInput} />
                 <Selector value = {selectedPurchase} setValue = {setSelectedPurchase} options = {[buyInputPlaceholder, 'Buy in $']} />
                 <Button handleClick={buyTicker} text = 'Submit'/>
             </div>

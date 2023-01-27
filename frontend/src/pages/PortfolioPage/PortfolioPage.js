@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import Balance from '../components/Balance'
+import Balance from '../../components/Balance'
 function PortfolioPage (){
 
     const [balance,setBalance] = useState()

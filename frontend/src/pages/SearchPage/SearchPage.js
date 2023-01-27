@@ -1,8 +1,8 @@
 import { useState} from 'react'
-import Input from '../components/Input'
-import Button from '../components/Button'
-import Selector from '../components/Selector'
-import SearchedTicker from '../components/SearchedTicker'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
+import Selector from '../../components/Selector'
+import SearchedTicker from '../../components/SearchedTicker'
 
 
 function SearchPage (){

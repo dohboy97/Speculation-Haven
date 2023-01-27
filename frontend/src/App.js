@@ -2,10 +2,10 @@
 import { Route, Routes } from 'react-router-dom'
 
 import Header from './components/Header';
-import SearchPage from './pages/SearchPage'
-import GainersPage from './pages/GainersPage'
-import WatchListPage from './pages/WatchListPage';
-import PortfolioPage from './pages/PortfolioPage'
+import SearchPage from './pages/SearchPage/SearchPage'
+import GainersPage from './pages/GainersPage/GainersPage'
+import WatchListPage from './pages/WatchListPage/WatchListPage';
+import PortfolioPage from './pages/PortfolioPage/PortfolioPage'
 
  
 function App() {
@@ -20,7 +20,7 @@ function App() {
       <Route path = '/search' element = {<SearchPage />}/>
       <Route path = '/gainers' element = {<GainersPage />} />
       <Route path = '/portfolio' element = {<PortfolioPage />} />
-      <Route path = '*' element = {<h1>Not found</h1>} />
+      <Route path = '*' element = {<h1>Page Not found</h1>} />
     </Routes>
 
     </>

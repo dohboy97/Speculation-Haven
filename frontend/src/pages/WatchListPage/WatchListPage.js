@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 
 
-import Input from '../components/Input'
-import Button from '../components/Button'
-import Watchlist from '../components/Watchlist'
-import Selector from '../components/Selector'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
+import Watchlist from '../../components/Watchlist'
+import Selector from '../../components/Selector'
 
 function WatchListPage (){
   

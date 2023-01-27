@@ -1,4 +1,4 @@
-function Button (props){
+function Button (handleClick,text){
 
 
     
@@ -6,7 +6,7 @@ function Button (props){
 
     return (
         <div>
-            <button onClick = {props.handleClick}>{props.text}</button>
+            <button onClick = {handleClick}>{text}</button>
             <p></p>
         </div>
     )

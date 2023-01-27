@@ -1,10 +1,10 @@
-function Error(props){
-    if(props.error!==undefined){
+function Error(error){
+    if(error!==undefined){
 
     
     return(
         <div>
-            <span>{props.error}</span>
+            <span>{error}</span>
         </div>
     )
     }

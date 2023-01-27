@@ -1,11 +1,11 @@
 
-function NotFound(props){
+function NotFound(found,text){
    
-    if(props.found === false){
+    if(found === false){
         console.log(props)
-    if(props.text.length>0){return(
+    if(text.length>0){return(
         <div>
-            <p>Sorry but {props.text} was not found. Please try again.</p>
+            <p>Sorry but {text} was not found. Please try again.</p>
         </div>
     )
     }else{

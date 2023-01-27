@@ -1,10 +1,10 @@
-function Search (props){
+function Search (className,placeholder,setInput){
     const handleType = (e) => {
-        props.setInput(e.target.value)
+        setInput(e.target.value)
     }
     return(
         <div>
-            <input className={props.className} placeholder = {props.placeholder} onChange = {props.setInput ? handleType : null}></input>
+            <input className={className} placeholder = {placeholder} onChange = {setInput ? handleType : null}></input>
         </div>
     )
 }

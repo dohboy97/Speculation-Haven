@@ -2,27 +2,28 @@ import Selector from '../components/Selector'
 import Input from '../components/Input'
 import Button from './Button'
 import Error from '../components/Error'
-function Balance(props){
+function Balance(balance,
+    uploadBalance,error,withdrawOrDeposit,setWithdrawOrDeposit,editBalance){
     
-    if(props.balance==='notSet'){
+    if(balance==='notSet'){
         return(
             <div>
             <span>What would you like your starting balance to be?</span>
             <Input className = 'balance' placeholder = '1234' />
-        < Button handleClick = {props.uploadBalance} text = 'Submit Balance'/>
-            <Error error = {props.error}/>
+        < Button handleClick = {uploadBalance} text = 'Submit Balance'/>
+            <Error error = {error}/>
        
         </div>
         )
     }else if(props.balance>=0){
     return(
         <div>
-            <h2>Balance: ${props.balance}</h2>
-            <Selector options = {['Deposit Funds', 'Withdraw Funds']} value = {props.withdrawOrDeposit} setValue = {props.setWithdrawOrDeposit}/>
+            <h2>Balance: ${balance}</h2>
+            <Selector options = {['Deposit Funds', 'Withdraw Funds']} value = {withdrawOrDeposit} setValue = {setWithdrawOrDeposit}/>
             
             <Input className = 'editBalance' placeholder = 'Amount $'/>
-            <Button handleClick = {props.editBalance} text = 'Submit'/>
-            <Error error={props.error} />
+            <Button handleClick = {editBalance} text = 'Submit'/>
+            <Error error={error} />
         </div>
     )
 }

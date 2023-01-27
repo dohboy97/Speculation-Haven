@@ -1,6 +1,6 @@
 import Navbar from './Navbar.js'
 
-function Header (props){
+function Header (){
 
  
 return(

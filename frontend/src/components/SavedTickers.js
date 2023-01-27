@@ -1,18 +1,15 @@
-function SavedTickers(props){
+function SavedTickers(ticker,state,setState,index){
     
     
-    let removeThisState = props.setState 
-    let currentState = props.state
-    let index = props.index
     
     return(
         <div>
-            <span>{`Ticker ${props.ticker.symbol} `}</span>
-            <span>{`Last Price $ ${props.ticker.price}`}</span>
+            <span>{`Ticker ${ticker.symbol} `}</span>
+            <span>{`Last Price $ ${ticker.price}`}</span>
            
             <button onClick ={async function() {
-                removeThisState(currentState.filter(el=> el!==props.ticker))
-                await fetch(`/watchlist/deleteticker/${props.ticker._id}`,{
+                setState(state.filter(el=> el!==ticker))
+                await fetch(`/watchlist/deleteticker/${ticker._id}`,{
                     method:'DELETE',
                 })
                 console.log('ticker deleted')

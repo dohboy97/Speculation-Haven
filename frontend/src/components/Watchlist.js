@@ -2,36 +2,38 @@ import SavedTickers from './SavedTickers'
 import NotFound from './NotFound'
 
 
-function Watchlist(props){
+function Watchlist(tickers,tickerFound,tickerInput,setState,){
    
    
-    console.log(props.tickers)
     //separation of stocks and crpyto 
-    if(props.tickerFound === true|| props.tickerFound===false){
+    if(tickerFound === true){
     return(
-        <div>
-            
-            <NotFound found = {props.tickerFound} text = {props.tickerInput}/>
-            
-            
+        <div> 
             <h2>Stocks</h2>
-            {props.tickers.map((el,index) =>{
+            {tickers.map((el,index) =>{
                 if(el.type==='stock'){
-                return <SavedTickers key = {props.tickers[index]._id} ticker = {el} state = {props.tickers} setState = {props.setState} index={index}/>
+                return <SavedTickers key = {tickers[index]._id} ticker = {el} state = {tickers} setState = {setState} index={index}/>
                 }else{
-                    return ''
+                    return null
                 }
             })}
             <h2>Crypto</h2>
-            {props.tickers.map((el,index) =>{
+            {tickers.map((el,index) =>{
                 if(el.type==='crypto'){
-                return <SavedTickers key = {props.tickers[index]._id} ticker = {el} state = {props.tickers} setState = {props.setState} index={index}/>
+                return <SavedTickers key = {tickers[index]._id} ticker = {el} state = {tickers} setState = {setState} index={index}/>
                 }else{
-                    return ''
+                    return null
                 }
             })}
         </div>
     )
+    }else{
+        return (
+            <div>
+            
+            <NotFound found = {tickerFound} text = {tickerInput}/>
+            </div>
+        )
     }
 }
 

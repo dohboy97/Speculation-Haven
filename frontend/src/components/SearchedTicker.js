@@ -7,7 +7,7 @@ import Button from '../components/Button'
 import Input from '../components/Input'
 import Selector from '../components/Selector'
 
-function SearchedTicker(props){
+function SearchedTicker(setTickerFound,selectedMarket,detectInput,tickerInput,tickerFound,ticker){
     const [selectedPurchase,setSelectedPurchase]=useState('Buy in $')
     const [addToWatchListButton,setAddToWatchListButton]=useState('Add to Watchlist')
     const [inputState,setInputState]=useState('')
@@ -37,19 +37,19 @@ function SearchedTicker(props){
       //only fetch new ticker if input doesnt exist in object
   
       if(alreadyExists===false){
-        props.setTickerFound(true)
+        setTickerFound(true)
         console.log('tttttt test')
         const res = await fetch(`/watchlist/addticker/${input}`, {
           method: "POST",
           headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-              type:props.selectedMarket,
+              type:selectedMarket,
               index:watchList.length
             })
         })
         const data = await res.json()
         if(data.ticker === false){
-           props.setTickerFound (false)
+           setTickerFound (false)
         }else{
         setWatchList(data.stonks)
         }
@@ -60,7 +60,7 @@ function SearchedTicker(props){
     async function getTicker(){
       
     let input = document.querySelector('.search').value.toUpperCase()
-    props.detectInput(input)
+    detectInput(input)
   
     post(input)
     }
@@ -93,20 +93,20 @@ function SearchedTicker(props){
         }
         watchList.forEach(el=>{
        
-        if(el.symbol === props.tickerInput && el.type === props.selectedMarket){
+        if(el.symbol === tickerInput && el.type === selectedMarket){
             console.log(el)
             setAddToWatchListButton('Already Added to Watchlist')
         }
         })
         }
         
-    ,[inputState,input,selectedPurchase,watchList,addToWatchListButton,props.tickerInput,props.selectedMarket])  
+    ,[inputState,input,selectedPurchase,watchList,addToWatchListButton,tickerInput,selectedMarket])  
 
     //BUY STOCK FOR PORTFOLIO
     async function buyTicker(){
-      let symbol = props.tickerInput
-      let price = Number(props.ticker.stock.Price)
-      let type = props.ticker.type
+      let symbol = tickerInput
+      let price = Number(ticker.stock.Price)
+      let type = ticker.type
       let dollarAmount = inputState === 'Dollar Amount' ? input : input*price
       let shares = inputState === 'Quantity' ? input : input/price
 
@@ -126,13 +126,13 @@ function SearchedTicker(props){
     }      
 
     
-    if(props.tickerFound===true ){
+    if(tickerFound===true ){
         let buyInputPlaceholder
-        props.ticker.type === 'stock' ? buyInputPlaceholder = 'Buy Shares' : buyInputPlaceholder = 'Buy Coins'
+        ticker.type === 'stock' ? buyInputPlaceholder = 'Buy Shares' : buyInputPlaceholder = 'Buy Coins'
     return(
         <div>
-            <h2>Ticker: {props.tickerInput}</h2>
-            <span>Price:{props.ticker.stock.Price}</span>     
+            <h2>Ticker: {tickerInput}</h2>
+            <span>Price:{ticker.stock.Price}</span>     
             <Button handleClick = {buttonSearch} text = {addToWatchListButton} />
             <div>
                 <Input className = 'buy' placeholder = {inputState} setInput = {setInput} />
@@ -141,10 +141,10 @@ function SearchedTicker(props){
             </div>
         </div>
     )
-    }else if(props.tickerFound===false){
+    }else if(tickerFound===false){
         return(
             <div>
-                <NotFound found = {props.tickerFound} text = {props.tickerInput}/>
+                <NotFound found = {tickerFound} text = {tickerInput}/>
                 
             </div>
         )

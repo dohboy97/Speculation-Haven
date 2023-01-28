@@ -15,7 +15,7 @@ function Balance(balance,
        
         </div>
         )
-    }else if(props.balance>=0){
+    }else if(balance>=0){
     return(
         <div>
             <h2>Balance: ${balance}</h2>

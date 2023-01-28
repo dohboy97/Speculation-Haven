@@ -18,7 +18,7 @@ function SearchPage (){
         let input = document.querySelector('.search').value.toUpperCase()
         detectInput(input)
         setTickerFound()
-        getTickerFromServer(input)
+        getTickerFromServer(input,selectedMarket)
        
        }
 
@@ -46,7 +46,7 @@ function SearchPage (){
        }
 
     return (
-        <div>
+        <div> 
         <h1>Search</h1>
         
         <Selector value = {selectedMarket} setValue = {setSelectedMarket} options = {['Stock','Crypto']}/>

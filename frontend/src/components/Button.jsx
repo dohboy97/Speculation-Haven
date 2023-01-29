@@ -1,4 +1,4 @@
-function Button (handleClick,text){
+function Button ({handleClick,text}){
 
 
     

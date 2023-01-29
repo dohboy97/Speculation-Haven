@@ -2,12 +2,12 @@ import { useEffect, useState} from 'react'
 
 
 
-import NotFound from '../components/NotFound'
-import Button from '../components/Button'
-import Input from '../components/Input'
-import Selector from '../components/Selector'
+import NotFound from './NotFound'
+import Button from './Button'
+import Input from './Input'
+import Selector from './Selector'
 
-function SearchedTicker(setTickerFound,selectedMarket,detectInput,tickerInput,tickerFound,ticker){
+function SearchedTicker({setTickerFound,selectedMarket,detectInput,tickerInput,tickerFound,ticker}){
     const [selectedPurchase,setSelectedPurchase]=useState('Buy in $')
     const [addToWatchListButton,setAddToWatchListButton]=useState('Add to Watchlist')
     const [inputState,setInputState]=useState('')

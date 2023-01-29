@@ -1,5 +1,5 @@
-function Selector(setValue,value,options){
-  
+function Selector({setValue,value,options}){
+  console.log(options)
     return(
         <div>
             <select onChange={e=>setValue(e.target.value)}>

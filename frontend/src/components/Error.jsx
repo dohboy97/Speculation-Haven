@@ -1,4 +1,4 @@
-function Error(error){
+function Error({error}){
     if(error!==undefined){
 
     

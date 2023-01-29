@@ -1,9 +1,9 @@
-import Selector from '../components/Selector'
-import Input from '../components/Input'
+import Selector from './Selector'
+import Input from './Input'
 import Button from './Button'
-import Error from '../components/Error'
-function Balance(balance,
-    uploadBalance,error,withdrawOrDeposit,setWithdrawOrDeposit,editBalance){
+import Error from './Error'
+function Balance({balance,
+    uploadBalance,error,withdrawOrDeposit,setWithdrawOrDeposit,editBalance}){
     
     if(balance==='notSet'){
         return(

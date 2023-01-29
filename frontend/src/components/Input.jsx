@@ -1,4 +1,4 @@
-function Search (className,placeholder,setInput){
+function Search ({className,placeholder,setInput}){
     const handleType = (e) => {
         setInput(e.target.value)
     }

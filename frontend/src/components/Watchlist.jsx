@@ -2,7 +2,7 @@ import SavedTickers from './SavedTickers'
 import NotFound from './NotFound'
 
 
-function Watchlist(tickers,tickerFound,tickerInput,setState,){
+function Watchlist({tickers,tickerFound,tickerInput,setState}){
    
    
     //separation of stocks and crpyto 

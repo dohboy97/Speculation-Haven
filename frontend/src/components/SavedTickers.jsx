@@ -1,4 +1,4 @@
-function SavedTickers(ticker,state,setState,index){
+function SavedTickers({ticker,state,setState,index}){
     
     
     

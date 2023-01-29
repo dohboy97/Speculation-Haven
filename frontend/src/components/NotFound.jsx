@@ -1,5 +1,5 @@
 
-function NotFound(found,text){
+function NotFound({found,text}){
    
     if(found === false){
     if(text.length>0){return(

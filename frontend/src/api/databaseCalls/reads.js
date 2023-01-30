@@ -1,4 +1,5 @@
-async function getTickerFromServer(input,selectedMarket){
+export default async function getTickerFromServer({input,selectedMarket}){
+console.log(selectedMarket)
       if(input){
           const res = await fetch(`/search/${input}`,{
               method:'POST',
@@ -9,6 +10,7 @@ async function getTickerFromServer(input,selectedMarket){
               })
           })
           const data = await res.json()
+
          return data
       }
   }

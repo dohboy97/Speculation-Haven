@@ -3,6 +3,7 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import Selector from '../../components/Selector'
 import SearchedTicker from '../../components/SearchedTicker'
+import getTickerFromServer from '../../api/databaseCalls/reads'
 
 
 function SearchPage (){
@@ -18,32 +19,14 @@ function SearchPage (){
         let input = document.querySelector('.search').value.toUpperCase()
         detectInput(input)
         setTickerFound()
-        getTickerFromServer(input,selectedMarket)
-       
+        const data = await getTickerFromServer({input:input,selectedMarket:selectedMarket})
+        data==='error' ? setTickerFound(false):setTickerFound(true)
+        setTicker(data)
+        
+
        }
 
-       //posts ticker to server through restful api to be able to temporarily set ticker state to whatever user queries
-       async function getTickerFromServer(input){
-         console.log('test',selectedMarket)
-           if(input){
-               const res = await fetch(`/search/${input}`,{
-                   method:'POST',
-                   headers: {'Content-type': 'application/json'},
-                   body: JSON.stringify({
-                     type:selectedMarket,
-                     
-                   })
-               })
-               const data = await res.json()
-               if(data === 'error'){
-                   setTickerFound(false)
-               }else{
-                   setTickerFound(true)
-               }
-               console.log(data)
-               setTicker(data)
-           }
-       }
+
 
     return (
         <div> 

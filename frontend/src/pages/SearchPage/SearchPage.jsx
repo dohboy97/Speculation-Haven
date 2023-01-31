@@ -1,10 +1,8 @@
 import { useState } from "react";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
 import SearchedTicker from "../../components/SearchedTicker";
 import { getTickerFromServer } from "../../api";
 
-import { Box, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
+import { Box, MenuItem, Select, TextField, Button } from "@mui/material";
 function SearchPage() {
   //detect and use search input to then take to server api and retrieve ticker info
   const [tickerFound, setTickerFound] = useState();
@@ -13,15 +11,14 @@ function SearchPage() {
   const [ticker, setTicker] = useState();
 
   //grabs ticker input for fetch
-  async function getTicker() {
-    let input = document.querySelector(".search").value.toUpperCase();
-    setTickerInput(input);
+  async function getTickerInfo() {
     setTickerFound();
     const data = await getTickerFromServer({
-      input: input,
+      input: tickerInput,
       selectedMarket: selectedMarket,
     });
     data === "error" ? setTickerFound(false) : setTickerFound(true);
+    console.log(data);
     setTicker(data);
   }
 
@@ -29,20 +26,23 @@ function SearchPage() {
     setSelectedMarket(event.target.value);
   };
 
+  const disableButton = tickerInput.length < 1;
+
   return (
     <div>
       <h1>Search</h1>
-
-      <Input className="search" placeholder="Ticker Search" />
-
-      <Box sx={{ maxWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel>Market Type</InputLabel>
-          <Select value={selectedMarket} label="Age" onChange={handleChange}>
+      <Box display="flex" sx={{ maxWidth: 500 }}>
+        <TextField
+          label="Ticker Search"
+          onChange={(e) => setTickerInput(e.target.value)}
+          required
+        />
+        <Box>
+          <Select value={selectedMarket} onChange={handleChange}>
             <MenuItem value={"stock"}>Stock</MenuItem>
             <MenuItem value={"crypto"}>Crypto</MenuItem>
           </Select>
-        </FormControl>
+        </Box>
       </Box>
       <SearchedTicker
         ticker={ticker}
@@ -52,7 +52,13 @@ function SearchPage() {
         tickerFound={tickerFound}
         selectedMarket={selectedMarket}
       />
-      <Button handleClick={getTicker} text="Search" />
+      <Button
+        handleClick={getTickerInfo}
+        variant="contained"
+        disabled={disableButton}
+      >
+        Search
+      </Button>
     </div>
   );
 }

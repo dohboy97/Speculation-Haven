@@ -1,19 +1,21 @@
-import {Link} from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 
-function Navbar(){
-    return (
-        <div>
-            <nav>
-            <ul>
-                <li><Link to = '/watchlist'>Watchlist</Link></li>
-                <li><Link to = '/gainers'>Gainers</Link></li>
-                <li><Link to = '/search'>Search</Link></li>
-                <li><Link to = '/portfolio'>Portfolio</Link></li>
-            </ul>
-        </nav>
-        <h3>Balance</h3>
-        </div>
-    )
+import { AppBar, MenuItem, Typography, Box } from "@mui/material";
+
+function Navbar() {
+  const pages = ["watchlist", "portfolio", "search", "gainers"];
+  const navigate = useNavigate();
+  return (
+    <AppBar position="static">
+      <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+        {pages.map((page) => (
+          <MenuItem key={page} onClick={() => navigate(`/${page}`)}>
+            <Typography textAlign="center">{page}</Typography>
+          </MenuItem>
+        ))}
+      </Box>
+    </AppBar>
+  );
 }
 
-export default Navbar
+export default Navbar;

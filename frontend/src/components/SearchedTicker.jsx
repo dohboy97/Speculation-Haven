@@ -1,75 +1,46 @@
 import { useEffect, useState } from "react";
 
 import NotFound from "./NotFound";
-
+import { addToWatchList, buyTicker } from "../api";
 import { Box, MenuItem, Select, TextField, Button } from "@mui/material";
 
 function SearchedTicker({
   setTickerFound,
   selectedMarket,
-  detectInput,
   tickerInput,
   tickerFound,
   ticker,
 }) {
   const [selectedPurchaseMetric, setSelectedPurchaseMetric] =
     useState("Buy in $");
-  const [addToWatchListButton, setAddToWatchListButton] =
-    useState("Add to Watchlist");
+  const [isAddedToWatchList, setIsAddedToWatchlist] = useState();
 
   const [watchList, setWatchList] = useState([]);
   const [purchaseAmount, setPurchaseAmount] = useState(0);
 
   //gets ticker upon button search
   async function buttonSearch() {
+    setIsAddedToWatchlist(false);
     try {
-      await getTicker();
+      await post(tickerInput);
     } catch (err) {
       console.log(err);
     }
   }
 
   async function post(input) {
-    let alreadyExists = false;
-    watchList.forEach((el) => {
-      if (el.symbol === input) {
-        alreadyExists = true;
-      }
-    });
-
-    //only fetch new ticker if input doesnt exist in object
-
-    if (alreadyExists === false) {
-      setTickerFound(true);
-      const res = await fetch(`/watchlist/addticker/${input}`, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          type: selectedMarket,
-          index: watchList.length,
-        }),
-      });
-      const data = await res.json();
-      if (data.ticker === false) {
-        setTickerFound(false);
-      } else {
-        setWatchList(data.stonks);
-      }
+    const data = await addToWatchList({ input, watchList, selectedMarket });
+    if (data.ticker === false) {
+      setTickerFound(false);
+    } else {
+      setWatchList(data.stonks);
     }
-  }
-
-  //grabs ticker input for fetch
-  async function getTicker() {
-    let input = document.querySelector(".search").value.toUpperCase();
-    detectInput(input);
-
-    post(input);
   }
 
   //USEEFFECT
 
   useEffect(() => {
-    setAddToWatchListButton("Add to Watchlist");
+    setIsAddedToWatchlist(false);
     async function getWatchList() {
       const res = await fetch("/watchlist");
       const data = await res.json();
@@ -82,58 +53,50 @@ function SearchedTicker({
     getWatchList();
 
     watchList.forEach((el) => {
-      if (el.symbol === tickerInput && el.type === selectedMarket) {
-        setAddToWatchListButton("Already Added to Watchlist");
+      if (
+        el.symbol === tickerInput.toUpperCase() &&
+        el.type === selectedMarket
+      ) {
+        setIsAddedToWatchlist(true);
       }
     });
   }, [
     purchaseAmount,
     selectedPurchaseMetric,
     watchList,
-    addToWatchListButton,
+    isAddedToWatchList,
     tickerInput,
     selectedMarket,
   ]);
 
   //BUY STOCK FOR PORTFOLIO
-  async function buyTicker() {
-    const symbol = tickerInput;
-    const price = Number(ticker.stock.Price);
-    const type = ticker.type;
-    const dollarAmount =
-      selectedPurchaseMetric === "buy in $"
-        ? purchaseAmount
-        : purchaseAmount * price;
-    const shares =
-      selectedPurchaseMetric === "buy shares"
-        ? purchaseAmount
-        : purchaseAmount / price;
-    const res = await fetch(`/portfolio/buyOrSellTicker`, {
-      method: "PUT",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        type,
-        symbol,
-        dollarAmount,
-        shares,
-        price,
-      }),
-    });
-    const data = await res.json();
-    console.log(data);
-  }
+  const handlePurchase = buyTicker({
+    tickerInput,
+    ticker,
+    selectedPurchaseMetric,
+    purchaseAmount,
+  });
 
   if (tickerFound === true) {
     const selectorText = ticker.type === "stock" ? "Buy Shares" : "Buy Coins";
+
     const purchaseInputPlaceHolder =
       selectedPurchaseMetric === "buy shares" ? "Quantity" : "Dollar Amount";
+
+    const addToWatchListText = isAddedToWatchList
+      ? "Already Added to Watchlist"
+      : "Add to Watchlist";
     return (
       <Box display="flex" flexDirection="column">
-        <h2>Ticker: {tickerInput}</h2>
+        <h2>Ticker:{tickerInput}</h2>
         <span>Price:{ticker.stock.Price}</span>
         <Box sx={{ height: 50 }}>
-          <Button variant="contained" onClick={buttonSearch}>
-            {addToWatchListButton}
+          <Button
+            variant="contained"
+            onClick={buttonSearch}
+            disabled={isAddedToWatchList}
+          >
+            {addToWatchListText}
           </Button>
         </Box>
         <Box display="flex" sx={{ minWidth: 800 }}>
@@ -152,7 +115,7 @@ function SearchedTicker({
           </Box>
           <Button
             variant="contained"
-            onClick={buyTicker}
+            onClick={handlePurchase}
             disabled={purchaseAmount.length < 1}
           >
             Submit

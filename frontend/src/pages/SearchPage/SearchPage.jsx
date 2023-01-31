@@ -53,7 +53,6 @@ function SearchPage() {
 
       <SearchedTicker
         ticker={ticker}
-        detectInput={setTickerInput}
         tickerInput={tickerInput}
         setTickerFound={setTickerFound}
         tickerFound={tickerFound}

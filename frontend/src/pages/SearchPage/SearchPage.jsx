@@ -18,7 +18,6 @@ function SearchPage() {
       selectedMarket: selectedMarket,
     });
     data === "error" ? setTickerFound(false) : setTickerFound(true);
-    console.log(data);
     setTicker(data);
   }
 
@@ -29,7 +28,7 @@ function SearchPage() {
   const disableButton = tickerInput.length < 1;
 
   return (
-    <div>
+    <Box>
       <h1>Search</h1>
       <Box display="flex" sx={{ maxWidth: 500 }}>
         <TextField
@@ -43,7 +42,15 @@ function SearchPage() {
             <MenuItem value={"crypto"}>Crypto</MenuItem>
           </Select>
         </Box>
+        <Button
+          onClick={getTickerInfo}
+          variant="contained"
+          disabled={disableButton}
+        >
+          Search
+        </Button>
       </Box>
+
       <SearchedTicker
         ticker={ticker}
         detectInput={setTickerInput}
@@ -52,14 +59,7 @@ function SearchPage() {
         tickerFound={tickerFound}
         selectedMarket={selectedMarket}
       />
-      <Button
-        handleClick={getTickerInfo}
-        variant="contained"
-        disabled={disableButton}
-      >
-        Search
-      </Button>
-    </div>
+    </Box>
   );
 }
 

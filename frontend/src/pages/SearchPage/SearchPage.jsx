@@ -2,7 +2,14 @@ import { useState } from "react";
 import SearchedTicker from "../../components/SearchedTicker";
 import { getTickerFromServer } from "../../api";
 
-import { Box, MenuItem, Select, TextField, Button } from "@mui/material";
+import {
+  Box,
+  MenuItem,
+  Select,
+  TextField,
+  Button,
+  Typography,
+} from "@mui/material";
 function SearchPage() {
   //detect and use search input to then take to server api and retrieve ticker info
   const [tickerFound, setTickerFound] = useState();
@@ -19,7 +26,7 @@ function SearchPage() {
     });
     data === "error" ? setTickerFound(false) : setTickerFound(true);
     setTicker(data);
-    setSearchedTicker(tickerInput);
+    setSearchedTicker(tickerInput.toUpperCase());
   }
 
   const handleChange = (event) => {
@@ -30,7 +37,7 @@ function SearchPage() {
 
   return (
     <Box>
-      <h1>Search</h1>
+      <Typography variant="h4">Search</Typography>
       <Box display="flex" sx={{ maxWidth: 500 }}>
         <TextField
           label="Ticker Search"

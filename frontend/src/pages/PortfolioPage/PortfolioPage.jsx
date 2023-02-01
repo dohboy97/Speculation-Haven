@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useState } from "react";
 
 import Balance from "../../components/Balance";
@@ -105,7 +106,7 @@ function PortfolioPage() {
 
   return (
     <div>
-      <h1>Portfolio</h1>
+      <Typography variant="h4">Portfolio</Typography>
       <Balance
         balance={balance}
         setBalance={setBalance}
@@ -115,7 +116,6 @@ function PortfolioPage() {
         withdrawOrDeposit={withdrawOrDeposit}
         editBalance={editBalance}
       />
-
       <h2>Owned tickers</h2>
       <p>Avg cost, quantity, total value</p>
     </div>

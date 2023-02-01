@@ -1,14 +1,15 @@
-import Navbar from '../components/Navbar'
+import { Typography } from "@mui/material";
+import Navbar from "../components/Navbar";
 
-function Header (){
-
- 
-return(
+function Header() {
+  return (
     <header>
-        <h1>Speculation Station</h1>
-        <Navbar />
+      <Typography marginBottom={4} marginTop={4} variant="h2">
+        Speculation Station
+      </Typography>
+      <Navbar />
     </header>
-)
+  );
 }
 
-export default Header
+export default Header;

@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 
 import NotFound from "./NotFound";
 import { addToWatchList, buyTicker } from "../api";
-import { Box, MenuItem, Select, TextField, Button } from "@mui/material";
+import {
+  Box,
+  MenuItem,
+  Select,
+  TextField,
+  Button,
+  Typography,
+} from "@mui/material";
 
 function SearchedTicker({
   setTickerFound,
@@ -86,14 +93,17 @@ function SearchedTicker({
       : "Add to Watchlist";
 
     const displayTickerInfo =
-      searchedTicker.toLowerCase() === tickerInput.toLowerCase();
+      searchedTicker.toLowerCase() === tickerInput.toLowerCase() &&
+      ticker.type === selectedMarket;
 
     return (
       <Box>
         {displayTickerInfo && (
           <Box display="flex" flexDirection="column">
-            <h2>Ticker:{searchedTicker}</h2>
-            <span>Price:{ticker.stock.Price}</span>
+            <Typography variant="h6">{searchedTicker}</Typography>
+            <Typography variant="subtitle1">
+              Price:{ticker.stock.Price}
+            </Typography>
             <Box sx={{ height: 50 }}>
               <Button
                 variant="contained"

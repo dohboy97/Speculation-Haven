@@ -65,14 +65,7 @@ function SearchedTicker({
         setIsAddedToWatchlist(true);
       }
     });
-  }, [
-    purchaseAmount,
-    selectedPurchaseMetric,
-    watchList,
-    isAddedToWatchList,
-    searchedTicker,
-    selectedMarket,
-  ]);
+  }, [searchedTicker, watchList]);
 
   //BUY STOCK FOR PORTFOLIO
   const handlePurchase = buyTicker({

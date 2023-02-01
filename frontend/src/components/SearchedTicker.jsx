@@ -85,41 +85,48 @@ function SearchedTicker({
       ? "Already Added to Watchlist"
       : "Add to Watchlist";
 
+    const displayTickerInfo =
+      searchedTicker.toLowerCase() === tickerInput.toLowerCase();
+
     return (
-      <Box display="flex" flexDirection="column">
-        <h2>Ticker:{searchedTicker}</h2>
-        <span>Price:{ticker.stock.Price}</span>
-        <Box sx={{ height: 50 }}>
-          <Button
-            variant="contained"
-            onClick={buttonSearch}
-            disabled={isAddedToWatchList}
-          >
-            {addToWatchListText}
-          </Button>
-        </Box>
-        <Box display="flex" sx={{ minWidth: 800 }}>
-          <TextField
-            label={purchaseInputPlaceHolder}
-            onChange={(e) => setPurchaseAmount(e.target.value)}
-          />
-          <Box>
-            <Select
-              value={selectedPurchaseMetric}
-              onChange={(e) => setSelectedPurchaseMetric(e.target.value)}
-            >
-              <MenuItem value={selectorText}>{selectorText}</MenuItem>
-              <MenuItem value={"Buy in $"}>Buy in $</MenuItem>
-            </Select>
+      <Box>
+        {displayTickerInfo && (
+          <Box display="flex" flexDirection="column">
+            <h2>Ticker:{searchedTicker}</h2>
+            <span>Price:{ticker.stock.Price}</span>
+            <Box sx={{ height: 50 }}>
+              <Button
+                variant="contained"
+                onClick={buttonSearch}
+                disabled={isAddedToWatchList}
+              >
+                {addToWatchListText}
+              </Button>
+            </Box>
+            <Box display="flex" sx={{ minWidth: 800 }}>
+              <TextField
+                label={purchaseInputPlaceHolder}
+                onChange={(e) => setPurchaseAmount(e.target.value)}
+              />
+              <Box>
+                <Select
+                  value={selectedPurchaseMetric}
+                  onChange={(e) => setSelectedPurchaseMetric(e.target.value)}
+                >
+                  <MenuItem value={selectorText}>{selectorText}</MenuItem>
+                  <MenuItem value={"Buy in $"}>Buy in $</MenuItem>
+                </Select>
+              </Box>
+              <Button
+                variant="contained"
+                onClick={handlePurchase}
+                disabled={purchaseAmount.length < 1}
+              >
+                Submit
+              </Button>
+            </Box>
           </Box>
-          <Button
-            variant="contained"
-            onClick={handlePurchase}
-            disabled={purchaseAmount.length < 1}
-          >
-            Submit
-          </Button>
-        </Box>
+        )}
       </Box>
     );
   } else if (tickerFound === false) {

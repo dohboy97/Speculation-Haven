@@ -9,7 +9,7 @@ function SearchPage() {
   const [tickerInput, setTickerInput] = useState("");
   const [selectedMarket, setSelectedMarket] = useState("stock");
   const [ticker, setTicker] = useState();
-
+  const [searchedTicker, setSearchedTicker] = useState();
   //grabs ticker input for fetch
   async function getTickerInfo() {
     setTickerFound();
@@ -19,6 +19,7 @@ function SearchPage() {
     });
     data === "error" ? setTickerFound(false) : setTickerFound(true);
     setTicker(data);
+    setSearchedTicker(tickerInput);
   }
 
   const handleChange = (event) => {
@@ -57,6 +58,7 @@ function SearchPage() {
         setTickerFound={setTickerFound}
         tickerFound={tickerFound}
         selectedMarket={selectedMarket}
+        searchedTicker={searchedTicker}
       />
     </Box>
   );

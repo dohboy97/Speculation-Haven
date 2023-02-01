@@ -10,6 +10,7 @@ function SearchedTicker({
   tickerInput,
   tickerFound,
   ticker,
+  searchedTicker,
 }) {
   const [selectedPurchaseMetric, setSelectedPurchaseMetric] =
     useState("Buy in $");
@@ -53,10 +54,7 @@ function SearchedTicker({
     getWatchList();
 
     watchList.forEach((el) => {
-      if (
-        el.symbol === tickerInput.toUpperCase() &&
-        el.type === selectedMarket
-      ) {
+      if (el.symbol === searchedTicker.toUpperCase()) {
         setIsAddedToWatchlist(true);
       }
     });
@@ -65,7 +63,7 @@ function SearchedTicker({
     selectedPurchaseMetric,
     watchList,
     isAddedToWatchList,
-    tickerInput,
+    searchedTicker,
     selectedMarket,
   ]);
 
@@ -86,9 +84,10 @@ function SearchedTicker({
     const addToWatchListText = isAddedToWatchList
       ? "Already Added to Watchlist"
       : "Add to Watchlist";
+
     return (
       <Box display="flex" flexDirection="column">
-        <h2>Ticker:{tickerInput}</h2>
+        <h2>Ticker:{searchedTicker}</h2>
         <span>Price:{ticker.stock.Price}</span>
         <Box sx={{ height: 50 }}>
           <Button
@@ -126,7 +125,7 @@ function SearchedTicker({
   } else if (tickerFound === false) {
     return (
       <Box>
-        <NotFound found={tickerFound} text={tickerInput} />
+        <NotFound found={tickerFound} text={searchedTicker} />
       </Box>
     );
   }

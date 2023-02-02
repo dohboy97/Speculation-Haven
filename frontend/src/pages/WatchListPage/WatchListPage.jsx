@@ -11,55 +11,9 @@ function WatchListPage() {
 
   const [watchList, setWatchList] = useState([]);
   const [tickerFound, setTickerFound] = useState(true);
-  const [tickerInput, detectInput] = useState();
-  const [selectedTickerType, setSelectedTickerType] = useState("stock");
+  const [tickerInput, setTickerInput] = useState("");
+
   const [loading, setLoading] = useState(false);
-
-  //gets ticker upon button search
-  async function buttonSearch() {
-    try {
-      await getTicker();
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  //grabs ticker input for fetch
-  async function getTicker() {
-    let input = document.querySelector(".search").value.toUpperCase();
-    detectInput(input);
-    post(input);
-  }
-
-  //POST TICKER TO DB IF DOESNT ALREADY EXIST
-  async function post(input) {
-    let alreadyExists = false;
-    watchList.forEach((el) => {
-      if (el.symbol === input) {
-        alreadyExists = true;
-      }
-    });
-
-    //only fetch new ticker if input doesnt exist in object
-
-    if (alreadyExists === false) {
-      setTickerFound(true);
-      const res = await fetch(`/watchlist/addticker/${input}`, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          type: selectedTickerType,
-          index: watchList.length,
-        }),
-      });
-      const data = await res.json();
-      if (data.ticker === false) {
-        setTickerFound(false);
-      } else {
-        setWatchList(data.stonks);
-      }
-    }
-  }
 
   useEffect(() => {
     async function getWatchList() {
@@ -114,13 +68,7 @@ function WatchListPage() {
   return (
     <div className="App">
       <Typography variant="h4">Watchlist</Typography>
-      <Selector
-        value={selectedTickerType}
-        setValue={setSelectedTickerType}
-        options={["Stock", "Crypto"]}
-      />
-      <Input className="search" placeholder="Ticker Search" />
-      <Button handleClick={buttonSearch} text="Search" />
+
       <Button handleClick={() => setLoading(true)} text="Update Prices" />
       <Watchlist
         tickers={watchList}

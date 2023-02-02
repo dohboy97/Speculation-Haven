@@ -2,14 +2,8 @@ import { useState } from "react";
 import SearchedTicker from "../../components/SearchedTicker";
 import { getTickerFromServer } from "../../api";
 
-import {
-  Box,
-  MenuItem,
-  Select,
-  TextField,
-  Button,
-  Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { TickerInput } from "../../components/TickerInput";
 function SearchPage() {
   //detect and use search input to then take to server api and retrieve ticker info
   const [tickerFound, setTickerFound] = useState();
@@ -29,7 +23,7 @@ function SearchPage() {
     setSearchedTicker(tickerInput.toUpperCase());
   }
 
-  const handleChange = (event) => {
+  const handleSearchChange = (event) => {
     setSelectedMarket(event.target.value);
   };
 
@@ -38,26 +32,13 @@ function SearchPage() {
   return (
     <Box>
       <Typography variant="h4">Search</Typography>
-      <Box display="flex" sx={{ maxWidth: 500 }}>
-        <TextField
-          label="Ticker Search"
-          onChange={(e) => setTickerInput(e.target.value)}
-          required
-        />
-        <Box>
-          <Select value={selectedMarket} onChange={handleChange}>
-            <MenuItem value={"stock"}>Stock</MenuItem>
-            <MenuItem value={"crypto"}>Crypto</MenuItem>
-          </Select>
-        </Box>
-        <Button
-          onClick={getTickerInfo}
-          variant="contained"
-          disabled={disableButton}
-        >
-          Search
-        </Button>
-      </Box>
+      <TickerInput
+        setTickerInput={setTickerInput}
+        selectedMarket={selectedMarket}
+        handleChange={handleSearchChange}
+        getTickerInfo={getTickerInfo}
+        disableButton={disableButton}
+      />
 
       <SearchedTicker
         ticker={ticker}

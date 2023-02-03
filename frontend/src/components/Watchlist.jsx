@@ -10,7 +10,7 @@ function Watchlist({ tickers, setState, isLoading }) {
   const cryptoSkeletonBars = tickers.length - stockSkeletonBars;
 
   return (
-    <Box>
+    <Box width="max-content">
       <Typography variant="h4">Stocks</Typography>
       {isLoading && (
         <Box>

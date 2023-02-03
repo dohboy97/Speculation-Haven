@@ -5,7 +5,7 @@ export default function Loader({ number }) {
   return (
     <Box>
       {quantity.map((el) => {
-        return <Skeleton width="40%"></Skeleton>;
+        return <Skeleton sx={{ marginBottom: 2 }} width="100%"></Skeleton>;
       })}
     </Box>
   );

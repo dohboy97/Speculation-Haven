@@ -29,9 +29,15 @@ function WatchListPage() {
 
   return (
     <Box className="App">
-      <Typography variant="h4">Watchlist</Typography>
+      <Typography marginY={2} variant="h4">
+        Watchlist
+      </Typography>
 
-      <Button variant="contained" onClick={handleUpdate}>
+      <Button
+        sx={{ marginBottom: 2 }}
+        variant="contained"
+        onClick={handleUpdate}
+      >
         Update Prices
       </Button>
 

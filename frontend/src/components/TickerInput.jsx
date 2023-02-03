@@ -1,11 +1,4 @@
-import {
-  Box,
-  MenuItem,
-  Select,
-  TextField,
-  Button,
-  Typography,
-} from "@mui/material";
+import { Box, MenuItem, Select, TextField, Button } from "@mui/material";
 export function TickerInput({
   setTickerInput,
   selectedMarket,

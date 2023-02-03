@@ -10,18 +10,12 @@ function WatchListPage() {
   const [watchList, setWatchList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
-
   const handleUpdate = async () => {
     setIsLoading(true);
 
     const updates = await updateStockPrices({ watchList: watchList });
-    await console.log(updates);
-    // updates
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((err) => console.error(err))
-    //   .finally(() => setIsLoading(false));
+    setWatchList(updates);
+    setIsLoading(false);
   };
 
   useEffect(() => {

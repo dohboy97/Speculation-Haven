@@ -34,7 +34,7 @@ function WatchListPage() {
       </Typography>
 
       <Button
-        sx={{ marginBottom: 2 }}
+        sx={{ marginBottom: 4 }}
         variant="contained"
         onClick={handleUpdate}
       >

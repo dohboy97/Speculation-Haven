@@ -11,7 +11,9 @@ function Watchlist({ tickers, setState, isLoading }) {
 
   return (
     <Box width="max-content">
-      <Typography variant="h4">Stocks</Typography>
+      <Typography marginBottom={2} variant="h4">
+        Stocks
+      </Typography>
       {isLoading && (
         <Box>
           <Loader number={stockSkeletonBars}></Loader>
@@ -33,7 +35,9 @@ function Watchlist({ tickers, setState, isLoading }) {
             return null;
           }
         })}
-      <Typography variant="h4">Crypto</Typography>
+      <Typography marginBottom={2} variant="h4">
+        Crypto
+      </Typography>
       {isLoading && (
         <Box>
           <Loader number={cryptoSkeletonBars}></Loader>

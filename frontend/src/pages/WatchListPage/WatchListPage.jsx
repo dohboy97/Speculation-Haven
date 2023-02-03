@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import Watchlist from "../../components/Watchlist";
 import { Typography, Button, Box } from "@mui/material";
-import { getWatchList, updateStockPrice } from "../../api";
+import { getWatchList, updateStockPrices } from "../../api";
 
 function WatchListPage() {
   //useState for stock count on page, useEffect for fetch?
@@ -11,12 +11,17 @@ function WatchListPage() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     setIsLoading(true);
-    updateStockPrice({ ticker: watchList[0] })
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error))
-      .finally(() => setIsLoading(false));
+
+    const updates = await updateStockPrices({ watchList: watchList });
+    await console.log(updates);
+    // updates
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((err) => console.error(err))
+    //   .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -25,7 +30,7 @@ function WatchListPage() {
       .then((response) => setWatchList(response.stonks))
       .catch((error) => console.error(error))
       .finally(() => setIsLoading(false));
-  }, [setWatchList]);
+  }, [setWatchList, setIsLoading]);
 
   return (
     <Box className="App">

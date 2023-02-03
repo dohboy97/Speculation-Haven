@@ -48,20 +48,24 @@ export async function addToWatchList({ input, watchList, selectedMarket }) {
   return data;
 }
 
-export async function updateStockPrice({ ticker }) {
-  const res = await fetch(`/watchlist/updateticker/${ticker._id}`, {
-    method: "PUT",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify({
-      symbol: ticker.symbol,
-      price: ticker.price,
-      type: ticker.type,
-      index: ticker.index,
-    }),
-  });
-  const data = await res.json();
+export async function updateStockPrices({ watchList }) {
+  if (!watchList) return;
+  const updates = await watchList.map(async (ticker) => {
+    const res = await fetch(`/watchlist/updateticker/${ticker._id}`, {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        symbol: ticker.symbol,
+        price: ticker.price,
+        type: ticker.type,
+        index: ticker.index,
+      }),
+    });
+    const data = await res.json();
 
-  return data;
+    return data.updatedStonk;
+  });
+  return updates;
 }
 
 export async function deleteFromWatchList({ ticker }) {

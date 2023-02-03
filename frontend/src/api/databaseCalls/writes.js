@@ -63,3 +63,9 @@ export async function updateStockPrice({ ticker }) {
 
   return data;
 }
+
+export async function deleteFromWatchList({ ticker }) {
+  await fetch(`/watchlist/deleteticker/${ticker._id}`, {
+    method: "DELETE",
+  });
+}

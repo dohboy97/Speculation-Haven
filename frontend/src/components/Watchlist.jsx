@@ -1,13 +1,13 @@
 import SavedTickers from "./SavedTickers";
 import { Box, Typography } from "@mui/material";
 import Loader from "./Loader";
-function Watchlist({ tickers, setState, isLoading }) {
+function Watchlist({ watchlist, setWatchList, isLoading }) {
   //separation of stocks and crpyto
-  const stockSkeletonBars = tickers.reduce(
+  const stockSkeletonBars = watchlist.reduce(
     (acc, val) => (val.type === "stock" ? acc + 1 : acc + 0),
     0
   );
-  const cryptoSkeletonBars = tickers.length - stockSkeletonBars;
+  const cryptoSkeletonBars = watchlist.length - stockSkeletonBars;
 
   return (
     <Box width="max-content">
@@ -20,14 +20,14 @@ function Watchlist({ tickers, setState, isLoading }) {
         </Box>
       )}
       {!isLoading &&
-        tickers.map((el, index) => {
+        watchlist.map((el, index) => {
           if (el.type === "stock") {
             return (
               <SavedTickers
-                key={tickers[index]._id}
+                key={watchlist[index]._id}
                 ticker={el}
-                state={tickers}
-                setState={setState}
+                watchList={watchlist}
+                setWatchList={setWatchList}
                 index={index}
               />
             );
@@ -44,14 +44,14 @@ function Watchlist({ tickers, setState, isLoading }) {
         </Box>
       )}
       {!isLoading &&
-        tickers.map((el, index) => {
+        watchlist.map((el, index) => {
           if (el.type === "crypto") {
             return (
               <SavedTickers
-                key={tickers[index]._id}
+                key={watchlist[index]._id}
                 ticker={el}
-                state={tickers}
-                setState={setState}
+                watchList={watchlist}
+                setWatchList={setWatchList}
                 index={index}
               />
             );

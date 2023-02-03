@@ -1,5 +1,13 @@
 import { Box, Typography, Button } from "@mui/material";
-function SavedTickers({ ticker, state, setState, index }) {
+import { deleteFromWatchList } from "../api";
+function SavedTickers({ ticker, watchList, setWatchList }) {
+  const handleDeleteClick = async () => {
+    deleteFromWatchList({ ticker })
+      .then()
+      .catch((err) => console.error(err));
+    setWatchList(watchList.filter((el) => el !== ticker));
+  };
+
   return (
     <Box
       paddingX="10px"
@@ -18,16 +26,7 @@ function SavedTickers({ ticker, state, setState, index }) {
           variant="overline"
         >{`$${ticker.price}`}</Typography>
       </Box>
-      <Button
-        size="small"
-        variant="contained"
-        onClick={async function () {
-          setState(state.filter((el) => el !== ticker));
-          await fetch(`/watchlist/deleteticker/${ticker._id}`, {
-            method: "DELETE",
-          });
-        }}
-      >
+      <Button size="small" variant="contained" onClick={handleDeleteClick}>
         Delete
       </Button>
     </Box>

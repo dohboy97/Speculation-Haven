@@ -42,8 +42,8 @@ function WatchListPage() {
       </Button>
 
       <Watchlist
-        tickers={watchList}
-        setState={setWatchList}
+        watchlist={watchList}
+        setWatchList={setWatchList}
         isLoading={isLoading}
       />
     </Box>

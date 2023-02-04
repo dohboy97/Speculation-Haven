@@ -14,7 +14,7 @@ function Balance() {
   const [balance, setBalance] = useState();
   const [newAmount, setNewAmount] = useState();
   const [withdrawOrDeposit, setWithdrawOrDeposit] = useState("deposit");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,7 +25,7 @@ function Balance() {
       })
       .catch((err) => console.error(err))
       .finally(() => setIsLoading(false));
-  }, [setBalance]);
+  }, [setBalance, setIsLoading]);
 
   const handleSetBalance = async () => {
     const balance = await postBalance({ balance: newAmount });
@@ -48,6 +48,10 @@ function Balance() {
   const handleChangeAmount = (e) => {
     setNewAmount(e.target.value);
   };
+
+  if (isLoading) {
+    return <Skeleton variant="rounded" height="100px" width="300px"></Skeleton>;
+  }
 
   if (!balance && balance !== 0) {
     return (

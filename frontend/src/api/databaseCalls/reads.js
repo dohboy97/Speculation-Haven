@@ -3,3 +3,9 @@ export async function getWatchList() {
   const data = await res.json();
   return data;
 }
+
+export async function getPortfolio() {
+  const res = await fetch("/portfolio");
+  const data = await res.json();
+  return data;
+}

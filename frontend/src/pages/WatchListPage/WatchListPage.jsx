@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import Watchlist from "../../components/Watchlist";
 import { Typography, Button, Box } from "@mui/material";
-import { getWatchList, updateStockPrices } from "../../api";
+import { getWatchList, updateWatchlistPrices } from "../../api";
 
 function WatchListPage() {
   //useState for stock count on page, useEffect for fetch?
@@ -13,7 +13,7 @@ function WatchListPage() {
   const handleUpdate = async () => {
     setIsLoading(true);
 
-    const updates = await updateStockPrices({ watchList: watchList });
+    const updates = await updateWatchlistPrices({ watchList: watchList });
     setWatchList(updates);
     setIsLoading(false);
   };

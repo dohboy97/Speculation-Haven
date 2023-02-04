@@ -94,13 +94,12 @@ export async function editBalance({
   withdrawOrDeposit,
   amount,
 }) {
-  if (typeof amount !== "number" || amount < 1) return;
-
+  if (!Number(amount) || Number(amount) < 1) return;
   const newBalance =
     withdrawOrDeposit === "withdraw"
-      ? currentBalance - amount
-      : currentBalance + amount;
-
+      ? Number(currentBalance) - Number(amount)
+      : Number(currentBalance) + Number(amount);
+  console.log(currentBalance);
   //PUT REQUESTS TO DEPOSIT FUNDS
 
   const res = await fetch("/portfolio/editbalance", {
@@ -111,5 +110,5 @@ export async function editBalance({
     }),
   });
   const data = await res.json();
-  return data;
+  return data.portfolio[0].balance;
 }

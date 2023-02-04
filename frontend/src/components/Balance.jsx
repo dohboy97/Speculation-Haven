@@ -5,6 +5,7 @@ import {
   TextField,
   Select,
   MenuItem,
+  Skeleton,
 } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -13,14 +14,17 @@ function Balance() {
   const [balance, setBalance] = useState();
   const [newAmount, setNewAmount] = useState();
   const [withdrawOrDeposit, setWithdrawOrDeposit] = useState("deposit");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     getPortfolio()
       .then((portfolio) => {
         if (!portfolio.portfolio[0]) return;
         setBalance(portfolio.portfolio[0].balance);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setIsLoading(false));
   }, [setBalance]);
 
   const handleSetBalance = async () => {
@@ -31,21 +35,21 @@ function Balance() {
   //FOR DEPOSITING AND WITHDRAWING MONEY
   const handleEditBalance = async () => {
     const newBalance = await editBalance({
-      balance: balance,
+      currentBalance: balance,
       withdrawOrDeposit: withdrawOrDeposit,
       amount: newAmount,
     });
-    console.log(newBalance);
+    setBalance(newBalance);
   };
 
   const handleSelectWithdrawOrDeposit = (e) => {
     setWithdrawOrDeposit(e.target.value);
   };
-
   const handleChangeAmount = (e) => {
     setNewAmount(e.target.value);
   };
-  if (!balance) {
+
+  if (!balance && balance !== 0) {
     return (
       <Box>
         <Typography variant="h5">
@@ -79,7 +83,11 @@ function Balance() {
             <MenuItem value="withdraw">Withdraw</MenuItem>
           </Select>
         </Box>
-        <Button variant="contained" onClick={handleEditBalance}>
+        <Button
+          disabled={!Number(newAmount)}
+          variant="contained"
+          onClick={handleEditBalance}
+        >
           Submit
         </Button>
       </Box>

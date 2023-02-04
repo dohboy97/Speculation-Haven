@@ -11,18 +11,21 @@ import { useState } from "react";
 import { getPortfolio, postBalance, editBalance } from "../api";
 function Balance() {
   const [balance, setBalance] = useState();
-  const [newAmount, setNewAmount] = useState(0);
+  const [newAmount, setNewAmount] = useState();
   const [withdrawOrDeposit, setWithdrawOrDeposit] = useState("deposit");
 
   useEffect(() => {
-    getPortfolio().then((portfolio) => {
-      setBalance(portfolio.balance);
-    });
+    getPortfolio()
+      .then((portfolio) => {
+        if (!portfolio.portfolio[0]) return;
+        setBalance(portfolio.portfolio[0].balance);
+      })
+      .catch((err) => console.error(err));
   }, [setBalance]);
 
   const handleSetBalance = async () => {
-    const balance = await postBalance();
-    console.log(balance);
+    const balance = await postBalance({ balance: newAmount });
+    setBalance(balance);
   };
 
   //FOR DEPOSITING AND WITHDRAWING MONEY
@@ -42,17 +45,22 @@ function Balance() {
   const handleChangeAmount = (e) => {
     setNewAmount(e.target.value);
   };
-
   if (!balance) {
     return (
       <Box>
         <Typography variant="h5">
           What would you like your starting balance to be?
         </Typography>
-        <TextField placeholder="1234" />
-        <Button onClick={handleSetBalance} variant="contained">
-          Set Balance
-        </Button>
+        <Box>
+          <TextField onChange={handleChangeAmount} placeholder="1234" />
+          <Button
+            disabled={!Number(newAmount)}
+            onClick={handleSetBalance}
+            variant="contained"
+          >
+            Set Balance
+          </Button>
+        </Box>
       </Box>
     );
   }

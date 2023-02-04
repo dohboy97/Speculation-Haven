@@ -76,7 +76,7 @@ export async function buyTicker({
 }
 
 export async function postBalance({ balance }) {
-  if (typeof balance !== "number" || balance < 1) return;
+  if (typeof Number(balance) !== "number" || balance < 1) return;
 
   const res = await fetch("/portfolio/addbalance", {
     method: "POST",
@@ -86,7 +86,7 @@ export async function postBalance({ balance }) {
     }),
   });
   const data = await res.json();
-  return data;
+  return data.portfolio[0].balance;
 }
 
 export async function editBalance({

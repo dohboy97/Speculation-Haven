@@ -7,5 +7,5 @@ export async function getWatchList() {
 export async function getPortfolio() {
   const res = await fetch("/portfolio");
   const data = await res.json();
-  return data;
+  return data.portfolio[0];
 }

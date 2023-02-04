@@ -123,8 +123,8 @@ function SearchedTicker({
               </Box>
               <Button
                 variant="contained"
-                onClick={handlePurchase()}
-                disabled={purchaseAmount.length < 1}
+                onClick={handlePurchase}
+                disabled={purchaseAmount < 1}
               >
                 Submit
               </Button>

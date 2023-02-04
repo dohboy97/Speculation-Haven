@@ -27,7 +27,7 @@ export async function buyTicker({
     }),
   });
   const data = await res.json();
-  console.log(data);
+  console.log(data.portfolio[0].ownedTickers);
 }
 
 export async function addToWatchList({ input, watchList, selectedMarket }) {

@@ -1,18 +1,17 @@
-function Selector({setValue,value,options}){
-  console.log(options)
-    return(
-        <div>
-            <select onChange={e=>setValue(e.target.value)}>
-                {options.map((el,index)=>{
-                   
-                    return(
-                        <option key = {index} value = {el.toLowerCase()}>{el}</option>
-                    )
-                })}
-               
-            </select>
-        </div>
-    )
+function Selector({ setValue, value, options }) {
+  return (
+    <div>
+      <select onChange={(e) => setValue(e.target.value)}>
+        {options.map((el, index) => {
+          return (
+            <option key={index} value={el.toLowerCase()}>
+              {el}
+            </option>
+          );
+        })}
+      </select>
+    </div>
+  );
 }
 
-export default Selector
+export default Selector;

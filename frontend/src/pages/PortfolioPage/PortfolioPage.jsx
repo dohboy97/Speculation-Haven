@@ -6,9 +6,13 @@ function PortfolioPage() {
 
   return (
     <Box>
-      <Typography variant="h4">Portfolio</Typography>
+      <Typography marginY={2} variant="h4">
+        Portfolio
+      </Typography>
       <Balance />
-      <Typography variant="h5">Owned tickers</Typography>
+      <Typography marginY={2} variant="h5">
+        Owned tickers
+      </Typography>
       <Typography variant="overline">
         Avg cost, quantity, total value
       </Typography>

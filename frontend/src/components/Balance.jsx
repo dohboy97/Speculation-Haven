@@ -75,7 +75,9 @@ function Balance() {
 
   return (
     <Box>
-      <Typography variant="h5">Balance: ${balance}</Typography>
+      <Typography marginBottom={2} variant="h5">
+        Balance: ${balance}
+      </Typography>
       <Box display="flex">
         <TextField onChange={handleChangeAmount} placeholder="Amount $" />
         <Box display="flex">

@@ -66,14 +66,15 @@ function SearchedTicker({
       }
     });
   }, [searchedTicker, watchList]);
-
   //BUY STOCK FOR PORTFOLIO
-  const handlePurchase = buyTicker({
-    tickerInput,
-    ticker,
-    selectedPurchaseMetric,
-    purchaseAmount,
-  });
+  const handlePurchase = () => {
+    buyTicker({
+      tickerInput,
+      ticker,
+      selectedPurchaseMetric,
+      purchaseAmount,
+    });
+  };
 
   if (tickerFound === true) {
     const selectorText = ticker.type === "stock" ? "Buy Shares" : "Buy Coins";
@@ -122,7 +123,7 @@ function SearchedTicker({
               </Box>
               <Button
                 variant="contained"
-                onClick={handlePurchase}
+                onClick={handlePurchase()}
                 disabled={purchaseAmount.length < 1}
               >
                 Submit

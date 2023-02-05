@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import NotFound from "./NotFound";
-import { addToWatchList, buyTicker, getWatchList } from "../api";
+import { addToWatchList, buyTicker, getPortfolio, getWatchList } from "../api";
 import {
   Box,
   MenuItem,
@@ -25,6 +25,7 @@ function SearchedTicker({
 
   const [watchList, setWatchList] = useState([]);
   const [purchaseAmount, setPurchaseAmount] = useState(0);
+  const [balance, setBalance] = useState(0);
 
   //gets ticker upon button search
 
@@ -58,7 +59,10 @@ function SearchedTicker({
         setIsAddedToWatchlist(true);
       }
     });
-  }, [searchedTicker, watchList]);
+    getPortfolio()
+      .then((res) => setBalance(res.portfolio[0].balance))
+      .catch((err) => console.error(err));
+  }, [searchedTicker, watchList, setIsAddedToWatchlist]);
 
   //BUY STOCK FOR PORTFOLIO
   const handlePurchase = () => {
@@ -84,6 +88,10 @@ function SearchedTicker({
       searchedTicker.toLowerCase() === tickerInput.toLowerCase() &&
       ticker.type === selectedMarket;
 
+    const invalidPurchase = purchaseAmount < 1 || purchaseAmount > balance;
+
+    const disabledPurchase = !purchaseAmount || invalidPurchase;
+
     return (
       <Box>
         {displayTickerInfo && (
@@ -104,7 +112,7 @@ function SearchedTicker({
             <Box display="flex" sx={{ minWidth: 800 }}>
               <TextField
                 label={purchaseInputPlaceHolder}
-                onChange={(e) => setPurchaseAmount(e.target.value)}
+                onChange={(e) => setPurchaseAmount(Number(e.target.value))}
               />
               <Box>
                 <Select
@@ -118,7 +126,7 @@ function SearchedTicker({
               <Button
                 variant="contained"
                 onClick={handlePurchase}
-                disabled={purchaseAmount < 1}
+                disabled={disabledPurchase}
               >
                 Submit
               </Button>

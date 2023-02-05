@@ -11,6 +11,7 @@ function SearchPage() {
   const [selectedMarket, setSelectedMarket] = useState("stock");
   const [ticker, setTicker] = useState();
   const [searchedTicker, setSearchedTicker] = useState("");
+
   //grabs ticker input for fetch
   async function getTickerInfo() {
     setTickerFound();

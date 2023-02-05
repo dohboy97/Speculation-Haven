@@ -41,19 +41,17 @@ function SearchedTicker({
       setWatchList(data.stonks);
     }
   };
-
   //USEEFFECT
 
   useEffect(() => {
     setIsAddedToWatchlist(false);
     getWatchList()
-      .then((watchList) => {
-        if (watchList.length === 0 && watchList.stonks.length > 0) {
-          setWatchList(watchList.stonks);
+      .then((res) => {
+        if (watchList.length === 0 && res.stonks.length > 0) {
+          setWatchList(res.stonks);
         }
       })
       .catch((err) => console.error(err));
-
     watchList.forEach((el) => {
       if (el.symbol === searchedTicker.toUpperCase()) {
         setIsAddedToWatchlist(true);
@@ -73,11 +71,12 @@ function SearchedTicker({
       purchaseAmount,
     });
   };
+  console.log(selectedPurchaseMetric);
   if (tickerFound === true) {
     const selectorText = ticker.type === "stock" ? "Buy Shares" : "Buy Coins";
 
     const purchaseInputPlaceHolder =
-      selectedPurchaseMetric === "buy shares" ? "Quantity" : "Dollar Amount";
+      selectedPurchaseMetric === "Buy Shares" ? "Quantity" : "Dollar Amount";
 
     const addToWatchListText = isAddedToWatchList
       ? "Added to Watchlist"
@@ -148,6 +147,11 @@ function SearchedTicker({
                 {invalidPurchase
                   ? invalidFeedback
                   : `Total: $${round(purchaseTotal, 2)}`}
+              </Typography>
+            )}
+            {!purchaseAmount && (
+              <Typography marginTop={2} variant="subtitle">
+                Please enter a valid number if you wish to purchase
               </Typography>
             )}
           </Box>

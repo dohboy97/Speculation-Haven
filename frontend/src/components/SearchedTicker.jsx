@@ -88,7 +88,12 @@ function SearchedTicker({
       searchedTicker.toLowerCase() === tickerInput.toLowerCase() &&
       ticker.type === selectedMarket;
 
-    const invalidPurchase = purchaseAmount < 1 || purchaseAmount > balance;
+    const purchaseTotal =
+      selectedPurchaseMetric === "Buy in $"
+        ? purchaseAmount
+        : Number(ticker.stock.Price) * purchaseAmount;
+
+    const invalidPurchase = purchaseTotal < 1 || purchaseTotal > balance;
 
     const disabledPurchase = !purchaseAmount || invalidPurchase;
 

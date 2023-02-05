@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import NotFound from "./NotFound";
-import { addToWatchList, buyTicker } from "../api";
+import { addToWatchList, buyTicker, getWatchList } from "../api";
 import {
   Box,
   MenuItem,
@@ -27,38 +27,31 @@ function SearchedTicker({
   const [purchaseAmount, setPurchaseAmount] = useState(0);
 
   //gets ticker upon button search
-  async function buttonSearch() {
-    setIsAddedToWatchlist(false);
-    try {
-      await post(tickerInput);
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
-  async function post(input) {
-    const data = await addToWatchList({ input, watchList, selectedMarket });
+  const handleAddToWatchlist = async () => {
+    const data = await addToWatchList({
+      tickerInput,
+      watchList,
+      selectedMarket,
+    });
     if (data.ticker === false) {
       setTickerFound(false);
     } else {
       setWatchList(data.stonks);
     }
-  }
+  };
 
   //USEEFFECT
 
   useEffect(() => {
     setIsAddedToWatchlist(false);
-    async function getWatchList() {
-      const res = await fetch("/watchlist");
-      const data = await res.json();
-      //setState of watchlist here on page load
-
-      if (watchList.length === 0 && data.stonks.length > 0) {
-        setWatchList(data.stonks);
-      }
-    }
-    getWatchList();
+    getWatchList()
+      .then((watchList) => {
+        if (watchList.length === 0 && watchList.stonks.length > 0) {
+          setWatchList(watchList.stonks);
+        }
+      })
+      .catch((err) => console.error(err));
 
     watchList.forEach((el) => {
       if (el.symbol === searchedTicker.toUpperCase()) {
@@ -66,6 +59,7 @@ function SearchedTicker({
       }
     });
   }, [searchedTicker, watchList]);
+
   //BUY STOCK FOR PORTFOLIO
   const handlePurchase = () => {
     buyTicker({
@@ -101,7 +95,7 @@ function SearchedTicker({
             <Box sx={{ height: 50 }}>
               <Button
                 variant="contained"
-                onClick={buttonSearch}
+                onClick={handleAddToWatchlist}
                 disabled={isAddedToWatchList}
               >
                 {addToWatchListText}

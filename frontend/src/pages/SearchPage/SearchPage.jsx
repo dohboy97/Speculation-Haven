@@ -31,7 +31,9 @@ function SearchPage() {
 
   return (
     <Box>
-      <Typography variant="h4">Search</Typography>
+      <Typography marginY={2} variant="h4">
+        Search
+      </Typography>
       <TickerInput
         setTickerInput={setTickerInput}
         selectedMarket={selectedMarket}

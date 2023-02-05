@@ -10,7 +10,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-
+import { round } from "lodash";
 function SearchedTicker({
   setTickerFound,
   selectedMarket,
@@ -73,7 +73,6 @@ function SearchedTicker({
       purchaseAmount,
     });
   };
-
   if (tickerFound === true) {
     const selectorText = ticker.type === "stock" ? "Buy Shares" : "Buy Coins";
 
@@ -81,7 +80,7 @@ function SearchedTicker({
       selectedPurchaseMetric === "buy shares" ? "Quantity" : "Dollar Amount";
 
     const addToWatchListText = isAddedToWatchList
-      ? "Already Added to Watchlist"
+      ? "Added to Watchlist"
       : "Add to Watchlist";
 
     const displayTickerInfo =
@@ -96,6 +95,14 @@ function SearchedTicker({
     const invalidPurchase = purchaseTotal < 1 || purchaseTotal > balance;
 
     const disabledPurchase = !purchaseAmount || invalidPurchase;
+
+    const invalidFeedback =
+      purchaseTotal < 1
+        ? "Please enter a positive number"
+        : `Purchase exceeds your balance by $${round(
+            purchaseAmount - balance,
+            2
+          )}`;
 
     return (
       <Box>
@@ -136,6 +143,13 @@ function SearchedTicker({
                 Submit
               </Button>
             </Box>
+            {!!purchaseAmount && (
+              <Typography marginTop={2} variant="subtitle">
+                {invalidPurchase
+                  ? invalidFeedback
+                  : `Total: $${round(purchaseTotal, 2)}`}
+              </Typography>
+            )}
           </Box>
         )}
       </Box>

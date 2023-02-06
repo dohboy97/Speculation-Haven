@@ -111,14 +111,15 @@ function SearchedTicker({
             2
           )}`;
     const isStock = selectedMarket === "stock";
-    console.log(purchaseTotal);
 
     return (
       <Box>
         {displayTickerInfo && (
           <Box display="flex" flexDirection="column">
-            <Typography variant="h6">{searchedTicker}</Typography>
-            <Typography variant="subtitle1">
+            <Typography marginY={2} variant="h6">
+              {searchedTicker}
+            </Typography>
+            <Typography marginBottom={2} variant="subtitle1">
               Price:{ticker.stock.Price}
             </Typography>
             <Box sx={{ height: 50 }}>
@@ -130,7 +131,7 @@ function SearchedTicker({
                 {addToWatchListText}
               </Button>
             </Box>
-            <Box display="flex" sx={{ minWidth: 800 }}>
+            <Box marginY={2} display="flex" sx={{ minWidth: 800 }}>
               <TextField
                 label={purchaseInputPlaceHolder}
                 onChange={(e) => setPurchaseAmount(Number(e.target.value))}

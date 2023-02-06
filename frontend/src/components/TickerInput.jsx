@@ -7,7 +7,7 @@ export function TickerInput({
   disableButton,
 }) {
   return (
-    <Box display="flex" sx={{ maxWidth: 500 }}>
+    <Box display="flex" marginY={2} sx={{ maxWidth: 500 }}>
       <TextField
         label="Ticker Search"
         onChange={(e) => setTickerInput(e.target.value)}

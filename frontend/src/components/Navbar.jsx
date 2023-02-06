@@ -1,10 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { AppBar, MenuItem, Typography, Box } from "@mui/material";
-import { style } from "@mui/system";
 
 function Navbar() {
-  const pages = ["watchlist", "portfolio", "search", "gainers"];
+  const pages = ["Watchlist", "Portfolio", "Search", "Indeces"];
   const navigate = useNavigate();
   const location = useLocation();
   return (

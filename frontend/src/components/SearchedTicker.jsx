@@ -78,7 +78,7 @@ function SearchedTicker({
     buyTicker({
       tickerInput,
       ticker,
-      setSelectedPurchaseMetric,
+      selectedPurchaseMetric,
       purchaseAmount,
     });
   };

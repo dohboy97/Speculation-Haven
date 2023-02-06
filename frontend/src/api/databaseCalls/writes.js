@@ -57,11 +57,11 @@ export async function buyTicker({
   const price = Number(ticker.stock.Price);
   const type = ticker.type;
   const dollarAmount =
-    selectedPurchaseMetric === "buy in $"
+    selectedPurchaseMetric === "Buy in $"
       ? purchaseAmount
       : purchaseAmount * price;
   const shares =
-    selectedPurchaseMetric === "buy shares"
+    selectedPurchaseMetric === "Buy Shares"
       ? purchaseAmount
       : purchaseAmount / price;
   const res = await fetch(`/portfolio/buyOrSellTicker`, {

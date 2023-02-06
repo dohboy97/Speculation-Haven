@@ -19,8 +19,7 @@ function SearchedTicker({
   ticker,
   searchedTicker,
 }) {
-  const [selectedPurchaseMetric, setSelectedPurchaseMetric] =
-    useState("Buy in $");
+  const [selectedPurchaseMetric, setSelectedPurchaseMetric] = useState();
   const [isAddedToWatchList, setIsAddedToWatchlist] = useState();
 
   const [watchList, setWatchList] = useState([]);
@@ -28,7 +27,6 @@ function SearchedTicker({
   const [balance, setBalance] = useState(0);
 
   //gets ticker upon button search
-
   const handleAddToWatchlist = async () => {
     const data = await addToWatchList({
       tickerInput,
@@ -45,6 +43,7 @@ function SearchedTicker({
 
   useEffect(() => {
     setIsAddedToWatchlist(false);
+
     getWatchList()
       .then((res) => {
         if (watchList.length === 0 && res.stonks.length > 0) {
@@ -60,23 +59,32 @@ function SearchedTicker({
     getPortfolio()
       .then((res) => setBalance(res.portfolio[0].balance))
       .catch((err) => console.error(err));
-  }, [searchedTicker, watchList, setIsAddedToWatchlist]);
+  }, [
+    searchedTicker,
+    watchList,
+    setIsAddedToWatchlist,
+    selectedPurchaseMetric,
+    ticker,
+  ]);
+
+  useEffect(() => {
+    selectedMarket === "stock"
+      ? setSelectedPurchaseMetric("Buy Shares")
+      : setSelectedPurchaseMetric("Buy Coins");
+  }, [selectedMarket, setSelectedPurchaseMetric]);
 
   //BUY STOCK FOR PORTFOLIO
   const handlePurchase = () => {
     buyTicker({
       tickerInput,
       ticker,
-      selectedPurchaseMetric,
+      setSelectedPurchaseMetric,
       purchaseAmount,
     });
   };
-  console.log(selectedPurchaseMetric);
   if (tickerFound === true) {
-    const selectorText = ticker.type === "stock" ? "Buy Shares" : "Buy Coins";
-
     const purchaseInputPlaceHolder =
-      selectedPurchaseMetric === "Buy Shares" ? "Quantity" : "Dollar Amount";
+      selectedPurchaseMetric === "Buy in $" ? "Dollar Amount" : "Quantity";
 
     const addToWatchListText = isAddedToWatchList
       ? "Added to Watchlist"
@@ -102,6 +110,7 @@ function SearchedTicker({
             purchaseAmount - balance,
             2
           )}`;
+    const isStock = selectedMarket === "stock";
 
     return (
       <Box>
@@ -130,7 +139,12 @@ function SearchedTicker({
                   value={selectedPurchaseMetric}
                   onChange={(e) => setSelectedPurchaseMetric(e.target.value)}
                 >
-                  <MenuItem value={selectorText}>{selectorText}</MenuItem>
+                  {isStock && (
+                    <MenuItem value={"Buy Shares"}>Buy Shares</MenuItem>
+                  )}
+                  {!isStock && (
+                    <MenuItem value={"Buy Coins"}>Buy Coins</MenuItem>
+                  )}
                   <MenuItem value={"Buy in $"}>Buy in $</MenuItem>
                 </Select>
               </Box>

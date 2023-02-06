@@ -66,7 +66,7 @@ function SearchedTicker({
     selectedPurchaseMetric,
     ticker,
   ]);
-
+  //Set purchase metric on market change
   useEffect(() => {
     selectedMarket === "stock"
       ? setSelectedPurchaseMetric("Buy Shares")
@@ -107,10 +107,11 @@ function SearchedTicker({
       purchaseTotal < 1
         ? "Please enter a positive number"
         : `Purchase exceeds your balance by $${round(
-            purchaseAmount - balance,
+            purchaseTotal - balance,
             2
           )}`;
     const isStock = selectedMarket === "stock";
+    console.log(purchaseTotal);
 
     return (
       <Box>

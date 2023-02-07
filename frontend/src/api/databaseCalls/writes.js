@@ -47,23 +47,8 @@ export async function deleteFromWatchList({ ticker }) {
   });
 }
 
-export async function buyTicker({
-  tickerInput,
-  ticker,
-  selectedPurchaseMetric,
-  purchaseAmount,
-}) {
-  const symbol = tickerInput;
-  const price = Number(ticker.stock.Price);
-  const type = ticker.type;
-  const dollarAmount =
-    selectedPurchaseMetric === "Buy in $"
-      ? purchaseAmount
-      : purchaseAmount * price;
-  const shares =
-    selectedPurchaseMetric === "Buy Shares"
-      ? purchaseAmount
-      : purchaseAmount / price;
+export async function buyTicker({ purchaseInfo }) {
+  const { type, symbol, dollarAmount, shares, price } = purchaseInfo;
   const res = await fetch(`/portfolio/buyOrSellTicker`, {
     method: "PUT",
     headers: { "Content-type": "application/json" },

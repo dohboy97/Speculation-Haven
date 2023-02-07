@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { round } from "lodash";
+import { calculateOrder } from "../utils";
 function SearchedTicker({
   setTickerFound,
   selectedMarket,
@@ -24,7 +25,7 @@ function SearchedTicker({
 
   const [watchList, setWatchList] = useState([]);
   const [purchaseAmount, setPurchaseAmount] = useState(0);
-  const [balance, setBalance] = useState(0);
+  const [portfolio, setPortfolio] = useState(0);
 
   //gets ticker upon button search
   const handleAddToWatchlist = async () => {
@@ -57,7 +58,7 @@ function SearchedTicker({
       }
     });
     getPortfolio()
-      .then((res) => setBalance(res.portfolio[0].balance))
+      .then((res) => setPortfolio(res.portfolio[0]))
       .catch((err) => console.error(err));
   }, [
     searchedTicker,
@@ -75,11 +76,19 @@ function SearchedTicker({
 
   //BUY STOCK FOR PORTFOLIO
   const handlePurchase = () => {
+    const order = {
+      tickerInput: tickerInput,
+      ticker: ticker,
+      selectedPurchaseMetric: selectedPurchaseMetric,
+      purchaseAmount: purchaseAmount,
+    };
+
+    const purchaseInfo = calculateOrder({
+      currentPortfolio: portfolio,
+      order: order,
+    });
     buyTicker({
-      tickerInput,
-      ticker,
-      selectedPurchaseMetric,
-      purchaseAmount,
+      purchaseInfo,
     });
   };
   if (tickerFound === true) {
@@ -99,7 +108,8 @@ function SearchedTicker({
         ? purchaseAmount
         : Number(ticker.stock.Price) * purchaseAmount;
 
-    const invalidPurchase = purchaseTotal < 1 || purchaseTotal > balance;
+    const invalidPurchase =
+      purchaseTotal < 1 || purchaseTotal > portfolio.balance;
 
     const disabledPurchase = !purchaseAmount || invalidPurchase;
 
@@ -107,7 +117,7 @@ function SearchedTicker({
       purchaseTotal < 1
         ? "Please enter a positive number"
         : `Purchase exceeds your balance by $${round(
-            purchaseTotal - balance,
+            purchaseTotal - portfolio.balance,
             2
           )}`;
     const isStock = selectedMarket === "stock";

@@ -40,7 +40,6 @@ module.exports = {
     try {
       let currentPort = await Portfolio.find();
 
-      console.log(req.body);
       await Portfolio.findOneAndUpdate({
         ownedTickers: [
           ...currentPort[0].ownedTickers,

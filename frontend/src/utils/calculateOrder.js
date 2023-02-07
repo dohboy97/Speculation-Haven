@@ -12,7 +12,6 @@ export function calculateOrder({ currentPortfolio, order }) {
     selectedPurchaseMetric === "Buy Shares"
       ? purchaseAmount
       : purchaseAmount / price;
-
   let currentPortIncludesPurchase = false;
 
   let currentShares;
@@ -31,18 +30,18 @@ export function calculateOrder({ currentPortfolio, order }) {
       symbol: order.tickerInput,
       price: avgSharePrice,
       type: type,
-      dollarAmount: order.purchaseAmount + dollarAmount,
+      dollarAmount: currentShares.dollarAmount + dollarAmount,
       shares: currentShares.shares + shares,
     };
   } else {
     updatedTicker = {
       symbol: order.tickerInput,
-      price: order.purchaseAmount,
+      price: price,
       type: type,
-      dollarAmount: order.purchaseAmount,
+      dollarAmount: dollarAmount,
       shares: shares,
     };
   }
-
+  console.log(updatedTicker);
   return updatedTicker;
 }

@@ -47,7 +47,7 @@ export async function deleteFromWatchList({ ticker }) {
   });
 }
 
-export async function buyTicker({ updatedPortfolio }) {
+export async function editPortfolio({ updatedPortfolio }) {
   const res = await fetch(`/portfolio/buyOrSellTicker`, {
     method: "PUT",
     headers: { "Content-type": "application/json" },

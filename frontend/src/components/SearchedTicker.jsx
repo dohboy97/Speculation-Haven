@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 
 import NotFound from "./NotFound";
-import { addToWatchList, buyTicker, getPortfolio, getWatchList } from "../api";
+import {
+  addToWatchList,
+  editPortfolio,
+  getPortfolio,
+  getWatchList,
+} from "../api";
 import {
   Box,
   MenuItem,
@@ -40,7 +45,6 @@ function SearchedTicker({
       setWatchList(data.stonks);
     }
   };
-  //USEEFFECT
 
   useEffect(() => {
     setIsAddedToWatchlist(false);
@@ -87,9 +91,13 @@ function SearchedTicker({
       currentPortfolio: portfolio,
       order: order,
     });
-    buyTicker({
+    editPortfolio({
       updatedPortfolio,
-    }).then((res) => setPortfolio(res.portfolio[0]));
+    })
+      .then((res) => {
+        setPortfolio(res.portfolio[0]);
+      })
+      .catch((err) => console.error(err));
   };
   if (tickerFound === true) {
     const purchaseInputPlaceHolder =

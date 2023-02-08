@@ -83,12 +83,12 @@ function SearchedTicker({
       purchaseAmount: purchaseAmount,
     };
 
-    const purchaseInfo = calculateOrder({
+    const updatedPortfolio = calculateOrder({
       currentPortfolio: portfolio,
       order: order,
     });
     buyTicker({
-      purchaseInfo,
+      updatedPortfolio,
     });
   };
   if (tickerFound === true) {

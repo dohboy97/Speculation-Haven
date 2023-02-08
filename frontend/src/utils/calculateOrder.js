@@ -1,3 +1,5 @@
+import { concat } from "lodash";
+
 export function calculateOrder({ currentPortfolio, order }) {
   const symbol = order.tickerInput;
   const price = Number(order.ticker.stock.Price);
@@ -42,6 +44,10 @@ export function calculateOrder({ currentPortfolio, order }) {
       shares: shares,
     };
   }
-  console.log(updatedTicker);
-  return updatedTicker;
+  let filteredPortfolio = currentPortfolio.ownedTickers.filter(
+    (ticker) => ticker.symbol !== symbol
+  );
+
+  const updatedPortfolio = concat(updatedTicker, filteredPortfolio);
+  return updatedPortfolio;
 }

@@ -38,19 +38,8 @@ module.exports = {
   //USER BUYS A TICKER; PUT REQ BECAUSE OWNED TICKER ARR WILL ALREADY EXIST ONCE BALANCE IS CREATED
   buyOrSellTicker: async (req, res) => {
     try {
-      let currentPort = await Portfolio.find();
-
       await Portfolio.findOneAndUpdate({
-        ownedTickers: [
-          ...currentPort[0].ownedTickers,
-          {
-            symbol: req.body.symbol,
-            price: req.body.price,
-            type: req.body.type,
-            dollarAmount: req.body.dollarAmount,
-            shares: req.body.shares,
-          },
-        ],
+        ownedTickers: [...req.body.updatedPortfolio],
       });
       const portfolio = await Portfolio.find();
       res.json({ portfolio: portfolio });

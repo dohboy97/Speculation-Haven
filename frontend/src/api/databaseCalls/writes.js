@@ -47,17 +47,12 @@ export async function deleteFromWatchList({ ticker }) {
   });
 }
 
-export async function buyTicker({ purchaseInfo }) {
-  const { type, symbol, dollarAmount, shares, price } = purchaseInfo;
+export async function buyTicker({ updatedPortfolio }) {
   const res = await fetch(`/portfolio/buyOrSellTicker`, {
     method: "PUT",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      type,
-      symbol,
-      dollarAmount,
-      shares,
-      price,
+      updatedPortfolio,
     }),
   });
   const data = await res.json();

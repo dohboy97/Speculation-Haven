@@ -6,6 +6,7 @@ export function calculateOrder({ currentPortfolio, order }) {
   const type = order.ticker.type;
   const selectedPurchaseMetric = order.selectedPurchaseMetric;
   const purchaseAmount = order.purchaseAmount;
+
   const dollarAmount =
     selectedPurchaseMetric === "Buy in $"
       ? purchaseAmount
@@ -14,20 +15,22 @@ export function calculateOrder({ currentPortfolio, order }) {
     selectedPurchaseMetric === "Buy Shares"
       ? purchaseAmount
       : purchaseAmount / price;
-  let currentPortIncludesPurchase = false;
+
+  let alreadyOwnsTicker = false;
 
   let currentShares;
   currentPortfolio.ownedTickers.forEach((ticker) => {
     if (ticker.symbol === symbol) {
-      currentPortIncludesPurchase = true;
+      alreadyOwnsTicker = true;
       currentShares = ticker;
     }
   });
 
   let updatedTicker = {};
 
-  if (currentPortIncludesPurchase) {
+  if (alreadyOwnsTicker) {
     const avgSharePrice = currentShares.dollarAmount / currentShares.shares;
+
     updatedTicker = {
       symbol: order.tickerInput,
       price: avgSharePrice,

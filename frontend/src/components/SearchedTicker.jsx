@@ -89,7 +89,7 @@ function SearchedTicker({
     });
     buyTicker({
       updatedPortfolio,
-    });
+    }).then((res) => setPortfolio(res.portfolio[0]));
   };
   if (tickerFound === true) {
     const purchaseInputPlaceHolder =

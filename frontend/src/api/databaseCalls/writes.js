@@ -56,7 +56,7 @@ export async function buyTicker({ updatedPortfolio }) {
     }),
   });
   const data = await res.json();
-  console.log(data.portfolio[0].ownedTickers);
+  return data;
 }
 
 export async function postBalance({ balance }) {

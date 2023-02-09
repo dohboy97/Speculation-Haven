@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { round } from "lodash";
 import { calculateOrder } from "../utils";
+import { toast } from "react-toastify";
 function SearchedTicker({
   setTickerFound,
   selectedMarket,
@@ -41,6 +42,7 @@ function SearchedTicker({
       setTickerFound(false);
     } else {
       setWatchList(data.stonks);
+      toast.success("Added to Watchlist");
     }
   };
 
@@ -96,7 +98,8 @@ function SearchedTicker({
         console.log(res);
         setPortfolio(res.portfolio[0]);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => toast.success("Purchase Successful"));
   };
   if (tickerFound === true) {
     const purchaseInputPlaceHolder =

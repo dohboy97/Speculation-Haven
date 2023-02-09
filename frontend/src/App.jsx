@@ -5,11 +5,24 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import WatchListPage from "./pages/WatchListPage/WatchListPage";
 import PortfolioPage from "./pages/PortfolioPage/PortfolioPage";
 import IndecesPage from "./pages/IndecesPage/IndecesPage";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
       <Header />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <Routes>
         <Route path="/watchlist" element={<WatchListPage />} />
         <Route path="/search" element={<SearchPage />} />

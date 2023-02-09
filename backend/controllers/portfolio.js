@@ -39,7 +39,8 @@ module.exports = {
   buyOrSellTicker: async (req, res) => {
     try {
       await Portfolio.findOneAndUpdate({
-        ownedTickers: [...req.body.updatedPortfolio],
+        balance: req.body.updatedPortfolio.balance,
+        ownedTickers: [...req.body.updatedPortfolio.ownedTickers],
       });
       const portfolio = await Portfolio.find();
       res.json({ portfolio: portfolio });

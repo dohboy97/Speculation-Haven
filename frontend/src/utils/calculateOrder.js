@@ -15,7 +15,7 @@ export function calculateOrder({ currentPortfolio, order }) {
     selectedPurchaseMetric === "Buy Shares"
       ? purchaseAmount
       : purchaseAmount / price;
-
+  const newBalance = currentPortfolio.balance - dollarAmount;
   let alreadyOwnsTicker = false;
 
   let currentShares;
@@ -51,6 +51,9 @@ export function calculateOrder({ currentPortfolio, order }) {
     (ticker) => ticker.symbol !== symbol
   );
 
-  const updatedPortfolio = concat(updatedTicker, filteredPortfolio);
+  const updatedPortfolio = {
+    ownedTickers: concat(updatedTicker, filteredPortfolio),
+    balance: newBalance,
+  };
   return updatedPortfolio;
 }

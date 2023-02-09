@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import NotFound from "./NotFound";
 import {
   addToWatchList,
@@ -31,7 +30,6 @@ function SearchedTicker({
   const [watchList, setWatchList] = useState([]);
   const [purchaseAmount, setPurchaseAmount] = useState(0);
   const [portfolio, setPortfolio] = useState(0);
-
   //gets ticker upon button search
   const handleAddToWatchlist = async () => {
     const data = await addToWatchList({
@@ -95,6 +93,7 @@ function SearchedTicker({
       updatedPortfolio,
     })
       .then((res) => {
+        console.log(res);
         setPortfolio(res.portfolio[0]);
       })
       .catch((err) => console.error(err));

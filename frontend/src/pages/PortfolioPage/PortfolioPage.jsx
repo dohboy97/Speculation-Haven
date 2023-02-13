@@ -1,6 +1,6 @@
 import { Typography, Box } from "@mui/material";
+import PortfolioSetup from "../IndecesPage/components/PortfolioSetup";
 
-import Balance from "../../components/Balance";
 function PortfolioPage() {
   //MAKE BALANCE AND PORTFOLIO BOTH INDIVIDUAL COMPONENTS
 
@@ -9,7 +9,7 @@ function PortfolioPage() {
       <Typography marginY={2} variant="h4">
         Portfolio
       </Typography>
-      <Balance />
+      <PortfolioSetup />
       <Typography marginY={2} variant="h5">
         Owned tickers
       </Typography>

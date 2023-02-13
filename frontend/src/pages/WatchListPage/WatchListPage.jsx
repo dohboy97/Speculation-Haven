@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import Watchlist from "../../components/Watchlist";
+import Watchlist from "./components/Watchlist";
 import { Typography, Button, Box } from "@mui/material";
 import { getWatchList, updateWatchlistPrices } from "../../api";
 

@@ -1,5 +1,5 @@
 import { Box, Typography, Button } from "@mui/material";
-import { deleteFromWatchList } from "../api";
+import { deleteFromWatchList } from "../../../api";
 function SavedTickers({ ticker, watchList, setWatchList }) {
   const handleDeleteClick = async () => {
     deleteFromWatchList({ ticker })

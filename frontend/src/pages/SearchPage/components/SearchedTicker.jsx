@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import NotFound from "./NotFound";
+import NotFound from "../../../components/NotFound";
 import {
   addToWatchList,
   editPortfolio,
   getPortfolio,
   getWatchList,
-} from "../api";
+} from "../../../api";
 import {
   Box,
   MenuItem,
@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import { round } from "lodash";
-import { calculateOrder } from "../utils";
+import { calculateOrder } from "../../../utils";
 import { toast } from "react-toastify";
 function SearchedTicker({
   setTickerFound,

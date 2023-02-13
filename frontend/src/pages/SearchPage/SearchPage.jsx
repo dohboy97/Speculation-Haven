@@ -1,9 +1,9 @@
 import { useState } from "react";
-import SearchedTicker from "../../components/SearchedTicker";
+import SearchedTicker from "./components/SearchedTicker";
 import { getTickerFromServer } from "../../api";
 
 import { Box, Typography } from "@mui/material";
-import { TickerInput } from "../../components/TickerInput";
+import { TickerInput } from "./components/TickerInput";
 function SearchPage() {
   //detect and use search input to then take to server api and retrieve ticker info
   const [tickerFound, setTickerFound] = useState();

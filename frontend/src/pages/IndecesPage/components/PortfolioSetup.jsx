@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
-import { getPortfolio, postBalance, editBalance } from "../api";
-function Balance() {
+import { getPortfolio, postBalance, editBalance } from "../../../api";
+function PortfolioSetup() {
   const [balance, setBalance] = useState();
   const [newAmount, setNewAmount] = useState();
   const [withdrawOrDeposit, setWithdrawOrDeposit] = useState("deposit");
@@ -101,4 +101,4 @@ function Balance() {
   );
 }
 
-export default Balance;
+export default PortfolioSetup;

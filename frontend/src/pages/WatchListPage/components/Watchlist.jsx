@@ -1,6 +1,6 @@
 import SavedTickers from "./SavedTickers";
 import { Box, Typography } from "@mui/material";
-import Loader from "./Loader";
+import Loader from "../../../components/Loader";
 function Watchlist({ watchlist, setWatchList, isLoading }) {
   //separation of stocks and crpyto
   const stockSkeletonBars = watchlist.reduce(

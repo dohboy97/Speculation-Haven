@@ -13,6 +13,8 @@ import {
   TextField,
   Button,
   Typography,
+  Tabs,
+  Tab,
 } from "@mui/material";
 import { round } from "lodash";
 import { calculateOrder } from "../../../utils";
@@ -27,7 +29,7 @@ function SearchedTicker({
 }) {
   const [selectedPurchaseMetric, setSelectedPurchaseMetric] = useState();
   const [isAddedToWatchList, setIsAddedToWatchlist] = useState();
-
+  const [buyOrSell, setBuyOrSell] = useState(0);
   const [watchList, setWatchList] = useState([]);
   const [purchaseAmount, setPurchaseAmount] = useState(0);
   const [portfolio, setPortfolio] = useState(0);
@@ -51,9 +53,7 @@ function SearchedTicker({
 
     getWatchList()
       .then((res) => {
-        if (watchList.length === 0 && res.stonks.length > 0) {
-          setWatchList(res.stonks);
-        }
+        setWatchList(res.stonks);
       })
       .catch((err) => console.error(err));
     watchList.forEach((el) => {
@@ -151,6 +151,10 @@ function SearchedTicker({
                 {addToWatchListText}
               </Button>
             </Box>
+            <Tabs value={buyOrSell} onChange={(e, val) => setBuyOrSell(val)}>
+              <Tab label="Buy" id={0}></Tab>
+              <Tab label="Sell" id={1}></Tab>
+            </Tabs>
             <Box marginY={2} display="flex" sx={{ minWidth: 800 }}>
               <TextField
                 label={purchaseInputPlaceHolder}

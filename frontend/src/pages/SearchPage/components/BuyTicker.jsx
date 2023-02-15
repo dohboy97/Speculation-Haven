@@ -5,6 +5,7 @@ import {
   TextField,
   Button,
   Typography,
+  Skeleton,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { editPortfolio } from "../../../api";
@@ -18,9 +19,11 @@ export default function BuyTicker({
   portfolio,
   setPortfolio,
 }) {
-  const [selectedPurchaseMetric, setSelectedPurchaseMetric] =
-    useState("Buy Shares");
+  const [selectedPurchaseMetric, setSelectedPurchaseMetric] = useState(
+    selectedMarket === "stock" ? "Buy Shares" : "Buy Coins"
+  );
   const [purchaseAmount, setPurchaseAmount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const purchaseInputPlaceHolder =
     selectedPurchaseMetric === "Buy in $" ? "Dollar Amount" : "Quantity";
@@ -69,10 +72,16 @@ export default function BuyTicker({
   const isStock = selectedMarket === "stock";
 
   useEffect(() => {
+    setIsLoading(true);
     selectedMarket === "stock"
       ? setSelectedPurchaseMetric("Buy Shares")
       : setSelectedPurchaseMetric("Buy Coins");
+    setIsLoading(false);
   }, [selectedMarket, setSelectedPurchaseMetric]);
+
+  if (isLoading) {
+    return <Skeleton variant="rounded" height={50} width={200}></Skeleton>;
+  }
 
   return (
     <Box>

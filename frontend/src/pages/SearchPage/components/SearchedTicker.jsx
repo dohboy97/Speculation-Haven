@@ -4,6 +4,7 @@ import { addToWatchList, getPortfolio, getWatchList } from "../../../api";
 import { Box, Button, Typography, Tabs, Tab } from "@mui/material";
 import { toast } from "react-toastify";
 import BuyTicker from "./BuyTicker";
+import SellTicker from "./SellTicker";
 function SearchedTicker({
   setTickerFound,
   selectedMarket,
@@ -94,6 +95,15 @@ function SearchedTicker({
                 />
               )}
             </Box>
+            {buyOrSell === 1 && (
+              <SellTicker
+                selectedMarket={selectedMarket}
+                tickerInput={tickerInput}
+                ticker={ticker}
+                portfolio={portfolio}
+                setPortfolio={setPortfolio}
+              />
+            )}
           </Box>
         )}
       </Box>

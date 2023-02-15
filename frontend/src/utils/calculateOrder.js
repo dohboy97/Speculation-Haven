@@ -5,16 +5,16 @@ export function calculateOrder({ currentPortfolio, order }) {
   const price = Number(order.ticker.stock.Price);
   const type = order.ticker.type;
   const selectedPurchaseMetric = order.selectedPurchaseMetric;
-  const purchaseAmount = order.purchaseAmount;
+  const transactionAmount = order.transactionAmount;
 
   const dollarAmount =
     selectedPurchaseMetric === "Buy in $"
-      ? purchaseAmount
-      : purchaseAmount * price;
+      ? transactionAmount
+      : transactionAmount * price;
   const shares =
     selectedPurchaseMetric === "Buy Shares"
-      ? purchaseAmount
-      : purchaseAmount / price;
+      ? transactionAmount
+      : transactionAmount / price;
   const newBalance = currentPortfolio.balance - dollarAmount;
   let alreadyOwnsTicker = false;
 

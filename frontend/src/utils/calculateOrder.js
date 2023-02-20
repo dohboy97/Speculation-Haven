@@ -50,7 +50,6 @@ export function calculatePurchase({ currentPortfolio, order }) {
   let filteredPortfolio = currentPortfolio.ownedTickers.filter(
     (ticker) => ticker.symbol !== symbol
   );
-
   const updatedPortfolio = {
     ownedTickers: concat(updatedTicker, filteredPortfolio),
     balance: newBalance,
@@ -75,8 +74,7 @@ export function calculateSale({ currentPortfolio, order }) {
       : transactionAmount / price;
   const newBalance = currentPortfolio.balance - dollarAmount;
   let alreadyOwnsTicker = false;
-  console.log(dollarAmount);
-  console.log(shares);
+
   let currentShares;
   currentPortfolio.ownedTickers.forEach((ticker) => {
     if (ticker.symbol === symbol) {

@@ -32,7 +32,7 @@ export default function BuyTicker({
       tickerInput: tickerInput,
       ticker: ticker,
       selectedPurchaseMetric: selectedPurchaseMetric,
-      purchaseAmount: purchaseAmount,
+      transactionAmount: purchaseAmount,
     };
 
     const updatedPortfolio = calculatePurchase({

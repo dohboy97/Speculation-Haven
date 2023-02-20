@@ -27,7 +27,6 @@ export default function BuyTicker({
 
   const purchaseInputPlaceHolder =
     selectedPurchaseMetric === "Buy in $" ? "Dollar Amount" : "Quantity";
-
   const handlePurchase = () => {
     const order = {
       tickerInput: tickerInput,
@@ -70,7 +69,6 @@ export default function BuyTicker({
         )}`;
 
   const isStock = selectedMarket === "stock";
-
   useEffect(() => {
     setIsLoading(true);
     selectedMarket === "stock"

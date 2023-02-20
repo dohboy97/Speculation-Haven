@@ -13,7 +13,6 @@ function SearchedTicker({
   ticker,
   searchedTicker,
 }) {
-  const [isAddedToWatchList, setIsAddedToWatchlist] = useState();
   const [buyOrSell, setBuyOrSell] = useState(0);
   const [watchList, setWatchList] = useState([]);
 
@@ -34,24 +33,22 @@ function SearchedTicker({
   };
 
   useEffect(() => {
-    setIsAddedToWatchlist(false);
-
     getWatchList()
       .then((res) => {
         setWatchList(res.stonks);
       })
       .catch((err) => console.error(err));
-    watchList.forEach((el) => {
-      if (el.symbol === searchedTicker.toUpperCase()) {
-        setIsAddedToWatchlist(true);
-      }
-    });
+
     getPortfolio()
       .then((res) => setPortfolio(res.portfolio[0]))
       .catch((err) => console.error(err));
-  }, [searchedTicker, watchList, setIsAddedToWatchlist, ticker]);
-  //Set purchase metric on market change
+  }, [searchedTicker, ticker]);
 
+  const isAddedToWatchList = !!watchList.find(
+    (el) => el.symbol === searchedTicker.toUpperCase()
+  );
+
+  //Set purchase metric on market change
   if (tickerFound === true) {
     const addToWatchListText = isAddedToWatchList
       ? "Added to Watchlist"

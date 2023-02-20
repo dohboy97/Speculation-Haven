@@ -56,15 +56,21 @@ export default function SellTicker({
       ? saleAmount
       : Number(ticker.stock.Price) * saleAmount;
 
-  const invalidPurchase = saleTotal < 1 || saleTotal > portfolio.balance;
+  const ownedShareTotal =
+    portfolio.ownedTickers.find(
+      (el) => el.symbol.toUpperCase() === tickerInput.toUpperCase()
+    )?.dollarAmount || 0;
+
+  console.log(ownedShareTotal);
+  const invalidPurchase = saleTotal < 1 || saleTotal > ownedShareTotal;
 
   const disabledPurchase = !saleAmount || invalidPurchase;
 
   const invalidFeedback =
     saleTotal < 1
       ? "Please enter a positive number"
-      : `Purchase exceeds your balance by $${round(
-          saleTotal - portfolio.balance,
+      : `Purchase exceeds your ${tickerInput.toUpperCase()} shares owned by $${round(
+          saleTotal - ownedShareTotal,
           2
         )}`;
 

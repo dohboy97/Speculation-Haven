@@ -10,7 +10,6 @@ import {
 import { useState, useEffect } from "react";
 import { editPortfolio } from "../../../api";
 import { round } from "lodash";
-import { calculateOrder } from "../../../utils";
 import { toast } from "react-toastify";
 import { calculatePurchase } from "../../../utils/calculateOrder";
 export default function BuyTicker({

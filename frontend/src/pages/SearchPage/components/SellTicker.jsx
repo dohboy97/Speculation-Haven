@@ -61,7 +61,6 @@ export default function SellTicker({
       (el) => el.symbol.toUpperCase() === tickerInput.toUpperCase()
     )?.dollarAmount || 0;
 
-  console.log(ownedShareTotal);
   const invalidPurchase = saleTotal < 1 || saleTotal > ownedShareTotal;
 
   const disabledPurchase = !saleAmount || invalidPurchase;

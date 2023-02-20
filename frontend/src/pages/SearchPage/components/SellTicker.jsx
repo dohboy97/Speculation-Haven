@@ -12,6 +12,7 @@ import { editPortfolio } from "../../../api";
 import { round } from "lodash";
 import { calculateOrder } from "../../../utils";
 import { toast } from "react-toastify";
+import { calculatePurchase } from "../../../utils/calculateOrder";
 export default function SellTicker({
   selectedMarket,
   tickerInput,
@@ -36,7 +37,7 @@ export default function SellTicker({
       transactionAmount: saleAmount * -1,
     };
 
-    const updatedPortfolio = calculateOrder({
+    const updatedPortfolio = calculatePurchase({
       currentPortfolio: portfolio,
       order: order,
     });

@@ -1,6 +1,6 @@
 import { concat } from "lodash";
 
-export function calculateOrder({ currentPortfolio, order }) {
+export function calculatePurchase({ currentPortfolio, order }) {
   const symbol = order.tickerInput;
   const price = Number(order.ticker.stock.Price);
   const type = order.ticker.type;

@@ -21,6 +21,7 @@ function SearchedTicker({
   const [portfolio, setPortfolio] = useState(0);
   const navigate = useNavigate();
   //gets ticker upon button search
+
   const handleAddToWatchlist = async () => {
     const data = await addToWatchList({
       tickerInput,
@@ -57,50 +58,36 @@ function SearchedTicker({
       ? "Added to Watchlist"
       : "Add to Watchlist";
 
-    const displayTickerInfo =
-      searchedTicker.toLowerCase() === tickerInput.toLowerCase() &&
-      ticker.type === selectedMarket;
-
     return (
       <Box>
         <ArrowBackIcon
           sx={{ cursor: "pointer" }}
           onClick={() => navigate(-1)}
         />
-        {displayTickerInfo && (
-          <Box display="flex" flexDirection="column">
-            <Typography marginY={2} variant="h6">
-              {searchedTicker}
-            </Typography>
-            <Typography marginBottom={2} variant="subtitle1">
-              Price:{ticker.stock.Price}
-            </Typography>
-            <Box sx={{ height: 50 }}>
-              <Button
-                variant="contained"
-                onClick={handleAddToWatchlist}
-                disabled={isAddedToWatchList}
-              >
-                {addToWatchListText}
-              </Button>
-            </Box>
-            <Tabs value={buyOrSell} onChange={(e, val) => setBuyOrSell(val)}>
-              <Tab label="Buy" id={0}></Tab>
-              <Tab label="Sell" id={1}></Tab>
-            </Tabs>
-            <Box>
-              {buyOrSell === 0 && (
-                <BuyTicker
-                  selectedMarket={selectedMarket}
-                  tickerInput={tickerInput}
-                  ticker={ticker}
-                  portfolio={portfolio}
-                  setPortfolio={setPortfolio}
-                />
-              )}
-            </Box>
-            {buyOrSell === 1 && (
-              <SellTicker
+
+        <Box display="flex" flexDirection="column">
+          <Typography marginY={2} variant="h6">
+            {searchedTicker}
+          </Typography>
+          <Typography marginBottom={2} variant="subtitle1">
+            Price:{ticker.stock.Price}
+          </Typography>
+          <Box sx={{ height: 50 }}>
+            <Button
+              variant="contained"
+              onClick={handleAddToWatchlist}
+              disabled={isAddedToWatchList}
+            >
+              {addToWatchListText}
+            </Button>
+          </Box>
+          <Tabs value={buyOrSell} onChange={(e, val) => setBuyOrSell(val)}>
+            <Tab label="Buy" id={0}></Tab>
+            <Tab label="Sell" id={1}></Tab>
+          </Tabs>
+          <Box>
+            {buyOrSell === 0 && (
+              <BuyTicker
                 selectedMarket={selectedMarket}
                 tickerInput={tickerInput}
                 ticker={ticker}
@@ -109,7 +96,16 @@ function SearchedTicker({
               />
             )}
           </Box>
-        )}
+          {buyOrSell === 1 && (
+            <SellTicker
+              selectedMarket={selectedMarket}
+              tickerInput={tickerInput}
+              ticker={ticker}
+              portfolio={portfolio}
+              setPortfolio={setPortfolio}
+            />
+          )}
+        </Box>
       </Box>
     );
   } else if (tickerFound === false) {

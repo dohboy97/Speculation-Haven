@@ -4,29 +4,50 @@ import { getTickerFromServer } from "../../api";
 
 import { Box, Typography } from "@mui/material";
 import { TickerInput } from "./components/TickerInput";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import {
+  createSearchParams,
+  Route,
+  Routes,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import { useEffect } from "react";
 function SearchPage() {
   const navigate = useNavigate();
-
+  const [searchParams] = useSearchParams();
   //detect and use search input to then take to server api and retrieve ticker info
   const [tickerFound, setTickerFound] = useState();
   const [tickerInput, setTickerInput] = useState("");
   const [selectedMarket, setSelectedMarket] = useState("stock");
   const [ticker, setTicker] = useState();
   const [searchedTicker, setSearchedTicker] = useState("");
-
   //grabs ticker input for fetch
   async function getTickerInfo() {
-    setTickerFound();
-    const data = await getTickerFromServer({
-      input: tickerInput,
-      selectedMarket: selectedMarket,
+    searchParams.set("symbol", tickerInput);
+    searchParams.set("market", selectedMarket);
+    navigate({
+      pathname: "ticker",
+      search: `${createSearchParams(searchParams)}`,
     });
-    data === "error" ? setTickerFound(false) : setTickerFound(true);
-    setTicker(data);
-    setSearchedTicker(tickerInput.toUpperCase());
-    navigate(`${tickerInput}`);
   }
+
+  useEffect(() => {
+    setTickerFound();
+
+    const tickerSearched = searchParams.get("symbol");
+    const market = searchParams.get("market");
+    if (!tickerSearched || !market) return;
+
+    getTickerFromServer({
+      input: tickerSearched,
+      selectedMarket: market,
+    }).then((data) => {
+      data === "error" ? setTickerFound(false) : setTickerFound(true);
+      setTicker(data);
+    });
+    setSearchedTicker(tickerSearched.toUpperCase());
+    setTickerInput(tickerSearched);
+  }, [searchParams]);
 
   const handleSearchChange = (event) => {
     setSelectedMarket(event.target.value);
@@ -53,7 +74,7 @@ function SearchPage() {
           }
         />
         <Route
-          path="/:ticker"
+          path="/*"
           element={
             <SearchedTicker
               ticker={ticker}

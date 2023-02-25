@@ -10,6 +10,7 @@ import {
 import { round } from "lodash";
 import { useEffect } from "react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { getPortfolio, postBalance, editBalance } from "../../../api";
 function PortfolioSetup() {
   const [balance, setBalance] = useState();
@@ -31,6 +32,7 @@ function PortfolioSetup() {
   const handleSetBalance = async () => {
     const balance = await postBalance({ balance: newAmount });
     setBalance(balance);
+    toast.success("Balance set");
   };
 
   //FOR DEPOSITING AND WITHDRAWING MONEY
@@ -41,6 +43,9 @@ function PortfolioSetup() {
       amount: newAmount,
     });
     setBalance(newBalance);
+    withdrawOrDeposit === "withdraw"
+      ? toast.success("Withdrawal successful")
+      : toast.success("Deposit successful");
   };
 
   const handleSelectWithdrawOrDeposit = (e) => {

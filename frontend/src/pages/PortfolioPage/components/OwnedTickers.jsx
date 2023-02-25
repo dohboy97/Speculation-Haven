@@ -1,4 +1,5 @@
 import { Typography, Box, Button, Grid, Skeleton } from "@mui/material";
+import { round } from "lodash";
 import { useEffect, useState } from "react";
 import { getPortfolio } from "../../../api";
 
@@ -9,7 +10,10 @@ export default function OwnedTickers() {
   useEffect(() => {
     setIsLoading(true);
     getPortfolio()
-      .then((portfolio) => setOwnedTickers(portfolio.portfolio[0].ownedTickers))
+      .then((portfolio) => {
+        if (portfolio.portfolio[0])
+          setOwnedTickers(portfolio.portfolio[0].ownedTickers);
+      })
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -34,7 +38,7 @@ export default function OwnedTickers() {
         </Grid>
         <Grid xs={2} item>
           <Typography fontSize={16} variant="overline">
-            Cost
+            Cost Basis
           </Typography>
         </Grid>
         <Grid xs={2} item>
@@ -56,6 +60,7 @@ export default function OwnedTickers() {
 }
 
 function OwnedTicker({ ticker }) {
+  if (ticker.shares === 0) return null;
   return (
     <Grid container spacing={4}>
       <Grid xs={2} item>
@@ -70,12 +75,12 @@ function OwnedTicker({ ticker }) {
       </Grid>
       <Grid xs={2} item>
         <Typography fontSize={16} variant="overline">
-          {ticker.shares}
+          {round(ticker.shares, 2)}
         </Typography>
       </Grid>
       <Grid xs={2} item>
         <Typography fontSize={16} variant="overline">
-          {ticker.dollarAmount}
+          {round(ticker.dollarAmount, 2)}
         </Typography>
       </Grid>
     </Grid>

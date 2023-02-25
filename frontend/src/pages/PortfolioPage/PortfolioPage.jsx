@@ -1,5 +1,5 @@
 import { Typography, Box } from "@mui/material";
-import PortfolioSetup from "../IndecesPage/components/PortfolioSetup";
+import PortfolioSetup from "./components/PortfolioSetup";
 import OwnedTickers from "./components/OwnedTickers";
 
 function PortfolioPage() {

@@ -1,4 +1,4 @@
-import { Box, Typography, Button, Grid } from "@mui/material";
+import { Typography, Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getPortfolio } from "../../../api";
 
@@ -12,16 +12,26 @@ export default function OwnedTickers() {
   }, []);
   if (!ownedTickers) return null;
   return (
-    <Grid container>
+    <Grid width="75%" container>
       <Grid container spacing={4}>
-        <Grid item>
+        <Grid xs={2} item>
           <Typography fontSize={16} variant="overline">
             Ticker
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid xs={2} item>
           <Typography fontSize={16} variant="overline">
             Cost
+          </Typography>
+        </Grid>
+        <Grid xs={2} item>
+          <Typography fontSize={16} variant="overline">
+            Shares
+          </Typography>
+        </Grid>
+        <Grid xs={2} item>
+          <Typography fontSize={16} variant="overline">
+            $ Amount
           </Typography>
         </Grid>
       </Grid>
@@ -34,18 +44,26 @@ export default function OwnedTickers() {
 
 function OwnedTicker({ ticker }) {
   return (
-    <Grid container>
-      <Grid container spacing={4}>
-        <Grid item>
-          <Typography fontSize={16} variant="overline">
-            {ticker.symbol}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography fontSize={16} variant="overline">
-            {ticker.price}
-          </Typography>
-        </Grid>
+    <Grid container spacing={4}>
+      <Grid xs={2} item>
+        <Typography fontSize={16} variant="overline">
+          {ticker.symbol}
+        </Typography>
+      </Grid>
+      <Grid xs={2} item>
+        <Typography fontSize={16} variant="overline">
+          {ticker.price}
+        </Typography>
+      </Grid>
+      <Grid xs={2} item>
+        <Typography fontSize={16} variant="overline">
+          {ticker.shares}
+        </Typography>
+      </Grid>
+      <Grid xs={2} item>
+        <Typography fontSize={16} variant="overline">
+          {ticker.dollarAmount}
+        </Typography>
       </Grid>
     </Grid>
   );

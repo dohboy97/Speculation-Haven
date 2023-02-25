@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import NotFound from "../../../components/NotFound";
 import { addToWatchList, getPortfolio, getWatchList } from "../../../api";
 import { Box, Button, Typography, Tabs, Tab } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { toast } from "react-toastify";
 import BuyTicker from "./BuyTicker";
 import SellTicker from "./SellTicker";
+import { useNavigate } from "react-router-dom";
 function SearchedTicker({
   setTickerFound,
   selectedMarket,
@@ -17,6 +19,7 @@ function SearchedTicker({
   const [watchList, setWatchList] = useState([]);
 
   const [portfolio, setPortfolio] = useState(0);
+  const navigate = useNavigate();
   //gets ticker upon button search
   const handleAddToWatchlist = async () => {
     const data = await addToWatchList({
@@ -60,6 +63,10 @@ function SearchedTicker({
 
     return (
       <Box>
+        <ArrowBackIcon
+          sx={{ cursor: "pointer" }}
+          onClick={() => navigate(-1)}
+        />
         {displayTickerInfo && (
           <Box display="flex" flexDirection="column">
             <Typography marginY={2} variant="h6">

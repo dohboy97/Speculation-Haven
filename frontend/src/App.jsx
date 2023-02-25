@@ -25,7 +25,7 @@ function App() {
       />
       <Routes>
         <Route path="/watchlist" element={<WatchListPage />} />
-        <Route path="/search" element={<SearchPage />} />
+        <Route path="/search/*" element={<SearchPage />} />
         <Route path="/indeces" element={<IndecesPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="*" element={<h1>Page Not found</h1>} />

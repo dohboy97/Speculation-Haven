@@ -4,7 +4,10 @@ import { getTickerFromServer } from "../../api";
 
 import { Box, Typography } from "@mui/material";
 import { TickerInput } from "./components/TickerInput";
+import { Route, Routes, useNavigate } from "react-router-dom";
 function SearchPage() {
+  const navigate = useNavigate();
+
   //detect and use search input to then take to server api and retrieve ticker info
   const [tickerFound, setTickerFound] = useState();
   const [tickerInput, setTickerInput] = useState("");
@@ -22,6 +25,7 @@ function SearchPage() {
     data === "error" ? setTickerFound(false) : setTickerFound(true);
     setTicker(data);
     setSearchedTicker(tickerInput.toUpperCase());
+    navigate(`${tickerInput}`);
   }
 
   const handleSearchChange = (event) => {
@@ -35,22 +39,33 @@ function SearchPage() {
       <Typography marginY={2} variant="h4">
         Search
       </Typography>
-      <TickerInput
-        setTickerInput={setTickerInput}
-        selectedMarket={selectedMarket}
-        handleChange={handleSearchChange}
-        getTickerInfo={getTickerInfo}
-        disableButton={disableButton}
-      />
-
-      <SearchedTicker
-        ticker={ticker}
-        tickerInput={tickerInput}
-        setTickerFound={setTickerFound}
-        tickerFound={tickerFound}
-        selectedMarket={selectedMarket}
-        searchedTicker={searchedTicker}
-      />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <TickerInput
+              setTickerInput={setTickerInput}
+              selectedMarket={selectedMarket}
+              handleChange={handleSearchChange}
+              getTickerInfo={getTickerInfo}
+              disableButton={disableButton}
+            />
+          }
+        />
+        <Route
+          path="/:ticker"
+          element={
+            <SearchedTicker
+              ticker={ticker}
+              tickerInput={tickerInput}
+              setTickerFound={setTickerFound}
+              tickerFound={tickerFound}
+              selectedMarket={selectedMarket}
+              searchedTicker={searchedTicker}
+            />
+          }
+        />
+      </Routes>
     </Box>
   );
 }

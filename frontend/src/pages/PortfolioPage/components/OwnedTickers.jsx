@@ -1,6 +1,11 @@
 import { Typography, Box, Button, Grid, Skeleton } from "@mui/material";
-import { round } from "lodash";
+import { lowerCase, round } from "lodash";
 import { useEffect, useState } from "react";
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { getPortfolio } from "../../../api";
 
 export default function OwnedTickers() {
@@ -60,7 +65,19 @@ export default function OwnedTickers() {
 }
 
 function OwnedTicker({ ticker }) {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   if (ticker.shares === 0) return null;
+
+  const handleViewClick = () => {
+    searchParams.set("symbol", lowerCase(ticker.symbol));
+    searchParams.set("market", ticker.type);
+    navigate({
+      pathname: "/search/ticker",
+      search: `${createSearchParams(searchParams)}`,
+    });
+  };
+
   return (
     <Grid container spacing={4}>
       <Grid xs={2} item>
@@ -82,6 +99,11 @@ function OwnedTicker({ ticker }) {
         <Typography fontSize={16} variant="overline">
           {round(ticker.dollarAmount, 2)}
         </Typography>
+      </Grid>
+      <Grid xs={2} item>
+        <Button onClick={handleViewClick} variant="contained">
+          View
+        </Button>
       </Grid>
     </Grid>
   );

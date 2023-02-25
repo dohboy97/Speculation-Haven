@@ -10,6 +10,9 @@ function PortfolioPage() {
       <Typography marginY={2} variant="h4">
         Portfolio
       </Typography>
+      <Typography marginY={2} variant="h5">
+        Performance
+      </Typography>
       <PortfolioSetup />
       <Typography marginY={2} variant="h5">
         Owned tickers

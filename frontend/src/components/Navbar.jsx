@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { AppBar, MenuItem, Typography, Box } from "@mui/material";
+import { lowerCase } from "lodash";
 
 function Navbar() {
   const pages = ["Watchlist", "Portfolio", "Search", "Indeces"];
@@ -20,7 +21,7 @@ function Navbar() {
           return (
             <MenuItem
               key={page}
-              onClick={() => navigate(`/${page}`)}
+              onClick={() => navigate(`/${lowerCase(page)}`)}
               style={{ backgroundColor: backgroundColor }}
             >
               <Typography textAlign="center">{page}</Typography>

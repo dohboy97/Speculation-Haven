@@ -1,5 +1,6 @@
 import { Typography, Box } from "@mui/material";
 import PortfolioSetup from "../IndecesPage/components/PortfolioSetup";
+import OwnedTickers from "./components/OwnedTickers";
 
 function PortfolioPage() {
   //MAKE BALANCE AND PORTFOLIO BOTH INDIVIDUAL COMPONENTS
@@ -16,6 +17,7 @@ function PortfolioPage() {
       <Typography variant="overline">
         Avg cost, quantity, total value
       </Typography>
+      <OwnedTickers />
     </Box>
   );
 }

@@ -7,6 +7,7 @@ import {
   MenuItem,
   Skeleton,
 } from "@mui/material";
+import { round } from "lodash";
 import { useEffect } from "react";
 import { useState } from "react";
 import { getPortfolio, postBalance, editBalance } from "../../../api";
@@ -76,7 +77,7 @@ function PortfolioSetup() {
   return (
     <Box>
       <Typography marginBottom={2} variant="h5">
-        Balance: ${balance}
+        Balance: ${round(balance, 2)}
       </Typography>
       <Box display="flex">
         <TextField onChange={handleChangeAmount} placeholder="Amount $" />

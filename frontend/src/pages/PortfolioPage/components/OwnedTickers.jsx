@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getPortfolio } from "../../../api";
 
@@ -12,36 +12,41 @@ export default function OwnedTickers() {
   }, []);
   if (!ownedTickers) return null;
   return (
-    <Box>
+    <Grid container>
+      <Grid container spacing={4}>
+        <Grid item>
+          <Typography fontSize={16} variant="overline">
+            Ticker
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography fontSize={16} variant="overline">
+            Cost
+          </Typography>
+        </Grid>
+      </Grid>
       {ownedTickers.map((ticker) => (
         <OwnedTicker key={ticker.symbol} ticker={ticker} />
       ))}
-    </Box>
+    </Grid>
   );
 }
 
 function OwnedTicker({ ticker }) {
   return (
-    <Box
-      paddingX="10px"
-      marginBottom={2}
-      borderRadius="3px"
-      display="flex"
-      justifyContent="space-between"
-    >
-      <Box marginRight="25px">
-        <Typography
-          fontSize={16}
-          variant="overline"
-        >{`${ticker.symbol} : `}</Typography>
-        <Typography
-          fontSize={16}
-          variant="overline"
-        >{`$${ticker.price}`}</Typography>
-      </Box>
-      <Button size="small" variant="contained">
-        Sell
-      </Button>
-    </Box>
+    <Grid container>
+      <Grid container spacing={4}>
+        <Grid item>
+          <Typography fontSize={16} variant="overline">
+            {ticker.symbol}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography fontSize={16} variant="overline">
+            {ticker.price}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }

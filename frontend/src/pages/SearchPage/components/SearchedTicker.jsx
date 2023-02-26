@@ -21,7 +21,6 @@ function SearchedTicker({
   const [portfolio, setPortfolio] = useState(0);
   const navigate = useNavigate();
   //gets ticker upon button search
-
   const handleAddToWatchlist = async () => {
     const data = await addToWatchList({
       tickerInput,

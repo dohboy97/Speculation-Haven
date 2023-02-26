@@ -47,6 +47,7 @@ function SearchPage() {
     });
     setSearchedTicker(tickerSearched.toUpperCase());
     setTickerInput(tickerSearched);
+    setSelectedMarket(market);
   }, [searchParams]);
 
   const handleSearchChange = (event) => {

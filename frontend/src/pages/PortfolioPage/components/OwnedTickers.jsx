@@ -87,7 +87,7 @@ function OwnedTicker({ ticker }) {
       </Grid>
       <Grid xs={2} item>
         <Typography fontSize={16} variant="overline">
-          {ticker.price}
+          {round(ticker.price, 2)}
         </Typography>
       </Grid>
       <Grid xs={2} item>

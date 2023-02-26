@@ -69,6 +69,7 @@ export async function postBalance({ balance }) {
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
       balance: balance,
+      deposits: balance,
     }),
   });
   const data = await res.json();

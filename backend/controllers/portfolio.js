@@ -17,6 +17,7 @@ module.exports = {
       await Portfolio.create({
         balance: req.body.balance,
         deposits: req.body.deposits,
+        withdrawals: req.body.withdrawals,
       });
       const portfolio = await Portfolio.find();
       res.json({ portfolio: portfolio });
@@ -29,6 +30,8 @@ module.exports = {
     try {
       await Portfolio.findOneAndUpdate({
         balance: req.body.balance,
+        deposits: req.body.deposits,
+        withdrawals: req.body.withdrawals,
       });
       const portfolio = await Portfolio.find();
       res.json({ portfolio: portfolio });

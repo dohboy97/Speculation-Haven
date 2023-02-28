@@ -70,6 +70,7 @@ export async function postBalance({ balance }) {
     body: JSON.stringify({
       balance: balance,
       deposits: balance,
+      withdrawals: 0,
     }),
   });
   const data = await res.json();
@@ -80,6 +81,8 @@ export async function editBalance({
   currentBalance,
   withdrawOrDeposit,
   amount,
+  deposits,
+  withdrawals,
 }) {
   if (!Number(amount) || Number(amount) < 1) return;
   const newBalance =
@@ -88,11 +91,23 @@ export async function editBalance({
       : Number(currentBalance) + Number(amount);
   //PUT REQUESTS TO DEPOSIT FUNDS
 
+  const newDeposits =
+    withdrawOrDeposit === "deposit"
+      ? Number(deposits) + Number(amount)
+      : Number(deposits);
+
+  const newWithdrawals =
+    withdrawOrDeposit === "withdraw"
+      ? Number(withdrawals) + Number(amount)
+      : Number(withdrawals);
+
   const res = await fetch("/portfolio/editbalance", {
     method: "PUT",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
       balance: newBalance < 0 ? 0 : newBalance,
+      deposits: newDeposits,
+      withdrawals: newWithdrawals,
     }),
   });
   const data = await res.json();

@@ -15,6 +15,7 @@ import { getPortfolio, postBalance, editBalance } from "../../../api";
 function PortfolioSetup() {
   const [balance, setBalance] = useState();
   const [newAmount, setNewAmount] = useState();
+  const [portfolio, setPortfolio] = useState();
   const [withdrawOrDeposit, setWithdrawOrDeposit] = useState("deposit");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,11 +24,12 @@ function PortfolioSetup() {
     getPortfolio()
       .then((portfolio) => {
         if (!portfolio.portfolio[0]) return;
+        setPortfolio(portfolio.portfolio[0]);
         setBalance(portfolio.portfolio[0].balance);
       })
       .catch((err) => console.error(err))
       .finally(() => setIsLoading(false));
-  }, [setBalance, setIsLoading]);
+  }, [setBalance, setPortfolio, setIsLoading]);
 
   const handleSetBalance = async () => {
     const balance = await postBalance({ balance: newAmount });
@@ -41,6 +43,8 @@ function PortfolioSetup() {
       currentBalance: balance,
       withdrawOrDeposit: withdrawOrDeposit,
       amount: newAmount,
+      deposits: portfolio.deposits,
+      withdrawals: portfolio.withdrawals,
     });
     setBalance(newBalance);
     withdrawOrDeposit === "withdraw"

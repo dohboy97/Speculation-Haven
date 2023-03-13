@@ -1,9 +1,7 @@
 const express = require("express");
-
 const app = express();
 const path = require("path");
 const connectDB = require("./config/database");
-// //save passport, session, etc until after mvp functional
 const MongoStore = require("connect-mongo");
 require("dotenv").config({ path: "./config/.env" });
 
@@ -12,8 +10,6 @@ require("dotenv").config({ path: "./config/.env" });
 const watchListRoute = require("./routes/watchList");
 const searchRoute = require("./routes/search");
 const portfolioRoute = require("./routes/portfolio");
-
-//insert passport config once passport installed
 
 const bodyParser = require("body-parser");
 const { default: mongoose } = require("mongoose");

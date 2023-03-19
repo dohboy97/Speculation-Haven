@@ -1,19 +1,20 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const passport = require("passport");
 const connectDB = require("./config/database");
 const MongoStore = require("connect-mongo");
-require("dotenv").config({ path: "./config/.env" });
-
-//passport google oauth2.0
+require("dotenv").config();
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
+
+// passport google oauth2.0
 
 passport.use(
   new GoogleStrategy(
     {
-      clientID: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://www.example.com/auth/google/callback",
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "localhost:3000",
     },
     function (accessToken, refreshToken, profile, cb) {
       User.findOrCreate({ googleId: profile.id }, function (err, user) {
@@ -21,6 +22,20 @@ passport.use(
       });
     }
   )
+);
+
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile"] })
+);
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+  }
 );
 
 //routes

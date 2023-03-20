@@ -7,6 +7,7 @@ import PortfolioPage from "./pages/PortfolioPage/PortfolioPage";
 import IndecesPage from "./pages/IndecesPage/IndecesPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoginPage from "./pages/LoginPage/LoginPage";
 function App() {
   return (
     <>
@@ -25,6 +26,7 @@ function App() {
       />
       <Routes>
         <Route path="/watchlist" element={<WatchListPage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/search/*" element={<SearchPage />} />
         <Route path="/indeces" element={<IndecesPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />

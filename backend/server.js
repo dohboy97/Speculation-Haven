@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const path = require("path");
 const passport = require("passport");
@@ -20,6 +21,8 @@ const bodyParser = require("body-parser");
 const { default: mongoose } = require("mongoose");
 
 connectDB();
+
+app.use(cors);
 
 //session middleware
 app.use(

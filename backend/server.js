@@ -37,10 +37,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-app.get("/", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "../", "frontend", "src", "index.js"))
-);
-
 app.use("/watchlist", watchListRoute);
 app.use("/search", searchRoute);
 app.use("/portfolio", portfolioRoute);

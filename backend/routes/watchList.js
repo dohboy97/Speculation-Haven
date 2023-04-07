@@ -1,17 +1,14 @@
-const express = require('express')
-const router = express.Router()
-const watchListController = require('../controllers/watchList')
-const { watch } = require('../models/WatchList')
+const express = require("express");
+const router = express.Router();
+const watchListController = require("../controllers/watchList");
 
-router.get('/', watchListController.getWatchList)
+router.get("/", watchListController.getWatchList);
 
-
-router.post('/addticker/:id', watchListController.addTicker)
+router.post("/addticker/:id", watchListController.addTicker);
 //here, in controller get the latest trade from alpaca
 
-router.delete('/deleteticker/:id', watchListController.deleteTicker)
+router.delete("/deleteticker/:id", watchListController.deleteTicker);
 
-router.put('/updateticker/:id', watchListController.updateTicker)
+router.put("/updateticker/:id", watchListController.updateTicker);
 
-
-module.exports = router
+module.exports = router;

@@ -21,7 +21,9 @@ function WatchListPage() {
   useEffect(() => {
     setIsLoading(true);
     getWatchList()
-      .then((response) => setWatchList(response.stonks))
+      .then((response) => {
+        setWatchList(response.stonks);
+      })
       .catch((error) => console.error(error))
       .finally(() => setIsLoading(false));
   }, [setWatchList, setIsLoading]);

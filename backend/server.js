@@ -4,9 +4,8 @@ const path = require("path");
 const passport = require("passport");
 const session = require("express-session");
 const connectDB = require("./config/database");
-const MongoStore = require("connect-mongo");
 require("dotenv").config();
-var GoogleStrategy = require("passport-google-oauth20").Strategy;
+
 require("./config/passport")(passport);
 // passport google oauth2.0
 
@@ -16,8 +15,6 @@ const watchListRoute = require("./routes/watchList");
 const searchRoute = require("./routes/search");
 const portfolioRoute = require("./routes/portfolio");
 const authRoute = require("./routes/auth");
-const bodyParser = require("body-parser");
-const { default: mongoose } = require("mongoose");
 
 connectDB();
 

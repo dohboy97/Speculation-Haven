@@ -5,8 +5,10 @@ export default function LoginPage() {
     window.open("http://localhost:3000/auth/google");
   };
 
-  const ping = () => {
-    fetch("http://localhost:3000/auth/status").then((res) => console.log(res));
+  const ping = async () => {
+    const res = await fetch("/auth/status");
+    const userData = await res.json();
+    console.log(userData);
   };
 
   return (

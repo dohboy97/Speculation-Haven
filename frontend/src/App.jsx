@@ -8,7 +8,20 @@ import IndecesPage from "./pages/IndecesPage/IndecesPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import { useEffect, useState } from "react";
 function App() {
+  //fetch User context
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    fetch("/auth/status").then((res) => {
+      const data = res.json();
+      if (data.success) {
+        setUser(data.user);
+      }
+    });
+  });
+
   return (
     <>
       <Header />

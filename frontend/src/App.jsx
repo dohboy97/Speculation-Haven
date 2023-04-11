@@ -5,6 +5,7 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import WatchListPage from "./pages/WatchListPage/WatchListPage";
 import PortfolioPage from "./pages/PortfolioPage/PortfolioPage";
 import IndecesPage from "./pages/IndecesPage/IndecesPage";
+import Navbar from "./components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -33,6 +34,7 @@ function App() {
       <>
         <UserContext.Provider value={user}>
           <Header />
+          <Navbar setUser={setUser} />
           <ToastContainer
             position="top-center"
             autoClose={5000}

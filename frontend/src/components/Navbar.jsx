@@ -12,9 +12,15 @@ import { lowerCase } from "lodash";
 import { useContext } from "react";
 import { UserContext } from "../context";
 
-function LogoutButton() {
+function LogoutButton({ setUser }) {
+  const navigate = useNavigate();
   const handleLogout = () => {
-    fetch("/auth/logout").catch((err) => console.error(err));
+    fetch("/auth/logout")
+      .catch((err) => console.error(err))
+      .finally(() => {
+        navigate("/");
+        setUser(undefined);
+      });
   };
 
   return (
@@ -24,7 +30,7 @@ function LogoutButton() {
   );
 }
 
-function Navbar() {
+function Navbar({ setUser }) {
   const pages = ["Watchlist", "Portfolio", "Search", "Indeces"];
   const navigate = useNavigate();
   const location = useLocation();
@@ -60,7 +66,7 @@ function Navbar() {
         </Box>
         <Box sx={{ display: "flex" }} marginRight={4}>
           <Avatar alt="User img" src={user.image}></Avatar>
-          <LogoutButton />
+          <LogoutButton setUser={setUser} />
         </Box>
       </Box>
     </AppBar>

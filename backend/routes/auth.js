@@ -32,9 +32,8 @@ router.get("/logout", function (req, res, next) {
   req.logout(function (err) {
     if (err) {
       return next(err);
-    } else {
-      res.redirect("/");
     }
+    res.redirect("http://localhost:3001/");
   });
 });
 

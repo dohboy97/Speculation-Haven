@@ -12,7 +12,7 @@ const alpaca = new Alpaca({
 module.exports = {
   getWatchList: async (req, res) => {
     try {
-      const watchList = await WatchList.find();
+      const watchList = await WatchList.find({ userId: req.userId });
       res.json({ stonks: watchList });
     } catch (err) {
       console.log(err);

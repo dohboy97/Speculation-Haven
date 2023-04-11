@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 import Header from "./components/Header";
 import SearchPage from "./pages/SearchPage/SearchPage";
@@ -10,7 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { useEffect, useState } from "react";
 import { UserContext } from "./context";
+import { Typography } from "@mui/material";
 function App() {
+  const navigate = useNavigate();
   //fetch User context
   const [user, setUser] = useState(undefined);
 
@@ -19,37 +21,45 @@ function App() {
       res.json().then((jsonData) => {
         if (jsonData.success) {
           setUser(jsonData.user);
+        } else {
+          navigate("/");
         }
       });
     });
-  }, []);
-  return (
-    <>
-      <UserContext.Provider value={user}>
-        <Header />
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
-        <Routes>
-          <Route path="/watchlist" element={<WatchListPage />} />
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/search/*" element={<SearchPage />} />
-          <Route path="/indeces" element={<IndecesPage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="*" element={<h1>Page Not found</h1>} />
-        </Routes>
-      </UserContext.Provider>
-    </>
-  );
+  }, [navigate]);
+
+  if (user)
+    return (
+      <>
+        <UserContext.Provider value={user}>
+          <Header />
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+          <Routes>
+            <Route path="/watchlist" element={<WatchListPage />} />
+            <Route path="/search/*" element={<SearchPage />} />
+            <Route path="/indeces" element={<IndecesPage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route
+              path="*"
+              element={<Typography variant="h4">Page not found</Typography>}
+            />
+          </Routes>
+        </UserContext.Provider>
+      </>
+    );
+
+  return <LoginPage />;
 }
 
 export default App;

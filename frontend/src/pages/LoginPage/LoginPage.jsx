@@ -1,4 +1,4 @@
-import { Button, Box } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 
 export default function LoginPage() {
   const login = () => {
@@ -7,6 +7,7 @@ export default function LoginPage() {
 
   return (
     <Box>
+      <Typography>Please login to continue</Typography>
       <Button onClick={login}>Login</Button>
     </Box>
   );

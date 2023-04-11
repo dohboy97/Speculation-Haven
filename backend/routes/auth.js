@@ -28,4 +28,14 @@ router.get("/status", (req, res) => {
   }
 });
 
+router.get("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    } else {
+      res.redirect("/");
+    }
+  });
+});
+
 module.exports = router;

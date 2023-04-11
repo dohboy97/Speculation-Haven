@@ -14,6 +14,7 @@ const PortfolioSchema = new Schema({
   ownedTickers: [OwnedTickerSchema],
   deposits: Number,
   withdrawals: Number,
+  userId: String,
 });
 
 module.exports = mongoose.model("Portfolio", PortfolioSchema);

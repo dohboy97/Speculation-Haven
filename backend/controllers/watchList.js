@@ -29,18 +29,20 @@ module.exports = {
           exchange: "FTXU",
         });
       }
-      console.log(trade);
+
       await WatchList.create({
-        symbol: req.params.id.toUpperCase(),
-        price: trade.Price,
-        type: req.body.type,
-        index: req.body.index,
+        userid: req.userId,
+        watchList: {
+          symbol: req.params.id.toUpperCase(),
+          price: trade.Price,
+          type: req.body.type,
+          index: req.body.index,
+        },
       });
-      const watchList = await WatchList.find();
+      const watchList = await WatchList.find({ userId: req.userId });
 
       res.json({ stonks: watchList, ticker: true });
     } catch (err) {
-      console.log("test", err);
       res.json({ ticker: false });
     }
   },
@@ -58,7 +60,6 @@ module.exports = {
           exchange: "FTXU",
         });
       }
-      console.log(trade);
       await WatchList.findByIdAndUpdate(
         { _id: req.params.id },
         {

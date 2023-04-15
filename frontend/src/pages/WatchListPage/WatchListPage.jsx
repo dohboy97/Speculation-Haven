@@ -8,7 +8,7 @@ import { UserContext } from "../../context";
 
 function WatchListPage() {
   const user = useContext(UserContext);
-  const userId = user.id;
+  const userId = user._id;
   const [watchList, setWatchList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +24,8 @@ function WatchListPage() {
     setIsLoading(true);
     getWatchList({ userId })
       .then((response) => {
-        setWatchList(response.stonks);
+        console.log(response.stonks);
+        setWatchList(response.stonks.watchList);
       })
       .catch((error) => console.error(error))
       .finally(() => setIsLoading(false));

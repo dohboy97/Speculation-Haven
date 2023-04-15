@@ -13,7 +13,8 @@ module.exports = {
   getWatchList: async (req, res) => {
     try {
       const userId = req.params.id;
-      const watchList = await WatchList.find({ userId });
+      const watchList = await WatchList.findOne({ userId });
+
       res.json({ stonks: watchList });
     } catch (err) {
       console.log(err);
@@ -30,9 +31,9 @@ module.exports = {
           exchange: "FTXU",
         });
       }
-
+      console.log(req.body);
       await WatchList.create({
-        userid: req.body.userId,
+        userId: req.body.userId,
         watchList: {
           symbol: req.params.id.toUpperCase(),
           price: trade.Price,

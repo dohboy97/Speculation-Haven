@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import BuyTicker from "./BuyTicker";
 import SellTicker from "./SellTicker";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../../context";
 function SearchedTicker({
   setTickerFound,
   selectedMarket,
@@ -15,6 +17,9 @@ function SearchedTicker({
   ticker,
   searchedTicker,
 }) {
+  const user = useContext(UserContext);
+
+  const userId = user._id;
   const [buyOrSell, setBuyOrSell] = useState(0);
   const [watchList, setWatchList] = useState([]);
 
@@ -26,6 +31,7 @@ function SearchedTicker({
       tickerInput,
       watchList,
       selectedMarket,
+      userId,
     });
     if (data.ticker === false) {
       setTickerFound(false);

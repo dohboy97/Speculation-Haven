@@ -2,6 +2,7 @@ export async function addToWatchList({
   tickerInput,
   watchList,
   selectedMarket,
+  userId,
 }) {
   watchList.forEach((el) => {
     if (el.symbol.toUpperCase() === tickerInput.toUpperCase()) {
@@ -14,6 +15,7 @@ export async function addToWatchList({
     body: JSON.stringify({
       type: selectedMarket,
       index: watchList.length,
+      userId,
     }),
   });
   const data = await res.json();

@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import Watchlist from "./components/Watchlist";
 import { Typography, Button, Box } from "@mui/material";
 import { getWatchList, updateWatchlistPrices } from "../../api";
+import { useContext } from "react";
+import { UserContext } from "../../context";
 
 function WatchListPage() {
-  //useState for stock count on page, useEffect for fetch?
-
+  const user = useContext(UserContext);
+  const userId = user.id;
   const [watchList, setWatchList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -20,13 +22,13 @@ function WatchListPage() {
 
   useEffect(() => {
     setIsLoading(true);
-    getWatchList()
+    getWatchList({ userId })
       .then((response) => {
         setWatchList(response.stonks);
       })
       .catch((error) => console.error(error))
       .finally(() => setIsLoading(false));
-  }, [setWatchList, setIsLoading]);
+  }, [setWatchList, setIsLoading, userId]);
 
   return (
     <Box className="App">

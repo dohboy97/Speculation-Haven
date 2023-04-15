@@ -12,7 +12,8 @@ const alpaca = new Alpaca({
 module.exports = {
   getWatchList: async (req, res) => {
     try {
-      const watchList = await WatchList.find({ userId: req.userId });
+      const userId = req.params.id;
+      const watchList = await WatchList.find({ userId });
       res.json({ stonks: watchList });
     } catch (err) {
       console.log(err);
@@ -31,7 +32,7 @@ module.exports = {
       }
 
       await WatchList.create({
-        userid: req.userId,
+        userid: req.body.userId,
         watchList: {
           symbol: req.params.id.toUpperCase(),
           price: trade.Price,

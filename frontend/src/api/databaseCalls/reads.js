@@ -1,11 +1,5 @@
 export async function getWatchList({ userId }) {
-  const res = await fetch("/watchlist", {
-    method: "GET",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify({
-      userId,
-    }),
-  });
+  const res = await fetch(`/watchlist/${userId}`);
 
   const data = await res.json();
   return data;

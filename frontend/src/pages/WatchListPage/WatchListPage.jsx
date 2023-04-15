@@ -24,7 +24,6 @@ function WatchListPage() {
     setIsLoading(true);
     getWatchList({ userId })
       .then((response) => {
-        console.log(response.stonks);
         setWatchList(response.stonks.watchList);
       })
       .catch((error) => console.error(error))

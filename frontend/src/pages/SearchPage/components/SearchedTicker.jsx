@@ -42,16 +42,16 @@ function SearchedTicker({
   };
 
   useEffect(() => {
-    getWatchList()
+    getWatchList({ userId })
       .then((res) => {
-        setWatchList(res.stonks);
+        setWatchList(res.stonks.watchList);
       })
       .catch((err) => console.error(err));
 
     getPortfolio()
       .then((res) => setPortfolio(res.portfolio[0]))
       .catch((err) => console.error(err));
-  }, [searchedTicker, ticker]);
+  }, [searchedTicker, ticker, userId]);
 
   const isAddedToWatchList = !!watchList.find(
     (el) => el.symbol === searchedTicker.toUpperCase()

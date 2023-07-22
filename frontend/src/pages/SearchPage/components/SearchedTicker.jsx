@@ -48,8 +48,8 @@ function SearchedTicker({
       })
       .catch((err) => console.error(err));
 
-    getPortfolio()
-      .then((res) => setPortfolio(res.portfolio[0]))
+    getPortfolio({ userId })
+      .then((portfolio) => setPortfolio(portfolio))
       .catch((err) => console.error(err));
   }, [searchedTicker, ticker, userId]);
 

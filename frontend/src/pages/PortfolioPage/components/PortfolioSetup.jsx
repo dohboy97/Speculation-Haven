@@ -8,11 +8,14 @@ import {
   Skeleton,
 } from "@mui/material";
 import { round } from "lodash";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { getPortfolio, postBalance, editBalance } from "../../../api";
+import { UserContext } from "../../../context";
 function PortfolioSetup() {
+  const user = useContext(UserContext);
+  const userId = user.id;
   const [balance, setBalance] = useState();
   const [newAmount, setNewAmount] = useState();
   const [portfolio, setPortfolio] = useState();
@@ -21,15 +24,17 @@ function PortfolioSetup() {
 
   useEffect(() => {
     setIsLoading(true);
-    getPortfolio()
+    getPortfolio({
+      userId,
+    })
       .then((portfolio) => {
-        if (!portfolio.portfolio[0]) return;
-        setPortfolio(portfolio.portfolio[0]);
-        setBalance(portfolio.portfolio[0].balance);
+        if (!portfolio) return;
+        setPortfolio(portfolio);
+        setBalance(portfolio.balance);
       })
       .catch((err) => console.error(err))
       .finally(() => setIsLoading(false));
-  }, [setBalance, setPortfolio, setIsLoading]);
+  }, [setBalance, setPortfolio, setIsLoading, userId]);
 
   const handleSetBalance = async () => {
     const balance = await postBalance({ balance: newAmount });

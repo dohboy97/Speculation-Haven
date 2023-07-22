@@ -47,8 +47,22 @@ module.exports = {
       res.json({ ticker: false });
     }
   },
+
   deleteTicker: async (req, res) => {
-    await WatchList.findByIdAndDelete(req.params.id);
+    const tickerId = req.params.id;
+    const userId = req.body.userId;
+    await WatchList.findOneAndUpdate(
+      {
+        userId: userId,
+      },
+      {
+        $pull: {
+          watchList: {
+            _id: tickerId,
+          },
+        },
+      }
+    );
   },
 
   updateWatchlist: async (req, res) => {

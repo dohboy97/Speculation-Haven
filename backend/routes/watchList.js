@@ -7,7 +7,7 @@ router.get("/:id", watchListController.getWatchList);
 router.post("/addticker/:id", watchListController.addTicker);
 //here, in controller get the latest trade from alpaca
 
-router.delete("/deleteticker/:id", watchListController.deleteTicker);
+router.put("/deleteticker/:id", watchListController.deleteTicker);
 
 router.put("/updatewatchlist", watchListController.updateWatchlist);
 

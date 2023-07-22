@@ -37,9 +37,13 @@ export async function updateWatchlistPrices({ watchList, userId }) {
   return data.updatedWatchlist;
 }
 
-export async function deleteFromWatchList({ ticker }) {
+export async function deleteFromWatchList({ ticker, userId }) {
   await fetch(`/watchlist/deleteticker/${ticker._id}`, {
-    method: "DELETE",
+    method: "PUT",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({
+      userId,
+    }),
   });
 }
 

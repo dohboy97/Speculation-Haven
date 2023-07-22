@@ -1,16 +1,20 @@
 import { Box, Typography, Button } from "@mui/material";
 import { lowerCase } from "lodash";
+import { useContext } from "react";
 import {
   createSearchParams,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
 import { deleteFromWatchList } from "../../../api";
+import { UserContext } from "../../../context";
 function SavedTickers({ ticker, watchList, setWatchList }) {
+  const user = useContext(UserContext);
+  const userId = user._id;
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const handleDeleteClick = async () => {
-    deleteFromWatchList({ ticker })
+    deleteFromWatchList({ ticker, userId })
       .then()
       .catch((err) => console.error(err));
     setWatchList(watchList.filter((el) => el !== ticker));

@@ -24,7 +24,7 @@ app.use(
     secret: "keyboard cat",
     saveUninitialized: false,
     resave: false,
-    cookie: { maxAge: 3600000 },
+    cookie: { maxAge: 86400000 },
   })
 );
 //passport middleware

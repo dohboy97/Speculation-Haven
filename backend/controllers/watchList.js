@@ -31,7 +31,6 @@ module.exports = {
           exchange: "FTXU",
         });
       }
-      console.log(req.body);
       await WatchList.create({
         userId: req.body.userId,
         watchList: {
@@ -68,8 +67,8 @@ module.exports = {
           price: trade.Price,
         }
       );
-      const updatedTicker = await WatchList.find({ _id: req.params.id });
-
+      const updatedTicker = await WatchList.findOne({ _id: req.params.id });
+      console.log(updatedTicker, "updatedTicker");
       res.json({ updatedStonk: updatedTicker });
     } catch (err) {
       console.log(err);

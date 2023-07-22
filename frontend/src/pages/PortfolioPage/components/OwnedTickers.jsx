@@ -1,5 +1,6 @@
 import { Typography, Box, Button, Grid, Skeleton } from "@mui/material";
 import { lowerCase, round } from "lodash";
+import { useContext } from "react";
 import { useEffect, useState } from "react";
 import {
   createSearchParams,
@@ -7,20 +8,22 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { getPortfolio } from "../../../api";
+import { UserContext } from "../../../context";
 
 export default function OwnedTickers() {
+  const user = useContext(UserContext);
+  const userId = user.id;
   const [ownedTickers, setOwnedTickers] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    getPortfolio()
+    getPortfolio({ userId })
       .then((portfolio) => {
-        if (portfolio.portfolio[0])
-          setOwnedTickers(portfolio.portfolio[0].ownedTickers);
+        if (portfolio) setOwnedTickers(portfolio.ownedTickers);
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [userId]);
 
   if (isLoading) {
     return (

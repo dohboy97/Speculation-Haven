@@ -7,12 +7,12 @@ export async function getWatchList({ userId }) {
 
 export async function getPortfolio({ userId }) {
   const res = await fetch("/portfolio", {
-    method: "GET",
+    method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
       userId,
     }),
   });
   const data = await res.json();
-  return data;
+  return data.portfolio;
 }

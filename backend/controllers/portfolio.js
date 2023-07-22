@@ -2,8 +2,9 @@ const Portfolio = require("../models/Portfolio");
 
 module.exports = {
   getPortfolio: async (req, res) => {
+    const userId = req.body.userId;
     try {
-      const portfolio = await Portfolio.find();
+      const portfolio = await Portfolio.findOne({ userId: userId });
       res.json({
         portfolio: portfolio,
       });

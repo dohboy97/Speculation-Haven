@@ -22,25 +22,19 @@ export async function addToWatchList({
   return data;
 }
 
-export async function updateWatchlistPrices({ watchList }) {
-  if (!watchList) return;
-  const updates = await Promise.all(
-    watchList.map(async (ticker) => {
-      const res = await fetch(`/watchlist/updateticker/${ticker._id}`, {
-        method: "PUT",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          symbol: ticker.symbol,
-          price: ticker.price,
-          type: ticker.type,
-          index: ticker.index,
-        }),
-      });
-      const data = await res.json();
-      return data.updatedStonk[0];
-    })
-  );
-  return updates;
+export async function updateWatchlistPrices({ watchList, userId }) {
+  if (!watchList || !userId) return;
+
+  const res = await fetch(`/watchlist/updatewatchlist`, {
+    method: "PUT",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({
+      watchList,
+      userId,
+    }),
+  });
+  const data = await res.json();
+  return data.updatedWatchlist;
 }
 
 export async function deleteFromWatchList({ ticker }) {

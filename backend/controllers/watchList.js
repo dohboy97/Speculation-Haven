@@ -51,25 +51,38 @@ module.exports = {
     await WatchList.findByIdAndDelete(req.params.id);
   },
 
-  updateTicker: async (req, res) => {
+  updateWatchlist: async (req, res) => {
     try {
-      let trade;
-      if (req.body.type === "stock") {
-        trade = await alpaca.getLatestTrade(req.body.symbol);
-      } else {
-        trade = await alpaca.getLatestCryptoTrade(`${req.body.symbol}USD`, {
-          exchange: "FTXU",
-        });
-      }
-      await WatchList.findByIdAndUpdate(
-        { _id: req.params.id },
+      const watchList = req.body.watchList;
+      const userId = req.body.userId;
+
+      const updates = await Promise.all(
+        watchList.map(async (ticker) => {
+          let trade;
+          if (ticker.type === "stock") {
+            trade = await alpaca.getLatestTrade(ticker.symbol);
+          } else {
+            trade = await alpaca.getLatestCryptoTrade(`${ticker.symbol}USD`, {
+              exchange: "FTXU",
+            });
+          }
+          return {
+            symbol: ticker.symbol.toUpperCase(),
+            price: trade.Price,
+            type: ticker.type,
+            index: ticker.index,
+          };
+        })
+      );
+
+      await WatchList.findOneAndUpdate(
+        { userId },
         {
-          price: trade.Price,
+          watchList: updates,
         }
       );
-      const updatedTicker = await WatchList.findOne({ _id: req.params.id });
-      console.log(updatedTicker, "updatedTicker");
-      res.json({ updatedStonk: updatedTicker });
+      const updatedWatchlist = await WatchList.findOne({ userId: userId });
+      res.json({ updatedWatchlist: updatedWatchlist.watchList });
     } catch (err) {
       console.log(err);
     }

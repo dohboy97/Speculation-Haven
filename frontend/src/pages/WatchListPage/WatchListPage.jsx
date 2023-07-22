@@ -15,7 +15,10 @@ function WatchListPage() {
   const handleUpdate = async () => {
     setIsLoading(true);
 
-    const updates = await updateWatchlistPrices({ watchList: watchList });
+    const updates = await updateWatchlistPrices({
+      watchList: watchList,
+      userId,
+    });
     setWatchList(updates);
     setIsLoading(false);
   };

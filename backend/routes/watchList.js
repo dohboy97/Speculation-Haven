@@ -9,6 +9,6 @@ router.post("/addticker/:id", watchListController.addTicker);
 
 router.delete("/deleteticker/:id", watchListController.deleteTicker);
 
-router.put("/updateticker/:id", watchListController.updateTicker);
+router.put("/updatewatchlist", watchListController.updateWatchlist);
 
 module.exports = router;

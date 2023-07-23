@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import NotFound from "../../../components/NotFound";
-import { addToWatchList, getPortfolio, getWatchList } from "../../../api";
+import { useEffect, useState, useContext } from "react";
 import { Box, Button, Typography, Tabs, Tab } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { toast } from "react-toastify";
-import BuyTicker from "./BuyTicker";
-import SellTicker from "./SellTicker";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../../../context";
+import { UserContext } from "context";
+import BuyTicker from "./BuyTicker";
+import { addToWatchList, getPortfolio, getWatchList } from "../../../api";
+import NotFound from "../../../components/NotFound";
+import SellTicker from "./SellTicker";
+
 function SearchedTicker({
   setTickerFound,
   selectedMarket,
@@ -25,7 +25,7 @@ function SearchedTicker({
 
   const [portfolio, setPortfolio] = useState(0);
   const navigate = useNavigate();
-  //gets ticker upon button search
+  // gets ticker upon button search
   const handleAddToWatchlist = async () => {
     const data = await addToWatchList({
       tickerInput,
@@ -57,7 +57,7 @@ function SearchedTicker({
     (el) => el.symbol === searchedTicker.toUpperCase()
   );
 
-  //Set purchase metric on market change
+  // Set purchase metric on market change
   if (tickerFound === true) {
     const addToWatchListText = isAddedToWatchList
       ? "Added to Watchlist"
@@ -75,7 +75,8 @@ function SearchedTicker({
             {searchedTicker}
           </Typography>
           <Typography marginBottom={2} variant="subtitle1">
-            Price:{ticker.stock.Price}
+            Price:
+            {ticker.stock.Price}
           </Typography>
           <Box sx={{ height: 50 }}>
             <Button
@@ -87,8 +88,8 @@ function SearchedTicker({
             </Button>
           </Box>
           <Tabs value={buyOrSell} onChange={(e, val) => setBuyOrSell(val)}>
-            <Tab label="Buy" id={0}></Tab>
-            <Tab label="Sell" id={1}></Tab>
+            <Tab label="Buy" id={0} />
+            <Tab label="Sell" id={1} />
           </Tabs>
           <Box>
             {buyOrSell === 0 && (
@@ -113,7 +114,8 @@ function SearchedTicker({
         </Box>
       </Box>
     );
-  } else if (tickerFound === false) {
+  }
+  if (tickerFound === false) {
     return (
       <Box>
         <NotFound found={tickerFound} text={searchedTicker} />

@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
-
-import Watchlist from "./components/Watchlist";
+import { useState, useEffect, useContext } from "react";
 import { Typography, Button, Box } from "@mui/material";
+import Watchlist from "./components/Watchlist";
 import { getWatchList, updateWatchlistPrices } from "../../api";
-import { useContext } from "react";
+
 import { UserContext } from "../../context";
 
 function WatchListPage() {
@@ -16,7 +15,7 @@ function WatchListPage() {
     setIsLoading(true);
 
     const updates = await updateWatchlistPrices({
-      watchList: watchList,
+      watchList,
       userId,
     });
     setWatchList(updates);

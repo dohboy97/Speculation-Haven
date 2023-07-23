@@ -14,7 +14,7 @@ import { UserContext } from "./context";
 import { Typography } from "@mui/material";
 function App() {
   const navigate = useNavigate();
-  //fetch User context
+  // fetch User context
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {

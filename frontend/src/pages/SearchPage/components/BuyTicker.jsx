@@ -12,6 +12,7 @@ import { round } from "lodash";
 import { toast } from "react-toastify";
 import { editPortfolio } from "api";
 import { calculatePurchase } from "utils";
+import { STOCK } from "constants/markets";
 
 export default function BuyTicker({
   selectedMarket,
@@ -21,7 +22,7 @@ export default function BuyTicker({
   setPortfolio,
 }) {
   const [selectedPurchaseMetric, setSelectedPurchaseMetric] = useState(
-    selectedMarket === "stock" ? "Buy Shares" : "Buy Coins"
+    selectedMarket === STOCK ? "Buy Shares" : "Buy Coins"
   );
   const [purchaseAmount, setPurchaseAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -69,12 +70,14 @@ export default function BuyTicker({
           2
         )}`;
 
-  const isStock = selectedMarket === "stock";
+  const isStock = selectedMarket === STOCK;
   useEffect(() => {
     setIsLoading(true);
-    selectedMarket === "stock"
-      ? setSelectedPurchaseMetric("Buy Shares")
-      : setSelectedPurchaseMetric("Buy Coins");
+    if (selectedMarket === STOCK) {
+      setSelectedPurchaseMetric("Buy Shares");
+    } else {
+      setSelectedPurchaseMetric("Buy Coins");
+    }
     setIsLoading(false);
   }, [selectedMarket, setSelectedPurchaseMetric]);
 

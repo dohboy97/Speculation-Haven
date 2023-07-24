@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 import { round } from "lodash";
 import { toast } from "react-toastify";
 import { calculateSale } from "utils";
-import { editPortfolio } from "../../../api";
+import { editPortfolio } from "api";
 
 export default function SellTicker({
   selectedMarket,

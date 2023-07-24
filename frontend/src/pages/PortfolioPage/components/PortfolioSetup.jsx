@@ -27,18 +27,18 @@ function PortfolioSetup() {
     getPortfolio({
       userId,
     })
-      .then((portfolio) => {
-        if (!portfolio) return;
-        setPortfolio(portfolio);
-        setBalance(portfolio.balance);
+      .then((port) => {
+        if (!port) return;
+        setPortfolio(port);
+        setBalance(port.balance);
       })
       .catch((err) => console.error(err))
       .finally(() => setIsLoading(false));
   }, [setBalance, setPortfolio, setIsLoading, userId]);
 
   const handleSetBalance = async () => {
-    const balance = await postBalance({ balance: newAmount });
-    setBalance(balance);
+    const updatedBalance = await postBalance({ balance: newAmount });
+    setBalance(updatedBalance);
     toast.success("Balance set");
   };
 
@@ -52,9 +52,11 @@ function PortfolioSetup() {
       withdrawals: portfolio.withdrawals,
     });
     setBalance(newBalance);
-    withdrawOrDeposit === "withdraw"
-      ? toast.success("Withdrawal successful")
-      : toast.success("Deposit successful");
+    if (withdrawOrDeposit === "withdraw") {
+      toast.success("Withdrawal successful");
+    } else {
+      toast.success("Deposit successful");
+    }
   };
 
   const handleSelectWithdrawOrDeposit = (e) => {

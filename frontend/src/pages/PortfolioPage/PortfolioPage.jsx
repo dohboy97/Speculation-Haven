@@ -3,7 +3,7 @@ import PortfolioSetup from "./components/PortfolioSetup";
 import OwnedTickers from "./components/OwnedTickers";
 
 function PortfolioPage() {
-  //MAKE BALANCE AND PORTFOLIO BOTH INDIVIDUAL COMPONENTS
+  // MAKE BALANCE AND PORTFOLIO BOTH INDIVIDUAL COMPONENTS
 
   return (
     <Box>

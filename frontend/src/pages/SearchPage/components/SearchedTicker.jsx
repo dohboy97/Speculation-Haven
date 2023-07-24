@@ -3,10 +3,10 @@ import { Box, Button, Typography, Tabs, Tab } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { addToWatchList, getPortfolio, getWatchList } from "api";
 import { UserContext } from "context";
+import NotFound from "components/NotFound";
 import BuyTicker from "./BuyTicker";
-import { addToWatchList, getPortfolio, getWatchList } from "../../../api";
-import NotFound from "../../../components/NotFound";
 import SellTicker from "./SellTicker";
 
 function SearchedTicker(props) {

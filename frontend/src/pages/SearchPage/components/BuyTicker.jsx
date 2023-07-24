@@ -8,10 +8,11 @@ import {
   Skeleton,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { editPortfolio } from "../../../api";
 import { round } from "lodash";
 import { toast } from "react-toastify";
-import { calculatePurchase } from "../../../utils/calculateOrder";
+import { editPortfolio } from "api";
+import { calculatePurchase } from "utils";
+
 export default function BuyTicker({
   selectedMarket,
   tickerInput,
@@ -29,15 +30,15 @@ export default function BuyTicker({
     selectedPurchaseMetric === "Buy in $" ? "Dollar Amount" : "Quantity";
   const handlePurchase = () => {
     const order = {
-      tickerInput: tickerInput,
-      ticker: ticker,
-      selectedPurchaseMetric: selectedPurchaseMetric,
+      tickerInput,
+      ticker,
+      selectedPurchaseMetric,
       transactionAmount: purchaseAmount,
     };
 
     const updatedPortfolio = calculatePurchase({
       currentPortfolio: portfolio,
-      order: order,
+      order,
     });
     editPortfolio({
       updatedPortfolio,
@@ -78,7 +79,7 @@ export default function BuyTicker({
   }, [selectedMarket, setSelectedPurchaseMetric]);
 
   if (isLoading) {
-    return <Skeleton variant="rounded" height={50} width={200}></Skeleton>;
+    return <Skeleton variant="rounded" height={50} width={200} />;
   }
 
   return (
@@ -93,9 +94,9 @@ export default function BuyTicker({
             value={selectedPurchaseMetric}
             onChange={(e) => setSelectedPurchaseMetric(e.target.value)}
           >
-            {isStock && <MenuItem value={"Buy Shares"}>Buy Shares</MenuItem>}
-            {!isStock && <MenuItem value={"Buy Coins"}>Buy Coins</MenuItem>}
-            <MenuItem value={"Buy in $"}>Buy in $</MenuItem>
+            {isStock && <MenuItem value="Buy Shares">Buy Shares</MenuItem>}
+            {!isStock && <MenuItem value="Buy Coins">Buy Coins</MenuItem>}
+            <MenuItem value="Buy in $">Buy in $</MenuItem>
           </Select>
         </Box>
         <Button

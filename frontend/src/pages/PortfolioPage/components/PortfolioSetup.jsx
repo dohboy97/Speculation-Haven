@@ -8,11 +8,11 @@ import {
   Skeleton,
 } from "@mui/material";
 import { round } from "lodash";
-import { useContext, useEffect } from "react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { getPortfolio, postBalance, editBalance } from "../../../api";
-import { UserContext } from "../../../context";
+import { UserContext } from "context";
+import { getPortfolio, postBalance, editBalance } from "api";
+
 function PortfolioSetup() {
   const user = useContext(UserContext);
   const userId = user.id;
@@ -42,11 +42,11 @@ function PortfolioSetup() {
     toast.success("Balance set");
   };
 
-  //FOR DEPOSITING AND WITHDRAWING MONEY
+  // FOR DEPOSITING AND WITHDRAWING MONEY
   const handleEditBalance = async () => {
     const newBalance = await editBalance({
       currentBalance: balance,
-      withdrawOrDeposit: withdrawOrDeposit,
+      withdrawOrDeposit,
       amount: newAmount,
       deposits: portfolio.deposits,
       withdrawals: portfolio.withdrawals,
@@ -65,7 +65,7 @@ function PortfolioSetup() {
   };
 
   if (isLoading) {
-    return <Skeleton variant="rounded" height="100px" width="300px"></Skeleton>;
+    return <Skeleton variant="rounded" height="100px" width="300px" />;
   }
 
   if (!balance && balance !== 0) {

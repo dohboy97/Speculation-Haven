@@ -8,10 +8,11 @@ import {
   Skeleton,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { editPortfolio } from "../../../api";
 import { round } from "lodash";
 import { toast } from "react-toastify";
-import { calculateSale } from "../../../utils/calculateOrder";
+import { calculateSale } from "utils";
+import { editPortfolio } from "../../../api";
+
 export default function SellTicker({
   selectedMarket,
   tickerInput,
@@ -30,15 +31,15 @@ export default function SellTicker({
 
   const handleSale = () => {
     const order = {
-      tickerInput: tickerInput,
-      ticker: ticker,
+      tickerInput,
+      ticker,
       selectedPurchaseMetric: selectedSaleMetric,
       transactionAmount: saleAmount * -1,
     };
 
     const updatedPortfolio = calculateSale({
       currentPortfolio: portfolio,
-      order: order,
+      order,
     });
     editPortfolio({
       updatedPortfolio,
@@ -77,6 +78,7 @@ export default function SellTicker({
 
   useEffect(() => {
     setIsLoading(true);
+
     selectedMarket === "stock"
       ? setSelectedSaleMetric("Sell Shares")
       : setSelectedSaleMetric("Sell Coins");
@@ -84,7 +86,7 @@ export default function SellTicker({
   }, [selectedMarket, setSelectedSaleMetric]);
 
   if (isLoading) {
-    return <Skeleton variant="rounded" height={50} width={200}></Skeleton>;
+    return <Skeleton variant="rounded" height={50} width={200} />;
   }
 
   return (
@@ -99,9 +101,9 @@ export default function SellTicker({
             value={selectedSaleMetric}
             onChange={(e) => setSelectedSaleMetric(e.target.value)}
           >
-            {isStock && <MenuItem value={"Sell Shares"}>Sell Shares</MenuItem>}
-            {!isStock && <MenuItem value={"Sell Coins"}>Sell Coins</MenuItem>}
-            <MenuItem value={"Sell in $"}>Sell in $</MenuItem>
+            {isStock && <MenuItem value="Sell Shares">Sell Shares</MenuItem>}
+            {!isStock && <MenuItem value="Sell Coins">Sell Coins</MenuItem>}
+            <MenuItem value="Sell in $">Sell in $</MenuItem>
           </Select>
         </Box>
         <Button

@@ -1,35 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Box, Typography } from "@mui/material";
+import { Route, Routes, useSearchParams } from "react-router-dom";
 import SearchedTicker from "./components/SearchedTicker";
 import { getTickerFromServer } from "../../api";
-
-import { Box, Typography } from "@mui/material";
 import { TickerInput } from "./components/TickerInput";
-import {
-  createSearchParams,
-  Route,
-  Routes,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
-import { useEffect } from "react";
+
 function SearchPage() {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  //detect and use search input to then take to server api and retrieve ticker info
+  // detect and use search input to then take to server api and retrieve ticker info
   const [tickerFound, setTickerFound] = useState();
   const [tickerInput, setTickerInput] = useState("");
   const [selectedMarket, setSelectedMarket] = useState("stock");
   const [ticker, setTicker] = useState();
   const [searchedTicker, setSearchedTicker] = useState("");
-  //grabs ticker input for fetch
-  async function getTickerInfo() {
-    searchParams.set("symbol", tickerInput);
-    searchParams.set("market", selectedMarket);
-    navigate({
-      pathname: "ticker",
-      search: `${createSearchParams(searchParams)}`,
-    });
-  }
 
   useEffect(() => {
     setTickerFound();
@@ -42,8 +25,12 @@ function SearchPage() {
       input: tickerSearched,
       selectedMarket: market,
     }).then((data) => {
-      data === "error" ? setTickerFound(false) : setTickerFound(true);
       setTicker(data);
+      if (data === "error") {
+        setTickerFound(false);
+      } else {
+        setTickerFound(true);
+      }
     });
     setSearchedTicker(tickerSearched.toUpperCase());
     setTickerInput(tickerSearched);
@@ -69,8 +56,8 @@ function SearchPage() {
               setTickerInput={setTickerInput}
               selectedMarket={selectedMarket}
               handleChange={handleSearchChange}
-              getTickerInfo={getTickerInfo}
               disableButton={disableButton}
+              tickerInput={tickerInput}
             />
           }
         />

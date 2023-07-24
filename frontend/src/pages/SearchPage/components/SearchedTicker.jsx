@@ -9,14 +9,15 @@ import { addToWatchList, getPortfolio, getWatchList } from "../../../api";
 import NotFound from "../../../components/NotFound";
 import SellTicker from "./SellTicker";
 
-function SearchedTicker({
-  setTickerFound,
-  selectedMarket,
-  tickerInput,
-  tickerFound,
-  ticker,
-  searchedTicker,
-}) {
+function SearchedTicker(props) {
+  const {
+    setTickerFound,
+    selectedMarket,
+    tickerInput,
+    tickerFound,
+    ticker,
+    searchedTicker,
+  } = props;
   const user = useContext(UserContext);
 
   const userId = user._id;

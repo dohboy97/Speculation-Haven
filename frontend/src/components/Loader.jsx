@@ -5,12 +5,9 @@ export default function Loader({ number }) {
   return (
     <Box>
       {quantity.map((el, index) => {
+        const keyString = index.toString();
         return (
-          <Skeleton
-            key={index}
-            sx={{ marginBottom: 2 }}
-            width="100%"
-          ></Skeleton>
+          <Skeleton key={keyString} sx={{ marginBottom: 2 }} width="100%" />
         );
       })}
     </Box>

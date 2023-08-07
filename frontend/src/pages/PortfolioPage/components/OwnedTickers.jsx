@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import {
   createSearchParams,
   useNavigate,
-  useSearchParams,
+  useSearchParams
 } from "react-router-dom";
 import { getPortfolio } from "../../../api";
 import { UserContext } from "../../../context";
@@ -76,7 +76,7 @@ function OwnedTicker({ ticker }) {
     searchParams.set("market", ticker.type);
     navigate({
       pathname: "/search/ticker",
-      search: `${createSearchParams(searchParams)}`,
+      search: `${createSearchParams(searchParams)}`
     });
   };
 

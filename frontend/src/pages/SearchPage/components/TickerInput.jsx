@@ -2,7 +2,7 @@ import { Box, MenuItem, Select, TextField, Button } from "@mui/material";
 import {
   useNavigate,
   useSearchParams,
-  createSearchParams,
+  createSearchParams
 } from "react-router-dom";
 
 export function TickerInput({
@@ -10,7 +10,7 @@ export function TickerInput({
   handleChange,
   disableButton,
   selectedMarket,
-  tickerInput,
+  tickerInput
 }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -20,7 +20,7 @@ export function TickerInput({
     searchParams.set("market", selectedMarket);
     navigate({
       pathname: "ticker",
-      search: `${createSearchParams(searchParams)}`,
+      search: `${createSearchParams(searchParams)}`
     });
   }
   return (

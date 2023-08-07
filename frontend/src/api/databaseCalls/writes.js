@@ -2,36 +2,35 @@ export async function addToWatchList({
   tickerInput,
   watchList,
   selectedMarket,
-  userId,
+  userId
 }) {
-  watchList.forEach((el) => {
-    if (el.symbol.toUpperCase() === tickerInput.toUpperCase()) {
-      return;
-    }
-  });
+  // watchList.forEach((el) => {
+  //   if (el.symbol.toUpperCase() === tickerInput.toUpperCase()) {
+  //   }
+  // });
   const res = await fetch(`/watchlist/addticker/${tickerInput}`, {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
       type: selectedMarket,
       index: watchList.length,
-      userId,
-    }),
+      userId
+    })
   });
   const data = await res.json();
   return data;
 }
 
 export async function updateWatchlistPrices({ watchList, userId }) {
-  if (!watchList || !userId) return;
+  if (!watchList || !userId) return undefined;
 
   const res = await fetch(`/watchlist/updatewatchlist`, {
     method: "PUT",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
       watchList,
-      userId,
-    }),
+      userId
+    })
   });
   const data = await res.json();
   return data.updatedWatchlist;
@@ -42,8 +41,8 @@ export async function deleteFromWatchList({ ticker, userId }) {
     method: "PUT",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      userId,
-    }),
+      userId
+    })
   });
 }
 
@@ -53,8 +52,8 @@ export async function editPortfolio({ updatedPortfolio }) {
     method: "PUT",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      updatedPortfolio,
-    }),
+      updatedPortfolio
+    })
   });
   const data = await res.json();
   console.log(data);
@@ -62,16 +61,16 @@ export async function editPortfolio({ updatedPortfolio }) {
 }
 
 export async function postBalance({ balance }) {
-  if (typeof Number(balance) !== "number" || balance < 1) return;
+  if (typeof Number(balance) !== "number" || balance < 1) return undefined;
 
   const res = await fetch("/portfolio/addbalance", {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      balance: balance,
+      balance,
       deposits: balance,
-      withdrawals: 0,
-    }),
+      withdrawals: 0
+    })
   });
   const data = await res.json();
   return data.portfolio[0].balance;
@@ -82,14 +81,15 @@ export async function editBalance({
   withdrawOrDeposit,
   amount,
   deposits,
-  withdrawals,
+  withdrawals
 }) {
-  if (!Number(amount) || Number(amount) < 1) return;
+  if (!Number(amount) || Number(amount) < 1) return undefined;
+
   const newBalance =
     withdrawOrDeposit === "withdraw"
       ? Number(currentBalance) - Number(amount)
       : Number(currentBalance) + Number(amount);
-  //PUT REQUESTS TO DEPOSIT FUNDS
+  // PUT REQUESTS TO DEPOSIT FUNDS
 
   const newDeposits =
     withdrawOrDeposit === "deposit"
@@ -107,8 +107,8 @@ export async function editBalance({
     body: JSON.stringify({
       balance: newBalance < 0 ? 0 : newBalance,
       deposits: newDeposits,
-      withdrawals: newWithdrawals,
-    }),
+      withdrawals: newWithdrawals
+    })
   });
   const data = await res.json();
   return data.portfolio[0].balance;

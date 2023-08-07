@@ -5,7 +5,7 @@ import {
   TextField,
   Button,
   Typography,
-  Skeleton,
+  Skeleton
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { round } from "lodash";
@@ -19,10 +19,12 @@ export default function BuyTicker({
   tickerInput,
   ticker,
   portfolio,
-  setPortfolio,
+  setPortfolio
 }) {
+  const defaultPurchaseMetric =
+    selectedMarket === STOCK ? "Buy Shares" : "Buy Coins";
   const [selectedPurchaseMetric, setSelectedPurchaseMetric] = useState(
-    selectedMarket === STOCK ? "Buy Shares" : "Buy Coins"
+    defaultPurchaseMetric
   );
   const [purchaseAmount, setPurchaseAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,15 +36,15 @@ export default function BuyTicker({
       tickerInput,
       ticker,
       selectedPurchaseMetric,
-      transactionAmount: purchaseAmount,
+      transactionAmount: purchaseAmount
     };
 
     const updatedPortfolio = calculatePurchase({
       currentPortfolio: portfolio,
-      order,
+      order
     });
     editPortfolio({
-      updatedPortfolio,
+      updatedPortfolio
     })
       .then((res) => {
         console.log(res);

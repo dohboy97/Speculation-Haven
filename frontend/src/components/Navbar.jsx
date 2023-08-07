@@ -6,7 +6,7 @@ import {
   Button,
   Typography,
   Box,
-  Avatar,
+  Avatar
 } from "@mui/material";
 import { lowerCase } from "lodash";
 import { useContext } from "react";
@@ -41,13 +41,13 @@ function Navbar({ setUser }) {
         sx={{
           flexGrow: 1,
           display: { xs: "none", md: "flex" },
-          justifyContent: "space-between",
+          justifyContent: "space-between"
         }}
       >
         <Box
           sx={{
             flexGrow: 1,
-            display: { xs: "none", md: "flex" },
+            display: { xs: "none", md: "flex" }
           }}
         >
           {pages.map((page) => {
@@ -57,7 +57,7 @@ function Navbar({ setUser }) {
               <MenuItem
                 key={page}
                 onClick={() => navigate(`/${lowerCase(page)}`)}
-                style={{ backgroundColor: backgroundColor }}
+                style={{ backgroundColor }}
               >
                 <Typography textAlign="center">{page}</Typography>
               </MenuItem>
@@ -65,7 +65,7 @@ function Navbar({ setUser }) {
           })}
         </Box>
         <Box sx={{ display: "flex" }} marginRight={4}>
-          <Avatar alt="User img" src={user.image}></Avatar>
+          <Avatar alt="User img" src={user.image} />
           <LogoutButton setUser={setUser} />
         </Box>
       </Box>

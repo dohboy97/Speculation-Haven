@@ -1,8 +1,9 @@
-import SavedTickers from "./SavedTickers";
 import { Box, Typography } from "@mui/material";
+import SavedTickers from "./SavedTickers";
 import Loader from "../../../components/Loader";
+
 function Watchlist({ watchlist, setWatchList, isLoading }) {
-  //separation of stocks and crpyto
+  // separation of stocks and crpyto
   const stockSkeletonBars = watchlist.reduce(
     (acc, val) => (val.type === "stock" ? acc + 1 : acc + 0),
     0
@@ -16,7 +17,7 @@ function Watchlist({ watchlist, setWatchList, isLoading }) {
       </Typography>
       {isLoading && (
         <Box>
-          <Loader number={stockSkeletonBars}></Loader>
+          <Loader number={stockSkeletonBars} />
         </Box>
       )}
       {!isLoading &&
@@ -31,16 +32,15 @@ function Watchlist({ watchlist, setWatchList, isLoading }) {
                 index={index}
               />
             );
-          } else {
-            return null;
           }
+          return null;
         })}
       <Typography marginBottom={2} variant="h4">
         Crypto
       </Typography>
       {isLoading && (
         <Box>
-          <Loader number={cryptoSkeletonBars}></Loader>
+          <Loader number={cryptoSkeletonBars} />
         </Box>
       )}
       {!isLoading &&
@@ -55,9 +55,8 @@ function Watchlist({ watchlist, setWatchList, isLoading }) {
                 index={index}
               />
             );
-          } else {
-            return null;
           }
+          return null;
         })}
     </Box>
   );

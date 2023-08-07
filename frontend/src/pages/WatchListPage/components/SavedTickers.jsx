@@ -4,10 +4,11 @@ import { useContext } from "react";
 import {
   createSearchParams,
   useNavigate,
-  useSearchParams,
+  useSearchParams
 } from "react-router-dom";
 import { deleteFromWatchList } from "../../../api";
 import { UserContext } from "../../../context";
+
 function SavedTickers({ ticker, watchList, setWatchList }) {
   const user = useContext(UserContext);
   const userId = user._id;
@@ -25,7 +26,7 @@ function SavedTickers({ ticker, watchList, setWatchList }) {
     searchParams.set("market", ticker.type);
     navigate({
       pathname: "/search/ticker",
-      search: `${createSearchParams(searchParams)}`,
+      search: `${createSearchParams(searchParams)}`
     });
   };
 

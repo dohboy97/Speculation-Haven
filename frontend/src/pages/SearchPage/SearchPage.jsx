@@ -23,7 +23,7 @@ function SearchPage() {
 
     getTickerFromServer({
       input: tickerSearched,
-      selectedMarket: market,
+      selectedMarket: market
     }).then((data) => {
       setTicker(data);
       if (data === "error") {

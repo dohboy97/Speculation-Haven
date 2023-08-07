@@ -16,7 +16,7 @@ function WatchListPage() {
 
     const updates = await updateWatchlistPrices({
       watchList,
-      userId,
+      userId
     });
     setWatchList(updates);
     setIsLoading(false);

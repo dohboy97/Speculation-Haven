@@ -23,11 +23,13 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx"],
-        "paths": ["src"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "paths": ["src"],
+        "moduleDirectory": ["node_modules", "src/"]
       }
     }
   },
+
   "plugins": ["prettier"],
   "rules": {
     "quotes": "off",

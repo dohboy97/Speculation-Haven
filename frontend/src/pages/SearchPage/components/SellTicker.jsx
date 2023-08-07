@@ -5,20 +5,21 @@ import {
   TextField,
   Button,
   Typography,
-  Skeleton,
+  Skeleton
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { round } from "lodash";
 import { toast } from "react-toastify";
 import { calculateSale } from "utils";
 import { editPortfolio } from "api";
+import { STOCK } from "constants/markets";
 
 export default function SellTicker({
   selectedMarket,
   tickerInput,
   ticker,
   portfolio,
-  setPortfolio,
+  setPortfolio
 }) {
   const [selectedSaleMetric, setSelectedSaleMetric] = useState(
     selectedMarket === "stock" ? "Sell Shares" : "Sell Coins"
@@ -34,15 +35,15 @@ export default function SellTicker({
       tickerInput,
       ticker,
       selectedPurchaseMetric: selectedSaleMetric,
-      transactionAmount: saleAmount * -1,
+      transactionAmount: saleAmount * -1
     };
 
     const updatedPortfolio = calculateSale({
       currentPortfolio: portfolio,
-      order,
+      order
     });
     editPortfolio({
-      updatedPortfolio,
+      updatedPortfolio
     })
       .then((res) => {
         console.log(res);
@@ -78,10 +79,12 @@ export default function SellTicker({
 
   useEffect(() => {
     setIsLoading(true);
+    if (selectedMarket === STOCK) {
+      setSelectedSaleMetric("Sell Shares");
+    } else {
+      setSelectedSaleMetric("Sell Coins");
+    }
 
-    selectedMarket === "stock"
-      ? setSelectedSaleMetric("Sell Shares")
-      : setSelectedSaleMetric("Sell Coins");
     setIsLoading(false);
   }, [selectedMarket, setSelectedSaleMetric]);
 

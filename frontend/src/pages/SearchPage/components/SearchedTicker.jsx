@@ -16,7 +16,7 @@ function SearchedTicker(props) {
     tickerInput,
     tickerFound,
     ticker,
-    searchedTicker,
+    searchedTicker
   } = props;
   const user = useContext(UserContext);
 
@@ -32,7 +32,7 @@ function SearchedTicker(props) {
       tickerInput,
       watchList,
       selectedMarket,
-      userId,
+      userId
     });
     if (data.ticker === false) {
       setTickerFound(false);
@@ -50,7 +50,7 @@ function SearchedTicker(props) {
       .catch((err) => console.error(err));
 
     getPortfolio({ userId })
-      .then((portfolio) => setPortfolio(portfolio))
+      .then((res) => setPortfolio(res))
       .catch((err) => console.error(err));
   }, [searchedTicker, ticker, userId]);
 

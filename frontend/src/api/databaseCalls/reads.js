@@ -10,8 +10,8 @@ export async function getPortfolio({ userId }) {
     method: "POST",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      userId,
-    }),
+      userId
+    })
   });
   const data = await res.json();
   return data.portfolio;

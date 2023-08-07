@@ -4,11 +4,12 @@ export async function getTickerFromServer({ input, selectedMarket }) {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
-        type: selectedMarket,
-      }),
+        type: selectedMarket
+      })
     });
     const data = await res.json();
 
     return data;
   }
+  return undefined;
 }

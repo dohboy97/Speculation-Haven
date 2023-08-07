@@ -5,7 +5,7 @@ import {
   TextField,
   Select,
   MenuItem,
-  Skeleton,
+  Skeleton
 } from "@mui/material";
 import { round } from "lodash";
 import { useContext, useEffect, useState } from "react";
@@ -25,7 +25,7 @@ function PortfolioSetup() {
   useEffect(() => {
     setIsLoading(true);
     getPortfolio({
-      userId,
+      userId
     })
       .then((port) => {
         if (!port) return;
@@ -49,7 +49,7 @@ function PortfolioSetup() {
       withdrawOrDeposit,
       amount: newAmount,
       deposits: portfolio.deposits,
-      withdrawals: portfolio.withdrawals,
+      withdrawals: portfolio.withdrawals
     });
     setBalance(newBalance);
     if (withdrawOrDeposit === "withdraw") {

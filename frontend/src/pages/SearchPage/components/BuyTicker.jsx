@@ -29,6 +29,16 @@ export default function BuyTicker({
   const [purchaseAmount, setPurchaseAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    setIsLoading(true);
+    if (selectedMarket === STOCK) {
+      setSelectedPurchaseMetric("Buy Shares");
+    } else {
+      setSelectedPurchaseMetric("Buy Coins");
+    }
+    setIsLoading(false);
+  }, [selectedMarket, setSelectedPurchaseMetric]);
+
   const purchaseInputPlaceHolder =
     selectedPurchaseMetric === "Buy in $" ? "Dollar Amount" : "Quantity";
   const handlePurchase = () => {
@@ -73,15 +83,6 @@ export default function BuyTicker({
         )}`;
 
   const isStock = selectedMarket === STOCK;
-  useEffect(() => {
-    setIsLoading(true);
-    if (selectedMarket === STOCK) {
-      setSelectedPurchaseMetric("Buy Shares");
-    } else {
-      setSelectedPurchaseMetric("Buy Coins");
-    }
-    setIsLoading(false);
-  }, [selectedMarket, setSelectedPurchaseMetric]);
 
   if (isLoading) {
     return <Skeleton variant="rounded" height={50} width={200} />;

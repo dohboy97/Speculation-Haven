@@ -45,6 +45,7 @@ function SearchedTicker(props) {
   useEffect(() => {
     getWatchList({ userId })
       .then((res) => {
+        if (!res.stonks) return;
         setWatchList(res.stonks.watchList);
       })
       .catch((err) => console.error(err));

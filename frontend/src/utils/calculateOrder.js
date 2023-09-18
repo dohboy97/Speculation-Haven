@@ -1,5 +1,9 @@
 import { concat } from "lodash";
 
+export const getIsBuyingInUnits = (selectedPurchaseMetric) => {
+  return selectedPurchaseMetric === "Buy Shares" || "Buy Coins";
+};
+
 export function calculatePurchase({ currentPortfolio, order }) {
   const symbol = order.tickerInput;
   const price = Number(order.ticker.stock.Price);
@@ -11,10 +15,12 @@ export function calculatePurchase({ currentPortfolio, order }) {
     selectedPurchaseMetric === "Buy in $"
       ? transactionAmount
       : transactionAmount * price;
-  const shares =
-    selectedPurchaseMetric === "Buy Shares" || "Buy Coins"
-      ? transactionAmount
-      : transactionAmount / price;
+
+  const isBuyingInUnits = getIsBuyingInUnits(selectedPurchaseMetric);
+
+  const shares = isBuyingInUnits
+    ? transactionAmount
+    : transactionAmount / price;
   const newBalance = currentPortfolio.balance - dollarAmount;
   let alreadyOwnsTicker = false;
 
@@ -68,10 +74,12 @@ export function calculateSale({ currentPortfolio, order }) {
     selectedPurchaseMetric === "Sell in $"
       ? transactionAmount
       : transactionAmount * price;
-  const shares =
-    selectedPurchaseMetric === "Sell Shares" || "Sell Coins"
-      ? transactionAmount
-      : transactionAmount / price;
+
+  const isBuyingInUnits = getIsBuyingInUnits(selectedPurchaseMetric);
+
+  const shares = isBuyingInUnits
+    ? transactionAmount
+    : transactionAmount / price;
   const newBalance = currentPortfolio.balance - dollarAmount;
   let alreadyOwnsTicker = false;
 

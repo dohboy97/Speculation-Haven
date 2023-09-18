@@ -36,7 +36,7 @@ export function calculatePurchase({ currentPortfolio, order }) {
       price: avgSharePrice,
       type,
       dollarAmount: currentShares.dollarAmount + dollarAmount,
-      shares: currentShares.shares + shares,
+      shares: currentShares.shares + shares
     };
   } else {
     updatedTicker = {
@@ -44,7 +44,7 @@ export function calculatePurchase({ currentPortfolio, order }) {
       price,
       type,
       dollarAmount,
-      shares,
+      shares
     };
   }
   const filteredPortfolio = currentPortfolio.ownedTickers.filter(
@@ -52,7 +52,7 @@ export function calculatePurchase({ currentPortfolio, order }) {
   );
   const updatedPortfolio = {
     ownedTickers: concat(updatedTicker, filteredPortfolio),
-    balance: newBalance,
+    balance: newBalance
   };
   return updatedPortfolio;
 }
@@ -93,7 +93,7 @@ export function calculateSale({ currentPortfolio, order }) {
       price: avgSharePrice,
       type,
       dollarAmount: currentShares.dollarAmount + dollarAmount,
-      shares: currentShares.shares + shares,
+      shares: currentShares.shares + shares
     };
   } else {
     updatedTicker = {
@@ -101,7 +101,7 @@ export function calculateSale({ currentPortfolio, order }) {
       price,
       type,
       dollarAmount,
-      shares,
+      shares
     };
   }
   const filteredPortfolio = currentPortfolio.ownedTickers.filter(
@@ -110,7 +110,7 @@ export function calculateSale({ currentPortfolio, order }) {
 
   const updatedPortfolio = {
     ownedTickers: concat(updatedTicker, filteredPortfolio),
-    balance: newBalance,
+    balance: newBalance
   };
   return updatedPortfolio;
 }

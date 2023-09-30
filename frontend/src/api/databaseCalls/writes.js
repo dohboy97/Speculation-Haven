@@ -42,21 +42,21 @@ export async function deleteFromWatchList({ ticker, userId }) {
   });
 }
 
-export async function editPortfolio({ updatedPortfolio }) {
+export async function editPortfolio({ updatedPortfolio, userId }) {
   console.log(updatedPortfolio);
   const res = await fetch(`/portfolio/buyOrSellTicker`, {
     method: "PUT",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
-      updatedPortfolio
+      updatedPortfolio,
+      userId
     })
   });
   const data = await res.json();
-  console.log(data);
   return data;
 }
 
-export async function postBalance({ balance }) {
+export async function postBalance({ balance, userId }) {
   if (typeof Number(balance) !== "number" || balance < 1) return undefined;
 
   const res = await fetch("/portfolio/addbalance", {
@@ -65,11 +65,12 @@ export async function postBalance({ balance }) {
     body: JSON.stringify({
       balance,
       deposits: balance,
-      withdrawals: 0
+      withdrawals: 0,
+      userId
     })
   });
   const data = await res.json();
-  return data.portfolio[0].balance;
+  return data.portfolio.balance;
 }
 
 export async function editBalance({
@@ -77,7 +78,8 @@ export async function editBalance({
   withdrawOrDeposit,
   amount,
   deposits,
-  withdrawals
+  withdrawals,
+  userId
 }) {
   if (!Number(amount) || Number(amount) < 1) return undefined;
 
@@ -103,9 +105,10 @@ export async function editBalance({
     body: JSON.stringify({
       balance: newBalance < 0 ? 0 : newBalance,
       deposits: newDeposits,
-      withdrawals: newWithdrawals
+      withdrawals: newWithdrawals,
+      userId
     })
   });
   const data = await res.json();
-  return data.portfolio[0].balance;
+  return data.portfolio.balance;
 }

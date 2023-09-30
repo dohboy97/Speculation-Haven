@@ -21,6 +21,7 @@ function SearchedTicker(props) {
   const user = useContext(UserContext);
 
   const userId = user._id;
+
   const [buyOrSell, setBuyOrSell] = useState(0);
   const [watchList, setWatchList] = useState([]);
 

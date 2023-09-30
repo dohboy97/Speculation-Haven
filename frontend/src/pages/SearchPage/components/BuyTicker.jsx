@@ -7,12 +7,14 @@ import {
   Typography,
   Skeleton
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { round } from "lodash";
 import { toast } from "react-toastify";
 import { editPortfolio } from "api";
 import { calculatePurchase } from "utils";
 import { STOCK } from "constants/markets";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "context";
 
 export default function BuyTicker({
   selectedMarket,
@@ -21,6 +23,9 @@ export default function BuyTicker({
   portfolio,
   setPortfolio
 }) {
+  const navigate = useNavigate();
+  const user = useContext(UserContext);
+  const userId = user._id;
   const defaultPurchaseMetric =
     selectedMarket === STOCK ? "Buy Shares" : "Buy Coins";
   const [selectedPurchaseMetric, setSelectedPurchaseMetric] = useState(
@@ -54,14 +59,18 @@ export default function BuyTicker({
       order
     });
     editPortfolio({
-      updatedPortfolio
+      updatedPortfolio,
+      userId
     })
       .then((res) => {
         console.log(res);
         setPortfolio(res.portfolio[0]);
       })
       .catch((err) => console.error(err))
-      .finally(() => toast.success("Purchase Successful"));
+      .finally(() => {
+        toast.success("Purchase Successful");
+        navigate("/portfolio");
+      });
   };
 
   const purchaseTotal =

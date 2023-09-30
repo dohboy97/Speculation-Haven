@@ -15,7 +15,7 @@ import { getPortfolio, postBalance, editBalance } from "api";
 
 function PortfolioSetup() {
   const user = useContext(UserContext);
-  const userId = user.id;
+  const userId = user._id;
   const [balance, setBalance] = useState();
   const [newAmount, setNewAmount] = useState();
   const [portfolio, setPortfolio] = useState();
@@ -37,7 +37,7 @@ function PortfolioSetup() {
   }, [setBalance, setPortfolio, setIsLoading, userId]);
 
   const handleSetBalance = async () => {
-    const updatedBalance = await postBalance({ balance: newAmount });
+    const updatedBalance = await postBalance({ balance: newAmount, userId });
     setBalance(updatedBalance);
     toast.success("Balance set");
   };
@@ -49,7 +49,8 @@ function PortfolioSetup() {
       withdrawOrDeposit,
       amount: newAmount,
       deposits: portfolio.deposits,
-      withdrawals: portfolio.withdrawals
+      withdrawals: portfolio.withdrawals,
+      userId
     });
     setBalance(newBalance);
     if (withdrawOrDeposit === "withdraw") {

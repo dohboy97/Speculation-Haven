@@ -11,7 +11,7 @@ import { UserContext } from "../../../context";
 
 export default function OwnedTickers() {
   const user = useContext(UserContext);
-  const userId = user.id;
+  const userId = user._id;
   const [ownedTickers, setOwnedTickers] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,12 +37,13 @@ export default function OwnedTickers() {
   if (!ownedTickers) return null;
   return (
     <Grid width="75%" container>
-      <Grid container spacing={4}>
+      <Grid container spacing={6}>
         <Grid xs={2} item>
           <Typography fontSize={16} variant="overline">
             Ticker
           </Typography>
         </Grid>
+
         <Grid xs={2} item>
           <Typography fontSize={16} variant="overline">
             Cost Basis

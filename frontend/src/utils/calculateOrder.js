@@ -1,7 +1,12 @@
 import { concat } from "lodash";
 
-export const getIsBuyingInUnits = (selectedPurchaseMetric) => {
-  return selectedPurchaseMetric === "Buy Shares" || "Buy Coins";
+export const getIsUnitsTransaction = (selectedPurchaseMetric) => {
+  return (
+    selectedPurchaseMetric === "Buy Shares" ||
+    selectedPurchaseMetric === "Buy Coins" ||
+    selectedPurchaseMetric === "Sell Shares" ||
+    selectedPurchaseMetric === "Sell Coins"
+  );
 };
 
 export function calculatePurchase({ currentPortfolio, order }) {
@@ -16,7 +21,7 @@ export function calculatePurchase({ currentPortfolio, order }) {
       ? transactionAmount
       : transactionAmount * price;
 
-  const isBuyingInUnits = getIsBuyingInUnits(selectedPurchaseMetric);
+  const isBuyingInUnits = getIsUnitsTransaction(selectedPurchaseMetric);
 
   const shares = isBuyingInUnits
     ? transactionAmount
@@ -75,43 +80,32 @@ export function calculateSale({ currentPortfolio, order }) {
       ? transactionAmount
       : transactionAmount * price;
 
-  const isBuyingInUnits = getIsBuyingInUnits(selectedPurchaseMetric);
+  const isBuyingInUnits = getIsUnitsTransaction(selectedPurchaseMetric);
 
   const shares = isBuyingInUnits
     ? transactionAmount
     : transactionAmount / price;
+
+  console.log("shares", shares);
   const newBalance = currentPortfolio.balance - dollarAmount;
-  let alreadyOwnsTicker = false;
 
   let currentShares;
   currentPortfolio.ownedTickers.forEach((ticker) => {
     if (ticker.symbol === symbol) {
-      alreadyOwnsTicker = true;
       currentShares = ticker;
     }
   });
 
   let updatedTicker = {};
 
-  if (alreadyOwnsTicker) {
-    const avgSharePrice = currentShares.dollarAmount / currentShares.shares;
+  updatedTicker = {
+    symbol: order.tickerInput,
+    price: currentShares.price,
+    type,
+    dollarAmount: currentShares.dollarAmount + dollarAmount,
+    shares: currentShares.shares + shares
+  };
 
-    updatedTicker = {
-      symbol: order.tickerInput,
-      price: avgSharePrice,
-      type,
-      dollarAmount: currentShares.dollarAmount + dollarAmount,
-      shares: currentShares.shares + shares
-    };
-  } else {
-    updatedTicker = {
-      symbol: order.tickerInput,
-      price,
-      type,
-      dollarAmount,
-      shares
-    };
-  }
   const filteredPortfolio = currentPortfolio.ownedTickers.filter(
     (ticker) => ticker.symbol !== symbol
   );

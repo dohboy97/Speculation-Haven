@@ -50,6 +50,7 @@ function App() {
           theme="dark"
         />
         <Routes>
+          <Route path="/" element={<WatchListPage />} />
           <Route path="/watchlist" element={<WatchListPage />} />
           <Route path="/search/*" element={<SearchPage />} />
           <Route path="/indeces" element={<IndecesPage />} />

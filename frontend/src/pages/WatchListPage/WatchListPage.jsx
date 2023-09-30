@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Typography, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Loader from "components/Loader";
 import Watchlist from "./components/Watchlist";
 import { getWatchList, updateWatchlistPrices } from "../../api";
 
@@ -35,13 +36,13 @@ function WatchListPage() {
   }, [setWatchList, setIsLoading, userId]);
 
   const hasWatchList = watchList.length > 0 && !isLoading;
-
+  const hasNoWatchList = watchList.length === 0 && !isLoading;
   return (
     <Box width="100%" height="100%" className="App">
       <Typography marginY={2} variant="h4">
         Watchlist
       </Typography>
-
+      {isLoading && <Loader width={240} number={5} />}
       {hasWatchList && (
         <Box>
           <Button
@@ -51,14 +52,10 @@ function WatchListPage() {
           >
             Update Prices
           </Button>
-          <Watchlist
-            watchlist={watchList}
-            setWatchList={setWatchList}
-            isLoading={isLoading}
-          />
+          <Watchlist watchlist={watchList} setWatchList={setWatchList} />
         </Box>
       )}
-      {!hasWatchList && !isLoading && (
+      {hasNoWatchList && (
         <Box
           display="flex"
           flexDirection="column"

@@ -4,10 +4,6 @@ export async function addToWatchList({
   selectedMarket,
   userId
 }) {
-  // watchList.forEach((el) => {
-  //   if (el.symbol.toUpperCase() === tickerInput.toUpperCase()) {
-  //   }
-  // });
   const res = await fetch(`/watchlist/addticker/${tickerInput}`, {
     method: "POST",
     headers: { "Content-type": "application/json" },

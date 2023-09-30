@@ -19,7 +19,9 @@ function App() {
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {
-    fetch("http://localhost:3000/auth/status").then((res) => {
+    fetch("http://localhost:3000/auth/status", {
+      credentials: "include"
+    }).then((res) => {
       res.json().then((jsonData) => {
         if (jsonData.success) {
           setUser(jsonData.user);

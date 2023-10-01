@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const mongoose = require("mongoose")
+const { Schema } = mongoose
 
 const OwnedTickerSchema = new Schema({
   symbol: String,
@@ -7,7 +7,7 @@ const OwnedTickerSchema = new Schema({
   type: String,
   dollarAmount: Number,
   shares: Number,
-});
+})
 
 const PortfolioSchema = new Schema({
   balance: Number,
@@ -15,6 +15,7 @@ const PortfolioSchema = new Schema({
   deposits: Number,
   withdrawals: Number,
   userId: String,
-});
+  performance: Number,
+})
 
-module.exports = mongoose.model("Portfolio", PortfolioSchema);
+module.exports = mongoose.model("Portfolio", PortfolioSchema)

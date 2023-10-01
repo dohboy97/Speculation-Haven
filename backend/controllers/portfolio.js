@@ -20,6 +20,7 @@ module.exports = {
         deposits: req.body.deposits,
         withdrawals: req.body.withdrawals,
         userId: req.body.userId,
+        performance: 0,
       })
       res.json({ portfolio: portfolio })
     } catch (err) {
@@ -28,7 +29,6 @@ module.exports = {
   },
   //USER WITHDRAWS OR DEPOSITS FUNDS
   editBalance: async (req, res) => {
-    console.log(req.body.userId)
     try {
       const portfolio = await Portfolio.findOneAndUpdate(
         {
@@ -46,6 +46,7 @@ module.exports = {
       console.log(err)
     }
   },
+
   //USER BUYS A TICKER; PUT REQ BECAUSE OWNED TICKER ARR WILL ALREADY EXIST ONCE BALANCE IS CREATED
   buyOrSellTicker: async (req, res) => {
     try {
@@ -56,6 +57,7 @@ module.exports = {
         {
           balance: req.body.updatedPortfolio.balance,
           ownedTickers: [...req.body.updatedPortfolio.ownedTickers],
+          performance: req.body.performance,
         },
         { returnDocument: "after" }
       )

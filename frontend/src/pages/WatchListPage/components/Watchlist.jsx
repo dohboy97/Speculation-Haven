@@ -1,45 +1,53 @@
 import { Box, Typography } from "@mui/material";
+import { isEmpty } from "lodash";
 import SavedTickers from "./SavedTickers";
 
 function Watchlist({ watchlist, setWatchList }) {
+  const savedStockTickers = watchlist.filter((el) => el.type === "stock");
+
+  const savedCryptoTickers = watchlist.filter((el) => el.type === "crypto");
+
   return (
     <Box width="max-content">
-      <Typography marginBottom={2} variant="h4">
-        Stocks
-      </Typography>
+      {!isEmpty(savedStockTickers) && (
+        <Box>
+          <Typography marginBottom={2} variant="h4">
+            Stocks
+          </Typography>
 
-      {watchlist.map((el, index) => {
-        if (el.type === "stock") {
-          return (
-            <SavedTickers
-              key={watchlist[index]._id}
-              ticker={el}
-              watchList={watchlist}
-              setWatchList={setWatchList}
-              index={index}
-            />
-          );
-        }
-        return null;
-      })}
-      <Typography marginBottom={2} variant="h4">
-        Crypto
-      </Typography>
+          {savedStockTickers.map((el, index) => {
+            return (
+              <SavedTickers
+                key={watchlist[index]._id}
+                ticker={el}
+                watchList={watchlist}
+                setWatchList={setWatchList}
+                index={index}
+              />
+            );
+          })}
+        </Box>
+      )}
 
-      {watchlist.map((el, index) => {
-        if (el.type === "crypto") {
-          return (
-            <SavedTickers
-              key={watchlist[index]._id}
-              ticker={el}
-              watchList={watchlist}
-              setWatchList={setWatchList}
-              index={index}
-            />
-          );
-        }
-        return null;
-      })}
+      {!isEmpty(savedCryptoTickers) && (
+        <Box>
+          <Typography marginBottom={2} variant="h4">
+            Crypto
+          </Typography>
+
+          {savedCryptoTickers.map((el, index) => {
+            return (
+              <SavedTickers
+                key={watchlist[index]._id}
+                ticker={el}
+                watchList={watchlist}
+                setWatchList={setWatchList}
+                index={index}
+              />
+            );
+          })}
+        </Box>
+      )}
     </Box>
   );
 }

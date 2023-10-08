@@ -29,6 +29,7 @@ function WatchListPage() {
     setIsLoading(true);
     getWatchList({ userId })
       .then((response) => {
+        if (!response.stonks) return;
         setWatchList(response.stonks.watchList);
       })
       .catch((error) => console.error(error))

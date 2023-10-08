@@ -77,7 +77,7 @@ function PortfolioSetup() {
         <Typography variant="h5">
           What would you like your starting balance to be?
         </Typography>
-        <Box>
+        <Box display="flex">
           <TextField onChange={handleChangeAmount} placeholder="1234" />
           <Button
             disabled={!Number(newAmount)}

@@ -15,7 +15,7 @@ module.exports = {
         trade = await alpaca.getLatestTrade(req.params.id)
       } else {
         trade = await alpaca.getLatestCryptoTrade(`${req.params.id}USD`, {
-          exchange: "FTXU",
+          exchange: "CBSE",
         })
       }
       res.json({ stock: trade, type: req.body.type })

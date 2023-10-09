@@ -29,7 +29,7 @@ module.exports = {
         trade = await alpaca.getLatestTrade(req.params.id)
       } else {
         trade = await alpaca.getLatestCryptoTrade(`${req.params.id}USD`, {
-          exchange: "FTXU",
+          exchange: "CBSE",
         })
       }
       const watchList = await WatchList.find({ userId: req.body.userId })

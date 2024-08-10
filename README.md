@@ -7,3 +7,5 @@ Future improvements:
 - Add chart functionality
 - Implement a different API for crypto trades
 - Finish P/L tracking
+- Add type safety with typescript
+- Migrate away from create-react-app
